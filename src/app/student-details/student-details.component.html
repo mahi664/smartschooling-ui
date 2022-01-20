@@ -1,0 +1,332 @@
+<div class="card box-shadow">
+  <div class="card-header">
+    Student Details : {{student.studentId}}
+  </div>
+  <!-- style="height: 600px; overflow-y: scroll;" -->
+  <div class="card-body">
+    <!-- Basic Details Crad starts -->
+    <div class="card box-shadow">
+      <div class="card-header">Basic Details</div>
+      <div class="card-body">
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">First Name</label>
+              <input type="text" class="form-control custom-input-style" placeholder="First Name"
+                [(ngModel)]="student.firstName">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Middle Name</label>
+              <input type="text" class="form-control custom-input-style" placeholder="Middle Name"
+                [(ngModel)]="student.middleName">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Last Name</label>
+              <input type="text" class="form-control custom-input-style" placeholder="Last Name"
+                [(ngModel)]="student.lastName">
+            </div>
+          </div>
+        </div>
+
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Adhar Number</label>
+              <input type="text" class="form-control custom-input-style" placeholder="Adhar Number"
+                [(ngModel)]="student.adharNumber">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Date of Birth</label>
+              <input type="date" class="form-control custom-input-style" id="usr" [ngModel]="student.birthDate | date:'yyyy-MM-dd'" (ngModelChange)="student.birthDate = $event">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Gender</label><br>
+              <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="gender" value="Male" [(ngModel)]="student.gender">Male
+                </label>
+              </div>
+              <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="gender" value="Female" [(ngModel)]="student.gender">Female
+                </label>
+              </div>
+              <div class="form-check-inline disabled">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="gender" value="Other" [(ngModel)]="student.gender">Other
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Religion</label>
+              <input class="form-control custom-input-style" list="religion" placeholder="Select Religion"
+                [(ngModel)]="student.religion">
+              <datalist id="religion">
+                <option value="Hindu">
+                <option value="Muslim">
+                <option value="Christian">
+              </datalist>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Caste</label>
+              <input class="form-control custom-input-style" list="caste" placeholder="Select Caste"
+                [(ngModel)]="student.caste">
+              <datalist id="caste">
+                <option value="Open">
+                <option value="OBC">
+                <option value="NT-A">
+                <option value="NT-B">
+                <option value="NT-C">
+                <option value="NT-D">
+                <option value="SC">
+                <option value="ST">
+                </datalist>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Nationality</label>
+              <input class="form-control custom-input-style" list="nationality" placeholder="Select Nationality"
+                [(ngModel)]="student.nationality">
+                <datalist id="nationality">
+                  <option value="Indian">
+                </datalist>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- Basic Details card ends -->
+
+    <!-- Contact Detaails starts -->
+    <div class="card box-shadow">
+      <div class="card-header">Contact Details</div>
+      <div class="card-body">
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Mobile Number</label>
+              <input type="text" class="form-control custom-input-style" placeholder="Mobile Number" [(ngModel)]="student.mobileNumber">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Alternate Mobile Number</label>
+              <input type="text" class="form-control custom-input-style" placeholder="Alternate Mobile Number" [(ngModel)]="student.alternateMobileNumber">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Email Id</label>
+              <input type="text" class="form-control custom-input-style" placeholder="Email Id" [(ngModel)]="student.email">
+            </div>
+          </div>
+        </div>
+
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Address</label>
+              <textarea class="form-control" style="border: 1px solid rgb(23, 162, 184);" placeholder="Address"
+                rows="3" [(ngModel)]="student.address"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Contact Details Ends -->
+
+    <!-- Transport details starts -->
+    <div class="card box-shadow">
+      <div class="card-header">Transportation Details</div>
+      <div class="card-body">
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" name="gender" [(ngModel)]="student.transportOpted" (change)="handleTransPortOpted(student)"> Transportation Opted?
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <input class="form-control custom-input-style" list="routes" placeholder="Select Route" *ngIf="student.transportOpted" [(ngModel)]="student.routeDetailsBO.routeId"  (change)="editStudentRoutesDetails(student)">
+              <datalist id="routes">
+                <option *ngFor="let route of routesList" value="{{route.routeId}}">{{route.source + "-"+ route.destination}}</option>
+              </datalist>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Transport Details Ends -->
+
+    <!-- Academis Details starts -->
+    <div class="card box-shadow">
+      <div class="card-header">Academis Details</div>
+      <div class="card-body">
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-2">
+            <div class="input-group-sm">
+              <label for="usr">Academic Year</label>
+              <input class="form-control custom-input-style" list="academic-years" placeholder="Select Academic Year" [(ngModel)]="newStudentClassDet.academicId">
+              <datalist id="academic-years">
+                <option *ngFor="let academic of academicList" value="{{academic.academicId}}">{{academic.academicYear}}</option>
+              </datalist>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="input-group-sm">
+              <label for="usr">Admission Class</label>
+              <input class="form-control custom-input-style" list="classes-list" placeholder="Select Classes list" [(ngModel)]="newStudentClassDet.classId">
+              <datalist id="classes-list">
+                <option *ngFor="let classDet of classesList" value="{{classDet.classId}}">
+              </datalist>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="input-group-sm">
+              <label for="usr">Result</label>
+              <input class="form-control custom-input-style" list="results" placeholder="Select result" [(ngModel)]="newStudentClassDet.result">
+              <datalist id="results">
+                <option value="passed">
+                <option value="appeared">
+                <option value="failed">
+              </datalist>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="input-group-sm">
+              <label for="usr">Grade</label>
+              <input class="form-control custom-input-style" list="grades" placeholder="Select grades" [(ngModel)]="newStudentClassDet.grade">
+              <datalist id="grades">
+                <option value="A+">
+                <option value="A">
+                <option value="B+">
+                <option value="B">
+                <option value="C">
+                <option value="D">
+              </datalist>
+            </div>
+          </div>
+          <div class="col-md-2" style="padding-top: 27px;">
+            <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;" (click)="addNewAcadeicRecord(student)">Add Record</button>
+          </div>
+        </div>
+        <div class="row container" style="padding:2%;">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th>#</th>
+                <th>Academic Year</th>
+                <th>Class</th>
+                <th>Result</th>
+                <th>Grade</th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let academicId of studentClassDetailsKeys; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{academicId}}</td>
+                <td>{{student.studentClassDetails[academicId][0].classId}}</td>
+                <td>Paased</td>
+                <td>A+</td>
+                <td>delete | update</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Academis Details Ends -->
+
+    <!-- Fees details starts -->
+    <div class="card box-shadow">
+      <div class="card-header">Fees Details</div>
+      <div class="card-body">
+        <div class="row container" style="padding: 2%;">
+          <div class="col-md-2">
+            <div class="input-group-sm">
+              <!-- <label for="usr">Academic Year</label> -->
+              <input class="form-control custom-input-style" list="academic-years" placeholder="Select Academic Year" [(ngModel)]="newStudentFeeDet.academicId">
+              <!-- <datalist id="academic-years">
+                <option value="AY-2021-22">
+                <option value="AY-2020-21">
+                <option value="AY-2019-20">
+              </datalist> -->
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="input-group-sm">
+              <div class="form-check-inline">
+                <label class="form-check-label" style="margin-right: 10px;" *ngFor="let feeType of feeTypes">
+                  <input type="checkbox" class="form-check-input" name="feeType.feeName" [(ngModel)]="newStudentFeeDet[feeType.feeId]" (change)="handleSelectedFeeType(feeType)"> {{feeType.feeName}}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-outline-primary btn-sm" (click)="addNewFeesRecord(student)">Add Record</button>
+          </div>
+        </div>
+        <div class="row container" style="padding:2%;">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th>#</th>
+                <th>Academic Year</th>
+                <th>Applicable Fee Types</th>
+                <!-- <th>Admission Fee</th>
+                <th>Transport Fee</th> -->
+                <!-- *ngFor="let feeType of feeTypes" -->
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let academicId of studentFeeDetailsKeys; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{academicId}}</td>
+                <td>
+                  <button class="btn btn-outline-primary btn-sm" style="margin: 5px;" *ngFor="let feeType of student.studentFeeDetails[academicId]; let i = index">
+                    {{feeType.feeName}}
+                    <span class="badge badge-light"><i class='far fa-times-circle' style='color:red'></i></span>
+                  </button>
+                  <!-- {{
+                    student.studentFeeDetails[academicId][feeType.feeId - 1]===undefined ? 0 
+                    : student.studentFeeDetails[academicId][feeType.feeId - 1].amount
+                  }} -->
+                </td>
+                <!-- <td>2000/4000</td>
+                <td>3000/5000</td> -->
+                <td>view</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- fees Details Ends -->
+    <div class="row container card-body">
+      <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;" (click)="saveDetails(student)">Save</button>
+    </div>
+  </div>
+</div>

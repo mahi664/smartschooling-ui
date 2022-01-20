@@ -1,0 +1,10 @@
+*{
+    font-family: 'Times New Roman', Times, serif
+    }
+    .main-screen{
+          margin: 3%; 
+        }
+    .custom-side-nav{
+          width: 5% ; box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+        }
+    

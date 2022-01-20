@@ -1,0 +1,110 @@
+<div id="sideNav" class="custom-side-nav" id="sideNav">
+  <nav class="navbar ">
+      <ul class="navbar-nav" id="collapsibleNavbar">
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/Dashboard" title="Dashboard"><i
+                      class='fas fa-table custom-nav-icons text-info'></i><br>
+                  <small class='text-info' [hidden]="!commonService.sideNavExpanded">Dashboard</small>
+              </a>
+          </li><br>
+          <li class="nav-item" (mouseover)="rightDropDownForBilling=true" (mouseout)="rightDropDownForBilling=false">
+              <span class="custom-right-dropdown custom-side-nav" [hidden]="!rightDropDownForBilling">
+                  <small><a class="text-info custom-right-dropdown-content nav-link"
+                          routerLink="/student-list">Student List</a></small>
+                  <hr>
+                  <small><a class="text-info custom-right-dropdown-content nav-link"
+                          routerLink="/student-details">New Admission</a></small>
+              </span>
+              <a class="nav-link" routerLink="/student-list" title="Billing"><i
+                      class='fas fa-money-check-alt custom-nav-icons text-info'></i><br>
+                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Students</small>
+              </a>
+          </li><br>
+          <li class="nav-item active-custom-style" (mouseover)="rightDropDownForInvoices=true"
+              (mouseout)="rightDropDownForInvoices=false">
+              <span class="custom-right-dropdown custom-side-nav" [hidden]="!rightDropDownForInvoices">
+                  <small><a class="text-info custom-right-dropdown-content nav-link" routerLink="/Invoices">Sales
+                          Invoices</a></small>
+                  <hr>
+                  <small><a class="text-info custom-right-dropdown-content nav-link"
+                          routerLink="/Purchase-Orders">Purchase Invoices</a></small>
+              </span>
+              <a class="nav-link" routerLink="/Invoices" title="Invoices"><i
+                      class='fas fa-shopping-cart custom-nav-icons text-info'></i><br>
+                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Invoices</small>
+              </a>
+          </li><br>
+          <li class="nav-item" (mouseover)="rightDropDownForCustomers=true"
+              (mouseout)="rightDropDownForCustomers=false">
+              <span class="custom-right-dropdown custom-side-nav" [hidden]="!rightDropDownForCustomers">
+                  <small><a class="text-info custom-right-dropdown-content nav-link" routerLink="/Customers">All
+                          Customers</a></small>
+                  <hr>
+                  <small><a class="text-info custom-right-dropdown-content nav-link" routerLink="/Add-customer">Add New
+                          Customer</a></small>
+              </span>
+              <a class="nav-link" routerLink="#" title="Customers"><i
+                      class='far fa-address-card custom-nav-icons text-info'></i><br>
+                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Customers</small>
+              </a>
+          </li><br>
+          <li class="nav-item" (mouseover)="rightDropDownForVendor=true" (mouseout)="rightDropDownForVendor=false">
+              <span class="custom-right-dropdown custom-side-nav" [hidden]="!rightDropDownForVendor">
+                  <small><a class="text-info custom-right-dropdown-content nav-link" routerLink="/Vendors">All
+                          Vendors</a></small>
+                  <hr>
+                  <small><a class="text-info custom-right-dropdown-content nav-link" routerLink="/Add-vendor">Add New
+                          Vendor</a></small>
+              </span>
+              <a class="nav-link" routerLink="#" title="Customers"><i
+                      class='far fa-handshake custom-nav-icons text-info'></i><br>
+                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Vendors</small>
+              </a>
+          </li><br>
+          <li class="nav-item " (mouseover)="rightDropDownForInventory=true"
+              (mouseout)="rightDropDownForInventory=false">
+              <span class="custom-right-dropdown custom-side-nav" [hidden]="!rightDropDownForInventory">
+                  <small><a class="text-info custom-right-dropdown-content nav-link" routerLink="/Inventory">Stock
+                          Details</a></small>
+                  <hr>
+                  <small><a class="text-info custom-right-dropdown-content nav-link"
+                          routerLink="/Categories">Categories</a></small>
+                  <hr>
+                  <small><a class="text-info custom-right-dropdown-content nav-link" routerLink="/Add-product">Add
+                          Product</a></small>
+                  <hr>
+                  <small><a class="text-info custom-right-dropdown-content nav-link" routerLink="/Add-category">Add
+                          Categories</a></small>
+                  <hr>
+                  <small><a class="text-info custom-right-dropdown-content nav-link" routerLink="/Add-gst">
+                          GST Details</a></small>
+                  <hr>
+                  <small><a class="text-info custom-right-dropdown-content nav-link" routerLink="/Add-gst">New
+                          GST Rate</a></small>
+              </span>
+              <a class="nav-link" routerLink="/Inventory" title="Inventory"><i
+                      class='fas fa-boxes custom-nav-icons text-info'></i><br>
+                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Inventory</small>
+              </a>
+          </li><br>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="#" title="Reports"><i
+                      class='fas fa-chart-line custom-nav-icons text-info'></i><br>
+                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Reports</small>
+              </a>
+          </li><br>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/File-Uploads" title="File Uploads"><i
+                      class='fas fa-upload custom-nav-icons text-info'></i><br>
+                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Uploads</small>
+              </a>
+          </li><br>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="#" title="Configurations"><i
+                      class='fas fa-cogs custom-nav-icons text-info'></i><br>
+                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Configs</small>
+              </a>
+          </li><br>
+      </ul>
+  </nav>
+</div>

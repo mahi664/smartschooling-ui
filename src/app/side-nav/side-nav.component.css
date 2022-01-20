@@ -1,0 +1,21 @@
+.custom-nav-icons{
+    font-size:22px;
+  }
+.custom-side-nav{
+    width: 100% ; 
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+  }
+.custom-right-dropdown{
+margin-left: 50%; 
+position:absolute;
+z-index: 1;
+background-color: white;
+text-align: center;
+padding-top: 10px;
+padding-bottom: 10px;
+width: 150%;
+}
+custom-right-dropdown-content{
+font-size: 25px;
+}
