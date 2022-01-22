@@ -43,7 +43,8 @@
           <div class="col-md-4">
             <div class="input-group-sm">
               <label for="usr">Date of Birth</label>
-              <input type="date" class="form-control custom-input-style" id="usr" [ngModel]="student.birthDate | date:'yyyy-MM-dd'" (ngModelChange)="student.birthDate = $event">
+              <input type="date" class="form-control custom-input-style" id="usr"
+                [ngModel]="student.birthDate | date:'yyyy-MM-dd'" (ngModelChange)="student.birthDate = $event">
             </div>
           </div>
           <div class="col-md-4">
@@ -51,17 +52,20 @@
               <label for="usr">Gender</label><br>
               <div class="form-check-inline">
                 <label class="form-check-label">
-                  <input type="radio" class="form-check-input" name="gender" value="Male" [(ngModel)]="student.gender">Male
+                  <input type="radio" class="form-check-input" name="gender" value="Male"
+                    [(ngModel)]="student.gender">Male
                 </label>
               </div>
               <div class="form-check-inline">
                 <label class="form-check-label">
-                  <input type="radio" class="form-check-input" name="gender" value="Female" [(ngModel)]="student.gender">Female
+                  <input type="radio" class="form-check-input" name="gender" value="Female"
+                    [(ngModel)]="student.gender">Female
                 </label>
               </div>
               <div class="form-check-inline disabled">
                 <label class="form-check-label">
-                  <input type="radio" class="form-check-input" name="gender" value="Other" [(ngModel)]="student.gender">Other
+                  <input type="radio" class="form-check-input" name="gender" value="Other"
+                    [(ngModel)]="student.gender">Other
                 </label>
               </div>
             </div>
@@ -95,7 +99,7 @@
                 <option value="NT-D">
                 <option value="SC">
                 <option value="ST">
-                </datalist>
+              </datalist>
             </div>
           </div>
           <div class="col-md-4">
@@ -103,9 +107,9 @@
               <label for="usr">Nationality</label>
               <input class="form-control custom-input-style" list="nationality" placeholder="Select Nationality"
                 [(ngModel)]="student.nationality">
-                <datalist id="nationality">
-                  <option value="Indian">
-                </datalist>
+              <datalist id="nationality">
+                <option value="Indian">
+              </datalist>
             </div>
           </div>
         </div>
@@ -122,19 +126,22 @@
           <div class="col-md-4">
             <div class="input-group-sm">
               <label for="usr">Mobile Number</label>
-              <input type="text" class="form-control custom-input-style" placeholder="Mobile Number" [(ngModel)]="student.mobileNumber">
+              <input type="text" class="form-control custom-input-style" placeholder="Mobile Number"
+                [(ngModel)]="student.mobileNumber">
             </div>
           </div>
           <div class="col-md-4">
             <div class="input-group-sm">
               <label for="usr">Alternate Mobile Number</label>
-              <input type="text" class="form-control custom-input-style" placeholder="Alternate Mobile Number" [(ngModel)]="student.alternateMobileNumber">
+              <input type="text" class="form-control custom-input-style" placeholder="Alternate Mobile Number"
+                [(ngModel)]="student.alternateMobileNumber">
             </div>
           </div>
           <div class="col-md-4">
             <div class="input-group-sm">
               <label for="usr">Email Id</label>
-              <input type="text" class="form-control custom-input-style" placeholder="Email Id" [(ngModel)]="student.email">
+              <input type="text" class="form-control custom-input-style" placeholder="Email Id"
+                [(ngModel)]="student.email">
             </div>
           </div>
         </div>
@@ -143,8 +150,8 @@
           <div class="col-md-4">
             <div class="input-group-sm">
               <label for="usr">Address</label>
-              <textarea class="form-control" style="border: 1px solid rgb(23, 162, 184);" placeholder="Address"
-                rows="3" [(ngModel)]="student.address"></textarea>
+              <textarea class="form-control" style="border: 1px solid rgb(23, 162, 184);" placeholder="Address" rows="3"
+                [(ngModel)]="student.address"></textarea>
             </div>
           </div>
         </div>
@@ -161,16 +168,20 @@
             <div class="input-group-sm">
               <div class="form-check-inline">
                 <label class="form-check-label">
-                  <input type="checkbox" class="form-check-input" name="gender" [(ngModel)]="student.transportOpted" (change)="handleTransPortOpted(student)"> Transportation Opted?
+                  <input type="checkbox" class="form-check-input" name="gender" [(ngModel)]="student.transportOpted"
+                    (change)="handleTransPortOpted(student)"> Transportation Opted?
                 </label>
               </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="input-group-sm">
-              <input class="form-control custom-input-style" list="routes" placeholder="Select Route" *ngIf="student.transportOpted" [(ngModel)]="student.routeDetailsBO.routeId"  (change)="editStudentRoutesDetails(student)">
+              <input class="form-control custom-input-style" list="routes" placeholder="Select Route"
+                *ngIf="student.transportOpted" [(ngModel)]="student.routeDetailsBO.routeId"
+                (change)="editStudentRoutesDetails(student)">
               <datalist id="routes">
-                <option *ngFor="let route of routesList" value="{{route.routeId}}">{{route.source + "-"+ route.destination}}</option>
+                <option *ngFor="let route of routesList" value="{{route.routeId}}">{{route.source + "-"+
+                  route.destination}}</option>
               </datalist>
             </div>
           </div>
@@ -187,16 +198,19 @@
           <div class="col-md-2">
             <div class="input-group-sm">
               <label for="usr">Academic Year</label>
-              <input class="form-control custom-input-style" list="academic-years" placeholder="Select Academic Year" [(ngModel)]="newStudentClassDet.academicId">
+              <input class="form-control custom-input-style" list="academic-years" placeholder="Select Academic Year"
+                [(ngModel)]="newStudentClassDet.academicId">
               <datalist id="academic-years">
-                <option *ngFor="let academic of academicList" value="{{academic.academicId}}">{{academic.academicYear}}</option>
+                <option *ngFor="let academic of academicList" value="{{academic.academicId}}">{{academic.academicYear}}
+                </option>
               </datalist>
             </div>
           </div>
           <div class="col-md-2">
             <div class="input-group-sm">
               <label for="usr">Admission Class</label>
-              <input class="form-control custom-input-style" list="classes-list" placeholder="Select Classes list" [(ngModel)]="newStudentClassDet.classId">
+              <input class="form-control custom-input-style" list="classes-list" placeholder="Select Classes list"
+                [(ngModel)]="newStudentClassDet.classId">
               <datalist id="classes-list">
                 <option *ngFor="let classDet of classesList" value="{{classDet.classId}}">
               </datalist>
@@ -205,7 +219,8 @@
           <div class="col-md-2">
             <div class="input-group-sm">
               <label for="usr">Result</label>
-              <input class="form-control custom-input-style" list="results" placeholder="Select result" [(ngModel)]="newStudentClassDet.result">
+              <input class="form-control custom-input-style" list="results" placeholder="Select result"
+                [(ngModel)]="newStudentClassDet.result">
               <datalist id="results">
                 <option value="passed">
                 <option value="appeared">
@@ -216,7 +231,8 @@
           <div class="col-md-2">
             <div class="input-group-sm">
               <label for="usr">Grade</label>
-              <input class="form-control custom-input-style" list="grades" placeholder="Select grades" [(ngModel)]="newStudentClassDet.grade">
+              <input class="form-control custom-input-style" list="grades" placeholder="Select grades"
+                [(ngModel)]="newStudentClassDet.grade">
               <datalist id="grades">
                 <option value="A+">
                 <option value="A">
@@ -228,7 +244,8 @@
             </div>
           </div>
           <div class="col-md-2" style="padding-top: 27px;">
-            <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;" (click)="addNewAcadeicRecord(student)">Add Record</button>
+            <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;"
+              (click)="addNewAcadeicRecord(student)">Add Record</button>
           </div>
         </div>
         <div class="row container" style="padding:2%;">
@@ -267,7 +284,8 @@
           <div class="col-md-2">
             <div class="input-group-sm">
               <!-- <label for="usr">Academic Year</label> -->
-              <input class="form-control custom-input-style" list="academic-years" placeholder="Select Academic Year" [(ngModel)]="newStudentFeeDet.academicId">
+              <input class="form-control custom-input-style" list="academic-years" placeholder="Select Academic Year"
+                [(ngModel)]="newStudentFeeDet.academicId">
               <!-- <datalist id="academic-years">
                 <option value="AY-2021-22">
                 <option value="AY-2020-21">
@@ -279,7 +297,9 @@
             <div class="input-group-sm">
               <div class="form-check-inline">
                 <label class="form-check-label" style="margin-right: 10px;" *ngFor="let feeType of feeTypes">
-                  <input type="checkbox" class="form-check-input" name="feeType.feeName" [(ngModel)]="newStudentFeeDet[feeType.feeId]" (change)="handleSelectedFeeType(feeType)"> {{feeType.feeName}}
+                  <input type="checkbox" class="form-check-input" name="feeType.feeName"
+                    [(ngModel)]="newStudentFeeDet[feeType.feeId]" (change)="handleSelectedFeeType(feeType)">
+                  {{feeType.feeName}}
                 </label>
               </div>
             </div>
@@ -306,7 +326,8 @@
                 <td>{{i+1}}</td>
                 <td>{{academicId}}</td>
                 <td>
-                  <button class="btn btn-outline-primary btn-sm" style="margin: 5px;" *ngFor="let feeType of student.studentFeeDetails[academicId]; let i = index">
+                  <button class="btn btn-outline-primary btn-sm" style="margin: 5px;"
+                    *ngFor="let feeType of student.studentFeeDetails[academicId]; let i = index">
                     {{feeType.feeName}}
                     <span class="badge badge-light"><i class='far fa-times-circle' style='color:red'></i></span>
                   </button>
@@ -326,7 +347,8 @@
     </div>
     <!-- fees Details Ends -->
     <div class="row container card-body">
-      <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;" (click)="saveDetails(student)">Save</button>
+      <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;"
+        (click)="saveDetails(student)">Save</button>
     </div>
   </div>
 </div>
