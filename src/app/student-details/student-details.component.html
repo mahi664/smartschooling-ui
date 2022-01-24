@@ -1,19 +1,25 @@
 <div class="card box-shadow">
   <div class="card-header">
     Student Details : {{student.studentId}}
+    <p style="color: red;">(Fields with <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i> are required) </p>
   </div>
   <!-- style="height: 600px; overflow-y: scroll;" -->
   <div class="card-body">
     <!-- Basic Details Crad starts -->
     <div class="card box-shadow">
-      <div class="card-header">Basic Details</div>
+      <div class="card-header">
+        Basic Details
+      </div>
       <div class="card-body">
         <div class="row container" style="padding:2%;">
           <div class="col-md-4">
             <div class="input-group-sm">
-              <label for="usr">First Name</label>
+              <label for="usr">
+                First Name <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.firstName">(First Name can not be empty)</small>
+              </label>
               <input type="text" class="form-control custom-input-style" placeholder="First Name"
-                [(ngModel)]="student.firstName">
+                [(ngModel)]="student.firstName" (change)="validateField('firstName',student.firstName)">
             </div>
           </div>
           <div class="col-md-4">
@@ -25,9 +31,12 @@
           </div>
           <div class="col-md-4">
             <div class="input-group-sm">
-              <label for="usr">Last Name</label>
+              <label for="usr">
+                Last Name <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.lastName">(Last Name can not be empty)</small>
+              </label>
               <input type="text" class="form-control custom-input-style" placeholder="Last Name"
-                [(ngModel)]="student.lastName">
+                [(ngModel)]="student.lastName" (change)="validateField('lastName',student.lastName)">
             </div>
           </div>
         </div>
@@ -35,21 +44,31 @@
         <div class="row container" style="padding:2%;">
           <div class="col-md-4">
             <div class="input-group-sm">
-              <label for="usr">Adhar Number</label>
+              <label for="usr">
+                Adhar Number 
+                <!-- <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i> -->
+                <!-- <small style="color: red; font-size: smaller;">(First Name can not be empty)</small> -->
+              </label>
               <input type="text" class="form-control custom-input-style" placeholder="Adhar Number"
                 [(ngModel)]="student.adharNumber">
             </div>
           </div>
           <div class="col-md-4">
             <div class="input-group-sm">
-              <label for="usr">Date of Birth</label>
+              <label for="usr">
+                Date of Birth <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.birthDate">(Date of Birth can not be empty)</small>
+              </label>
               <input type="date" class="form-control custom-input-style" id="usr"
                 [ngModel]="student.birthDate | date:'yyyy-MM-dd'" (ngModelChange)="student.birthDate = $event">
             </div>
           </div>
           <div class="col-md-4">
             <div class="input-group-sm">
-              <label for="usr">Gender</label><br>
+              <label for="usr">
+                Gender <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.gender">(Gender can not be empty)</small>
+              </label><br>
               <div class="form-check-inline">
                 <label class="form-check-label">
                   <input type="radio" class="form-check-input" name="gender" value="Male"
@@ -75,9 +94,12 @@
         <div class="row container" style="padding:2%;">
           <div class="col-md-4">
             <div class="input-group-sm">
-              <label for="usr">Religion</label>
+              <label for="usr">
+                Religion <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.religion">(Religion can not be empty)</small>
+              </label>
               <input class="form-control custom-input-style" list="religion" placeholder="Select Religion"
-                [(ngModel)]="student.religion">
+                [(ngModel)]="student.religion" (change)="validateField('religion',student.religion)">
               <datalist id="religion">
                 <option value="Hindu">
                 <option value="Muslim">
@@ -87,9 +109,12 @@
           </div>
           <div class="col-md-4">
             <div class="input-group-sm">
-              <label for="usr">Caste</label>
+              <label for="usr">
+                Caste <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.caste">(Caste can not be empty)</small>
+              </label>
               <input class="form-control custom-input-style" list="caste" placeholder="Select Caste"
-                [(ngModel)]="student.caste">
+                [(ngModel)]="student.caste" (change)="validateField('caste',student.caste)">
               <datalist id="caste">
                 <option value="Open">
                 <option value="OBC">
@@ -104,9 +129,12 @@
           </div>
           <div class="col-md-4">
             <div class="input-group-sm">
-              <label for="usr">Nationality</label>
+              <label for="usr">
+                Nationality <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.nationality">(Nationality can not be empty)</small>
+              </label>
               <input class="form-control custom-input-style" list="nationality" placeholder="Select Nationality"
-                [(ngModel)]="student.nationality">
+                [(ngModel)]="student.nationality" (change)="validateField('nationality',student.nationality)">
               <datalist id="nationality">
                 <option value="Indian">
               </datalist>
@@ -125,9 +153,13 @@
         <div class="row container" style="padding:2%;">
           <div class="col-md-4">
             <div class="input-group-sm">
-              <label for="usr">Mobile Number</label>
+              <label for="usr">
+                Mobile Number <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.mobileNumber">(Mobile Number can not be empty)</small>
+                <small style="color: red; font-size: x-small;" *ngIf="validationFlags.mobileNumberValidity">(Please Enter a Valid mobile number)</small>
+              </label>
               <input type="text" class="form-control custom-input-style" placeholder="Mobile Number"
-                [(ngModel)]="student.mobileNumber">
+                [(ngModel)]="student.mobileNumber" (change)="validateField('mobileNumber', student.mobileNumber)">
             </div>
           </div>
           <div class="col-md-4">
@@ -149,9 +181,12 @@
         <div class="row container" style="padding:2%;">
           <div class="col-md-4">
             <div class="input-group-sm">
-              <label for="usr">Address</label>
+              <label for="usr">
+                Address <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.address">(Address can not be empty)</small>
+              </label>
               <textarea class="form-control" style="border: 1px solid rgb(23, 162, 184);" placeholder="Address" rows="3"
-                [(ngModel)]="student.address"></textarea>
+                [(ngModel)]="student.address" (change)="validateField('address',student.address)"></textarea>
             </div>
           </div>
         </div>
@@ -179,6 +214,7 @@
               <input class="form-control custom-input-style" list="routes" placeholder="Select Route"
                 *ngIf="student.transportOpted" [(ngModel)]="student.routeDetailsBO.routeId"
                 (change)="editStudentRoutesDetails(student)">
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.routeDetails">(Route can not be empty)</small>
               <datalist id="routes">
                 <option *ngFor="let route of routesList" value="{{route.routeId}}">{{route.source + "-"+
                   route.destination}}</option>
@@ -269,6 +305,7 @@
                 <td>A+</td>
                 <td>delete | update</td>
               </tr>
+              <tr *ngIf="studentClassDetailsKeys.length==0" style="color: red;">No Record Found</tr>
             </tbody>
           </table>
         </div>
@@ -340,6 +377,7 @@
                 <td>3000/5000</td> -->
                 <td>view</td>
               </tr>
+              <tr *ngIf="studentFeeDetailsKeys.length==0" style="color: red;">No Record Found</tr>
             </tbody>
           </table>
         </div>
