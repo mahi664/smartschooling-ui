@@ -13,4 +13,9 @@ export class FeesService {
   getFeeDetails() {
     return this.http.get<FeesDetailsBO[]>(this.commonService.BASE_URL+"/Fees/Types");
   }
+
+  addNewFeeType(feeTypeList : FeesDetailsBO[]){
+    return this.http.post<FeesDetailsBO[]>(this.commonService.BASE_URL+"/Fees/Types", feeTypeList);
+  }
 }
+

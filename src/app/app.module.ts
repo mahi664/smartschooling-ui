@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StudentDetailsComponent } from './student-details/student-details.component'
 import { FormsModule } from '@angular/forms';
 import { FeeTypesComponent } from './fee-types/fee-types.component';
+import { NewFeeTypeComponent } from './new-fee-type/new-fee-type.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FeeTypesComponent } from './fee-types/fee-types.component';
     SideNavComponent,
     StudentListComponent,
     StudentDetailsComponent,
-    FeeTypesComponent
+    FeeTypesComponent,
+    NewFeeTypeComponent
   ],
   imports: [
     BrowserModule,
