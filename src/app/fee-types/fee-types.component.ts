@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FeesService } from '../services/fees.service';
 import { FeesDetailsBO } from '../student-list/student-list.component';
 
@@ -9,7 +10,7 @@ import { FeesDetailsBO } from '../student-list/student-list.component';
 })
 export class FeeTypesComponent implements OnInit {
 
-  constructor(private feeService : FeesService) { }
+  constructor(private feeService : FeesService, private router : Router) { }
 
   feeTypes : FeesDetailsBO[] = [];
   ngOnInit() {
@@ -22,6 +23,16 @@ export class FeeTypesComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  editFeeType(feeType: FeesDetailsBO){
+    // console.log('Editing student : '+ student.firstName);
+    let feeId;
+    if(feeType===undefined)
+    feeId=-1;
+    else
+      feeId = feeType.feeId;
+    this.router.navigate(['/fee-types/new-type',feeId]);
   }
 
 }
