@@ -14,7 +14,7 @@ export class FeeTypesComponent implements OnInit {
 
   feeTypes : FeesDetailsBO[] = [];
   ngOnInit() {
-    this.feeService.getFeeDetails().subscribe(
+    this.feeService.getFeeTypes().subscribe(
       response => {
         this.feeTypes = response;
       },
@@ -35,4 +35,7 @@ export class FeeTypesComponent implements OnInit {
     this.router.navigate(['/fee-types/new-type',feeId]);
   }
 
+  configureDetails(feeType : FeesDetailsBO){
+    this.router.navigate(['/fee-details',feeType.feeId]);
+  }
 }

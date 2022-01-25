@@ -1,0 +1,86 @@
+<div class="card box-shadow" id="students-list">
+  <div class="card-header">
+    <span>Fee Details Configuration</span>
+  </div>
+  <div class="card-body table-responsive">
+    <div class="row container" style="padding:2%;">
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Applicability <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags.applicableTo">(Field can not be empty)</small>
+          </label>
+          <input class="form-control custom-input-style" list="aplicabilty" placeholder="Select Applicability"
+            [(ngModel)]="newFeeDetails.applicableTo" (change)="populateApplicableValueList()">  
+          <datalist id="aplicabilty">
+            <option value="All">
+            <option value="Classes">
+            <option value="Routes">
+          </datalist>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Value <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags.applicableValue">(Field can not be empty)</small>
+          </label>
+          <input class="form-control custom-input-style" list="applicable-value" placeholder="Select Applicable Value"
+            [(ngModel)]="newFeeDetails.applicableValue" (change)="handleDataValidationFlag('applicableValue',newFeeDetails.applicableValue)">
+          <datalist id="applicable-value">
+            <option *ngFor="let value of applicableValues" value="{{value}}">
+          </datalist>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Amount <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags.amount">(Field can not be empty)</small>
+          </label>
+          <input type="number" class="form-control custom-input-style" placeholder="Enter Fee Amount"
+            [(ngModel)]="newFeeDetails.amount" (change)="handleDataValidationFlag('amount',newFeeDetails.amount)">
+        </div>
+      </div>
+      <div class="col-md-2" style="padding-top: 27px;">
+        <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;"
+          (click)="addNewFeeDetailsRecord()">Add Record</button>
+      </div>
+    </div>
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>#</th>
+          <th>Applicability</th>
+          <th>Value</th>
+          <th>Amount</th>
+          <th>Eff Date</th>
+          <th>End Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let feeDetail of feeDetails let i = index">
+          <td>{{i+1}}</td>
+          <td>
+            {{
+              (feeDetail.classId===" " && feeDetail.routeId===" ") ? "All" : (feeDetail.classId===" " ? "Routes" : "Classes")
+            }}
+          </td>
+          <td>
+            {{
+              (feeDetail.classId===" " && feeDetail.routeId===" ") ? "All" : (feeDetail.classId===" " ? feeDetail.routeId : feeDetail.classId)
+            }}
+          </td>
+          <td>{{feeDetail.amount}}</td>
+          <td>{{feeDetail.effDate | date : "yyyy-MM-dd"}}</td>
+          <td>{{feeDetail.endDate | date : "yyyy-MM-dd"}}</td>
+          <td>
+            <a class="mx-1"><i class="fa fa-edit" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>   
+          </td>
+        </tr>
+        <tr class="text-danger" *ngIf="feeDetails.length==0">No Record Found</tr>
+      </tbody>
+    </table>
+  </div>
+</div>
