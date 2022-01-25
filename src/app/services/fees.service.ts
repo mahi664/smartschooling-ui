@@ -10,12 +10,20 @@ export class FeesService {
 
   constructor(private http: HttpClient, private commonService: CommonService) { }
 
-  getFeeDetails() {
+  getFeeTypes() {
     return this.http.get<FeesDetailsBO[]>(this.commonService.BASE_URL+"/Fees/Types");
   }
 
   addNewFeeType(feeTypeList : FeesDetailsBO[]){
     return this.http.post<FeesDetailsBO[]>(this.commonService.BASE_URL+"/Fees/Types", feeTypeList);
+  }
+
+  addNewFeeDetails(feeDetailsList : FeesDetailsBO[]){
+    return this.http.post<FeesDetailsBO[]>(this.commonService.BASE_URL+"/Fees/Details", feeDetailsList);
+  }
+
+  getFeeDetails(feeId : String){
+    return this.http.get<FeesDetailsBO[]>(`${this.commonService.BASE_URL}/Fees/Details/${feeId}`);
   }
 }
 
