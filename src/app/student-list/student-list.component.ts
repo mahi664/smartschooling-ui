@@ -14,7 +14,8 @@ export class ClassesDetailsBO{
 
 export class FeesDetailsBO{
   constructor(public feeId: string, public feeName: string, public feeDiscription: string,
-    public classId: string, public routeId: string, public amount: number){}
+    public classId: string, public routeId: string, public amount: number, public effDate : Date, 
+    public endDate : Date){}
 }
 
 export class RouteDetailsBO{
