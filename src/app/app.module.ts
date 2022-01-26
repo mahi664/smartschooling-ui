@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { FeeTypesComponent } from './fee-types/fee-types.component';
 import { NewFeeTypeComponent } from './new-fee-type/new-fee-type.component';
 import { FeeDetailsComponent } from './fee-details/fee-details.component';
+import { ClassesComponent } from './classes/classes.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FeeDetailsComponent } from './fee-details/fee-details.component';
     StudentDetailsComponent,
     FeeTypesComponent,
     NewFeeTypeComponent,
-    FeeDetailsComponent
+    FeeDetailsComponent,
+    ClassesComponent
   ],
   imports: [
     BrowserModule,
