@@ -20,7 +20,7 @@ export class NewFeeTypeComponent implements OnInit {
     this.feeId = this.route.snapshot.params['feeType'];
 
     if (this.feeId === "" || this.feeId === "-1") {
-      this.feeType = new FeesDetailsBO("", "", "", "", "", 0);
+      this.feeType = new FeesDetailsBO("", "", "", "", "", 0, new Date(), new Date());
       console.log("Adding new student : " + this.feeType.feeDiscription);
     } else {
       // TODO : Add Code to fetch specific fee type from FeeId and then populate fee type object.
