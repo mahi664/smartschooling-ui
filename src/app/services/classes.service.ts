@@ -13,4 +13,8 @@ export class ClassesService {
   getClassesNames(){
     return this.http.get<ClassesDetailsBO[]>(this.commonService.BASE_URL+"/Classes");
   }
+
+  addNewClassDetails(newClassDetails: ClassesDetailsBO) {
+    return this.http.post<ClassesDetailsBO>(this.commonService.BASE_URL+"/Classes", newClassDetails);
+  }
 }
