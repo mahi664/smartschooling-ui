@@ -39,7 +39,7 @@ export class StudentDetailsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.feesService.getFeeDetails().subscribe(
+    this.feesService.getFeeTypes().subscribe(
       response => {
         this.feeTypes = response;
       },
