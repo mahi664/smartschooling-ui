@@ -1,0 +1,68 @@
+<div class="card box-shadow" id="students-list">
+  <div class="card-header">
+    <span>Routes Configuration</span>
+  </div>
+  <div class="card-body table-responsive">
+    <div class="row container" style="padding:2%;">
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Source <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['source']">(Field can not be empty)</small>
+          </label>
+          <input type="text" class="form-control custom-input-style" placeholder="Enter Source" 
+          [(ngModel)]="newRouteDetails['source']" (change)="handleDataValidationFlag('source',newRouteDetails['source'])">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Destination <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['destination']">(Field can not be empty)</small>
+          </label>
+          <input type="text" class="form-control custom-input-style" placeholder="Enter Destination" 
+          [(ngModel)]="newRouteDetails['destination']" (change)="handleDataValidationFlag('destination',newRouteDetails['destination'])">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Distance <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['distance']">(Field can not be empty)</small>
+          </label>
+          <input type="number" class="form-control custom-input-style" placeholder="Enter Distance" 
+          [(ngModel)]="newRouteDetails['distance']" (change)="handleDataValidationFlag('distance',newRouteDetails['distance'])">
+        </div>
+      </div>
+      <div class="col-md-2" style="padding-top: 27px;">
+        <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;"
+          (click)="addNewRouteDetails()">Add New Route</button>
+      </div>
+    </div>
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>#</th>
+          <th>Route Id</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Distance</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let route of routes let i = index">
+          <td>{{i+1}}</td>
+          <td>{{route.routeId}}</td>
+          <td>{{route.source}}</td>
+          <td>{{route.destination}}</td>
+          <td>{{route.distance}}</td>
+          <td>
+            <a class="mx-1"><i class="fa fa-edit" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>   
+          </td>
+        </tr>
+        <tr class="text-danger" *ngIf="routes.length==0">No Record Found</tr>
+      </tbody>
+    </table>
+  </div>
+</div>

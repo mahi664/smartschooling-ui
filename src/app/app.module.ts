@@ -13,6 +13,7 @@ import { FeeTypesComponent } from './fee-types/fee-types.component';
 import { NewFeeTypeComponent } from './new-fee-type/new-fee-type.component';
 import { FeeDetailsComponent } from './fee-details/fee-details.component';
 import { ClassesComponent } from './classes/classes.component';
+import { RoutesComponent } from './routes/routes.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ClassesComponent } from './classes/classes.component';
     FeeTypesComponent,
     NewFeeTypeComponent,
     FeeDetailsComponent,
-    ClassesComponent
+    ClassesComponent,
+    RoutesComponent
   ],
   imports: [
     BrowserModule,
