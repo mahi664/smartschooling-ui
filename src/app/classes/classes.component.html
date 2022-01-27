@@ -8,20 +8,20 @@
         <div class="input-group-sm">
           <label for="usr">
             Class Id <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags.classId">(Field can not be empty)</small>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['classId']">(Field can not be empty)</small>
           </label>
           <input type="text" class="form-control custom-input-style" placeholder="Enter Class Id" 
-          [(ngModel)]="newClassDetails.classId" (change)="handleDataValidationFlag('classId',newClassDetails.classId)">
+          [(ngModel)]="newClassDetails['classId']" (change)="handleDataValidationFlag('classId',newClassDetails['classId'])">
         </div>
       </div>
       <div class="col-md-3">
         <div class="input-group-sm">
           <label for="usr">
             Class Name <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags.className">(Field can not be empty)</small>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['className']">(Field can not be empty)</small>
           </label>
           <input type="text" class="form-control custom-input-style" placeholder="Enter Class Name" 
-          [(ngModel)]="newClassDetails.className" (change)="handleDataValidationFlag('className',newClassDetails.className)">
+          [(ngModel)]="newClassDetails['className']" (change)="handleDataValidationFlag('className',newClassDetails['className'])">
         </div>
       </div>
       <div class="col-md-2" style="padding-top: 27px;">
