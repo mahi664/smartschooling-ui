@@ -8,6 +8,47 @@ import { TransportationService } from '../services/transportation.service';
 import { AcademicService } from '../services/academic.service';
 import { FeesService } from '../services/fees.service';
 
+// export class DataValidationFlags {
+//   firstName : boolean;
+//   lastName : boolean;
+//   birthDate : boolean;
+//   gender : boolean;
+//   religion : boolean;
+//   caste : boolean;
+//   nationality : boolean;
+//   mobileNumber : boolean;
+//   address : boolean;
+//   mobileNumberValidity : boolean;
+//   routeDetails : boolean;
+//   constructor() {
+//     this.firstName = false;
+//     this.lastName = false;
+//     this.birthDate = false;
+//     this.gender = false;
+//     this.religion = false;
+//     this.caste = false;
+//     this.nationality = false;
+//     this.mobileNumber = false;
+//     this.address = false;
+//     this.mobileNumberValidity = false;
+//     this.routeDetails = false;
+//   }
+// }
+
+// export class NewStudentClassDetails {
+  
+//   academicId : string;
+//   classId : string;
+//   result : string;
+//   grade : string;
+//   constructor() {
+//     this.academicId = "";
+//     this.classId = "";
+//     this.result = "";
+//     this.grade = "";
+//   }
+// }
+
 @Component({
   selector: 'app-student-details',
   templateUrl: './student-details.component.html',
@@ -33,6 +74,7 @@ export class StudentDetailsComponent implements OnInit {
   academicList: AcademicDetailsBO[] = [];
   classesList: ClassesDetailsBO[] = [];
   validationFlags = {};
+
   constructor(private route: ActivatedRoute, private studentService: StudentService,
     private datePipe: DatePipe, private classesService: ClassesService, private transportationService: TransportationService,
     private academicService: AcademicService, private feesService: FeesService) { }
@@ -83,7 +125,7 @@ export class StudentDetailsComponent implements OnInit {
     this.initValidationFlags();
 
     if (this.studentId === "" || this.studentId === "-1") {
-      this.student = new StudentDetailsBO("", "", "", "", new Date(), "", "", "", "Male", "", "", "", "",
+      this.student = new StudentDetailsBO("", "", "", "", new Date(), "", "", "", "Male", "", "" ,"", "", "",
         new RouteDetailsBO("", "", "", 0), {}, {}, false);
       console.log("Adding new student : " + this.student);
     } else {
@@ -129,7 +171,7 @@ export class StudentDetailsComponent implements OnInit {
       list.push(classDetailsBO);
       student.studentClassDetails[this.newStudentClassDet["academicId"]] = list;
       this.studentClassDetailsKeys.push(this.newStudentClassDet["academicId"]);
-      this.newStudentClassDet = {}
+      this.newStudentClassDet = {};
     }
   }
 

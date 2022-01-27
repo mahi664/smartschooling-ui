@@ -16,7 +16,7 @@
             <div class="input-group-sm">
               <label for="usr">
                 First Name <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.firstName">(First Name can not be empty)</small>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['firstName']">(First Name can not be empty)</small>
               </label>
               <input type="text" class="form-control custom-input-style" placeholder="First Name"
                 [(ngModel)]="student.firstName" (change)="validateField('firstName',student.firstName)">
@@ -33,7 +33,7 @@
             <div class="input-group-sm">
               <label for="usr">
                 Last Name <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.lastName">(Last Name can not be empty)</small>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['lastName']">(Last Name can not be empty)</small>
               </label>
               <input type="text" class="form-control custom-input-style" placeholder="Last Name"
                 [(ngModel)]="student.lastName" (change)="validateField('lastName',student.lastName)">
@@ -57,7 +57,7 @@
             <div class="input-group-sm">
               <label for="usr">
                 Date of Birth <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.birthDate">(Date of Birth can not be empty)</small>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['birthDate']">(Date of Birth can not be empty)</small>
               </label>
               <input type="date" class="form-control custom-input-style" id="usr"
                 [ngModel]="student.birthDate | date:'yyyy-MM-dd'" (ngModelChange)="student.birthDate = $event">
@@ -67,7 +67,7 @@
             <div class="input-group-sm">
               <label for="usr">
                 Gender <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.gender">(Gender can not be empty)</small>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['gender']">(Gender can not be empty)</small>
               </label><br>
               <div class="form-check-inline">
                 <label class="form-check-label">
@@ -96,7 +96,7 @@
             <div class="input-group-sm">
               <label for="usr">
                 Religion <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.religion">(Religion can not be empty)</small>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['religion']">(Religion can not be empty)</small>
               </label>
               <input class="form-control custom-input-style" list="religion" placeholder="Select Religion"
                 [(ngModel)]="student.religion" (change)="validateField('religion',student.religion)">
@@ -111,7 +111,7 @@
             <div class="input-group-sm">
               <label for="usr">
                 Caste <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.caste">(Caste can not be empty)</small>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['caste']">(Caste can not be empty)</small>
               </label>
               <input class="form-control custom-input-style" list="caste" placeholder="Select Caste"
                 [(ngModel)]="student.caste" (change)="validateField('caste',student.caste)">
@@ -131,7 +131,7 @@
             <div class="input-group-sm">
               <label for="usr">
                 Nationality <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.nationality">(Nationality can not be empty)</small>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['nationality']">(Nationality can not be empty)</small>
               </label>
               <input class="form-control custom-input-style" list="nationality" placeholder="Select Nationality"
                 [(ngModel)]="student.nationality" (change)="validateField('nationality',student.nationality)">
@@ -155,8 +155,8 @@
             <div class="input-group-sm">
               <label for="usr">
                 Mobile Number <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.mobileNumber">(Mobile Number can not be empty)</small>
-                <small style="color: red; font-size: x-small;" *ngIf="validationFlags.mobileNumberValidity">(Please Enter a Valid mobile number)</small>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['mobileNumber']">(Mobile Number can not be empty)</small>
+                <small style="color: red; font-size: x-small;" *ngIf="validationFlags['mobileNumberValidity']">(Please Enter a Valid mobile number)</small>
               </label>
               <input type="text" class="form-control custom-input-style" placeholder="Mobile Number"
                 [(ngModel)]="student.mobileNumber" (change)="validateField('mobileNumber', student.mobileNumber)">
@@ -183,7 +183,7 @@
             <div class="input-group-sm">
               <label for="usr">
                 Address <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.address">(Address can not be empty)</small>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['address']">(Address can not be empty)</small>
               </label>
               <textarea class="form-control" style="border: 1px solid rgb(23, 162, 184);" placeholder="Address" rows="3"
                 [(ngModel)]="student.address" (change)="validateField('address',student.address)"></textarea>
@@ -214,7 +214,7 @@
               <input class="form-control custom-input-style" list="routes" placeholder="Select Route"
                 *ngIf="student.transportOpted" [(ngModel)]="student.routeDetailsBO.routeId"
                 (change)="editStudentRoutesDetails(student)">
-                <small style="color: red; font-size: smaller;" *ngIf="validationFlags.routeDetails">(Route can not be empty)</small>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['routeDetails']">(Route can not be empty)</small>
               <datalist id="routes">
                 <option *ngFor="let route of routesList" value="{{route.routeId}}">{{route.source + "-"+
                   route.destination}}</option>
@@ -235,7 +235,7 @@
             <div class="input-group-sm">
               <label for="usr">Academic Year</label>
               <input class="form-control custom-input-style" list="academic-years" placeholder="Select Academic Year"
-                [(ngModel)]="newStudentClassDet.academicId">
+                [(ngModel)]="newStudentClassDet['academicId']">
               <datalist id="academic-years">
                 <option *ngFor="let academic of academicList" value="{{academic.academicId}}">{{academic.academicYear}}
                 </option>
@@ -246,7 +246,7 @@
             <div class="input-group-sm">
               <label for="usr">Admission Class</label>
               <input class="form-control custom-input-style" list="classes-list" placeholder="Select Classes list"
-                [(ngModel)]="newStudentClassDet.classId">
+                [(ngModel)]="newStudentClassDet['classId']">
               <datalist id="classes-list">
                 <option *ngFor="let classDet of classesList" value="{{classDet.classId}}">
               </datalist>
@@ -256,7 +256,7 @@
             <div class="input-group-sm">
               <label for="usr">Result</label>
               <input class="form-control custom-input-style" list="results" placeholder="Select result"
-                [(ngModel)]="newStudentClassDet.result">
+                [(ngModel)]="newStudentClassDet['result']">
               <datalist id="results">
                 <option value="passed">
                 <option value="appeared">
@@ -268,7 +268,7 @@
             <div class="input-group-sm">
               <label for="usr">Grade</label>
               <input class="form-control custom-input-style" list="grades" placeholder="Select grades"
-                [(ngModel)]="newStudentClassDet.grade">
+                [(ngModel)]="newStudentClassDet['grade']">
               <datalist id="grades">
                 <option value="A+">
                 <option value="A">
@@ -322,7 +322,7 @@
             <div class="input-group-sm">
               <!-- <label for="usr">Academic Year</label> -->
               <input class="form-control custom-input-style" list="academic-years" placeholder="Select Academic Year"
-                [(ngModel)]="newStudentFeeDet.academicId">
+                [(ngModel)]="newStudentFeeDet['academicId']">
               <!-- <datalist id="academic-years">
                 <option value="AY-2021-22">
                 <option value="AY-2020-21">
