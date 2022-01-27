@@ -8,10 +8,10 @@
         <div class="input-group-sm">
           <label for="usr">
             Applicability <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags.applicableTo">(Field can not be empty)</small>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['applicableTo']">(Field can not be empty)</small>
           </label>
           <input class="form-control custom-input-style" list="aplicabilty" placeholder="Select Applicability"
-            [(ngModel)]="newFeeDetails.applicableTo" (change)="populateApplicableValueList()">  
+            [(ngModel)]="newFeeDetails['applicableTo']" (change)="populateApplicableValueList()">  
           <datalist id="aplicabilty">
             <option value="All">
             <option value="Classes">
@@ -23,10 +23,10 @@
         <div class="input-group-sm">
           <label for="usr">
             Value <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags.applicableValue">(Field can not be empty)</small>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['applicableValue']">(Field can not be empty)</small>
           </label>
           <input class="form-control custom-input-style" list="applicable-value" placeholder="Select Applicable Value"
-            [(ngModel)]="newFeeDetails.applicableValue" (change)="handleDataValidationFlag('applicableValue',newFeeDetails.applicableValue)">
+            [(ngModel)]="newFeeDetails['applicableValue']" (change)="handleDataValidationFlag('applicableValue',newFeeDetails['applicableValue'])">
           <datalist id="applicable-value">
             <option *ngFor="let value of applicableValues" value="{{value}}">
           </datalist>
@@ -36,10 +36,10 @@
         <div class="input-group-sm">
           <label for="usr">
             Amount <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags.amount">(Field can not be empty)</small>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['amount']">(Field can not be empty)</small>
           </label>
           <input type="number" class="form-control custom-input-style" placeholder="Enter Fee Amount"
-            [(ngModel)]="newFeeDetails.amount" (change)="handleDataValidationFlag('amount',newFeeDetails.amount)">
+            [(ngModel)]="newFeeDetails['amount']" (change)="handleDataValidationFlag('amount',newFeeDetails['amount'])">
         </div>
       </div>
       <div class="col-md-2" style="padding-top: 27px;">
