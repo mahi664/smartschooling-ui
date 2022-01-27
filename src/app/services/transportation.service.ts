@@ -13,4 +13,8 @@ export class TransportationService {
   getRoutes(){
     return this.http.get<RouteDetailsBO[]>(this.commonService.BASE_URL+"/routes");
   }
+
+  addNewRoutes(routes : RouteDetailsBO[]){
+    return this.http.post<RouteDetailsBO[]>(this.commonService.BASE_URL+"/routes", routes);
+  }
 }
