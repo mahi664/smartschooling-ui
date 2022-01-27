@@ -35,7 +35,7 @@ export class ClassesComponent implements OnInit {
   }
 
   addNewClassDetails(){
-    if(this.validateNewFeeDetails()){
+    if(this.validateNewClassDetails()){
       this.classes.push(this.newClassDetails);
       this.classesService.addNewClassDetails(this.newClassDetails).subscribe(
         response => {
@@ -53,7 +53,7 @@ export class ClassesComponent implements OnInit {
     }
   }
 
-  validateNewFeeDetails() {
+  validateNewClassDetails() {
     let retFlag = true;
     if(this.newClassDetails.classId==="" || this.newClassDetails.classId===undefined){
       this.dataValidationFlags["classId"] = true;
