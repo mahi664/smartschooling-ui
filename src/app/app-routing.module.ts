@@ -8,6 +8,7 @@ import { NewFeeTypeComponent } from './new-fee-type/new-fee-type.component';
 import { RoutesComponent } from './routes/routes.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { AcademicDetailsBO, StudentListComponent } from './student-list/student-list.component';
+import { SubjectDetailsComponent } from './subject-details/subject-details.component';
 
 const routes: Routes = [
   {path:"student-list", component: StudentListComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: "fee-details/:feeType", component: FeeDetailsComponent},
   {path: "classes", component: ClassesComponent},
   {path: "routes", component: RoutesComponent},
-  {path: "academic/details", component: AcademicDetailsComponent}
+  {path: "academic/details", component: AcademicDetailsComponent},
+  {path: "subjects", component: SubjectDetailsComponent}
 ];
 
 @NgModule({

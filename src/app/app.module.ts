@@ -15,6 +15,7 @@ import { FeeDetailsComponent } from './fee-details/fee-details.component';
 import { ClassesComponent } from './classes/classes.component';
 import { RoutesComponent } from './routes/routes.component';
 import { AcademicDetailsComponent } from './academic-details/academic-details.component';
+import { SubjectDetailsComponent } from './subject-details/subject-details.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AcademicDetailsComponent } from './academic-details/academic-details.co
     FeeDetailsComponent,
     ClassesComponent,
     RoutesComponent,
-    AcademicDetailsComponent
+    AcademicDetailsComponent,
+    SubjectDetailsComponent
   ],
   imports: [
     BrowserModule,
