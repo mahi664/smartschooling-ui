@@ -13,4 +13,8 @@ export class AcademicService {
   getAcademicList() {
     return this.http.get<AcademicDetailsBO[]>(this.commonService.BASE_URL+"/academic/details");
   }
+
+  addNewAcademicDetails(academicYearList: AcademicDetailsBO[]) {
+    return this.http.post<AcademicDetailsBO[]>(this.commonService.BASE_URL+"/academic/details", academicYearList);
+  }
 }

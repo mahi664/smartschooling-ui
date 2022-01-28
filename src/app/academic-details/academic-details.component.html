@@ -1,0 +1,79 @@
+<div class="card box-shadow" id="students-list">
+  <div class="card-header">
+    <span>Academic Year Configuration</span>
+  </div>
+  <div class="card-body table-responsive">
+    <div class="row container" style="padding:2%;">
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Academic Year <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: xx-small;" *ngIf="dataValidationFlags['academicYear']">(Field can not be empty)</small>
+          </label>
+          <input type="text" class="form-control custom-input-style" placeholder="Enter Academic Year" 
+          [(ngModel)]="newAcademicYearDetails.academicYear" (change)="handleDataValidationFlag('academicYear',newAcademicYearDetails.academicYear)">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Display Name 
+            <!-- <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i> -->
+            <!-- <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['destination']">(Field can not be empty)</small> -->
+          </label>
+          <input type="text" class="form-control custom-input-style" placeholder="Enter Destination" 
+          [(ngModel)]="newAcademicYearDetails.displayName">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Start Date <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['startDate']">(Field can not be empty)</small>
+          </label>
+          <input type="date" class="form-control custom-input-style" placeholder="Enter Start Date" 
+          [(ngModel)]="newAcademicYearDetails.academicStartDate" (change)="handleDataValidationFlag('startDate',newAcademicYearDetails.academicStartDate)">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            End Date <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['endDate']">(Field can not be empty)</small>
+          </label>
+          <input type="date" class="form-control custom-input-style" placeholder="Enter End Date" 
+          [(ngModel)]="newAcademicYearDetails.academicEndDate" (change)="handleDataValidationFlag('endDate',newAcademicYearDetails.academicEndDate)">
+        </div>
+      </div>
+      <div class="col-md-2" style="padding-top: 27px;">
+        <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;"
+          (click)="addnewAcademicYearDetails()">Add New Record</button>
+      </div>
+    </div>
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>#</th>
+          <th>Academic Year</th>
+          <th>Display</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let academicYear of academicYears let i = index">
+          <td>{{i+1}}</td>
+          <td>{{academicYear.academicYear}}</td>
+          <td>{{academicYear.displayName}}</td>
+          <td>{{academicYear.academicStartDate | date : 'dd-MM-yyyy'}}</td>
+          <td>{{academicYear.academicEndDate | date : 'dd-MM-yyyy'}}</td>
+          <td>
+            <a class="mx-1"><i class="fa fa-edit" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>   
+          </td>
+        </tr>
+        <tr class="text-danger" *ngIf="academicYears.length==0">No Record Found</tr>
+      </tbody>
+    </table>
+  </div>
+</div>
