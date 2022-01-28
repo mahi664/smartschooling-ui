@@ -1,0 +1,54 @@
+<div class="card box-shadow" id="students-list">
+  <div class="card-header">
+    <span>Subjects</span>
+  </div>
+  <div class="card-body table-responsive">
+    <div class="row container" style="padding:2%;">
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Subject Id <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['subjectId']">(Field can not be empty)</small>
+          </label>
+          <input type="text" class="form-control custom-input-style" placeholder="Enter Subject Id" 
+          [(ngModel)]="newSubjectDetails.subjectId" (change)="handleDataValidationFlag('subjectId',newSubjectDetails.subjectId)">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Subject Name <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: xx-small;" *ngIf="dataValidationFlags['subjectName']">(Field can not be empty)</small>
+          </label>
+          <input type="text" class="form-control custom-input-style" placeholder="Enter Subject Name" 
+          [(ngModel)]="newSubjectDetails.subjectName" (change)="handleDataValidationFlag('subjectName',newSubjectDetails.subjectName)">
+        </div>
+      </div>
+      <div class="col-md-2" style="padding-top: 27px;">
+        <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;"
+          (click)="addNewSubjectDetails()">Add New Subject</button>
+      </div>
+    </div>
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>#</th>
+          <th>Subject Id</th>
+          <th>Subject Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let subject of subjects let i = index">
+          <td>{{i+1}}</td>
+          <td>{{subject.subjectId}}</td>
+          <td>{{subject.subjectName}}</td>
+          <td>
+            <a class="mx-1"><i class="fa fa-edit" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>   
+          </td>
+        </tr>
+        <tr class="text-danger" *ngIf="subjects.length==0">No Record Found</tr>
+      </tbody>
+    </table>
+  </div>
+</div>
