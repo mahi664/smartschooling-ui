@@ -5,7 +5,8 @@ import { CommonService } from '../services/common.service';
 import { StudentService } from '../services/student.service';
 
 export class AcademicDetailsBO{
-  constructor(public academicId:String, public academicYear: String){}
+  constructor(public academicId:String, public academicYear: String, public displayName: string,
+    public academicStartDate: Date, public academicEndDate: Date){}
 }
 
 export class ClassesDetailsBO{
