@@ -24,6 +24,10 @@ export class RouteDetailsBO{
     public distance: number){}
 }
 
+export class SubjectDetailsBO {
+  constructor(public subjectId: string, public subjectName: string) {}
+}
+
 export class StudentDetailsBO{
   constructor(public studentId : string, public firstName: string, public middleName: string, public lastName: string, 
     public birthDate: Date, public address: string, public mobileNumber: string, public email: string, public alternateMobileNumber : string,
