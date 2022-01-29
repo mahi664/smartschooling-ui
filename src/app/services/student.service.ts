@@ -26,4 +26,8 @@ export class StudentService {
   addNewStudent(student: StudentDetailsBO) {
     return this.http.post<StudentDetailsBO>(this.commonService.BASE_URL+"/Students",student);
   }
+
+  updateStudentDetails(student : StudentDetailsBO){
+    return this.http.post<StudentDetailsBO>(this.commonService.BASE_URL+"/Students/update", student);
+  }
 }
