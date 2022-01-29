@@ -54,7 +54,9 @@
           <td>{{feeDetail.effDate | date : "yyyy-MM-dd"}}</td>
           <td>{{feeDetail.endDate | date : "yyyy-MM-dd"}}</td> -->
           <td>
-            <a class="mx-1"><i class="fa fa-edit" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>   
+            <a class="mx-1"><i class="fa fa-edit" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>  
+            <a class="mx-1" (click)="configureClassDetails(class)"><i class="fa fa-cog"
+              style="color: rgb(23, 162, 184); cursor: pointer;"></i></a> 
           </td>
         </tr>
         <tr class="text-danger" *ngIf="classes.length==0">No Record Found</tr>

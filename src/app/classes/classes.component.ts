@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ClassesService } from '../services/classes.service';
 import { ClassesDetailsBO } from '../student-list/student-list.component';
 
@@ -9,10 +10,10 @@ import { ClassesDetailsBO } from '../student-list/student-list.component';
 })
 export class ClassesComponent implements OnInit {
 
-  constructor(private classesService : ClassesService) { }
+  constructor(private classesService : ClassesService, private router: Router) { }
 
   classes : ClassesDetailsBO[] = [];
-  newClassDetails : ClassesDetailsBO = new ClassesDetailsBO("","");
+  newClassDetails : ClassesDetailsBO = new ClassesDetailsBO("","",[]);
   dataValidationFlags = {};
   ngOnInit() {
     this.initDataValidationFlags();
@@ -47,7 +48,7 @@ export class ClassesComponent implements OnInit {
           console.log(error);
         }
       );
-      this.newClassDetails = new ClassesDetailsBO("","");
+      this.newClassDetails = new ClassesDetailsBO("","",[]);
     }else{
       alert("Please fill all the required details");
     }
@@ -70,6 +71,10 @@ export class ClassesComponent implements OnInit {
     if(value!=undefined && value!=""){
       this.dataValidationFlags[field] = false;
     }
+  }
+
+  configureClassDetails(classDet: ClassesDetailsBO){
+    this.router.navigate(['/classes',classDet.classId]);
   }
 
 }
