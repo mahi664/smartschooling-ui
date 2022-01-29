@@ -130,6 +130,9 @@ export class StudentDetailsComponent implements OnInit {
       console.log("Adding new student : " + this.student);
     } else {
       this.student = this.studentService.studentList.filter(std => std.studentId === this.studentId)[0];
+      if(this.student.routeDetailsBO===null){
+        this.student.routeDetailsBO = new RouteDetailsBO("","","",0);
+      }
       console.log("Editing Details : ");
       console.log(this.student)
 
@@ -235,17 +238,30 @@ export class StudentDetailsComponent implements OnInit {
     console.log("Adding new student:");
     console.log(student);
     if (this.validateStudentDetails(student)) {
-      this.studentService.addNewStudent(student).subscribe(
-        response => {
-          student = response;
-          this.studentService.studentList.push(student);
-          alert(this.student.studentId + " is added successfully !");
-        },
-        error => {
-          console.log(error);
-          alert("Error while adding new student. Please contact Administrator")
-        }
-      );
+      if(student.studentId===""){
+        this.studentService.addNewStudent(student).subscribe(
+          response => {
+            this.student = response;
+            this.studentService.studentList.push(student);
+            alert(this.student.studentId + " is added successfully !");
+          },
+          error => {
+            console.log(error);
+            alert("Error while adding new student. Please contact Administrator")
+          }
+        );
+      }else{
+        this.studentService.updateStudentDetails(student).subscribe(
+          response => {
+            this.student = student;
+            alert("Updated details Successfully");
+          },
+          error => {
+            console.log(error);
+            alert("Error while updaing student details. Please contact Administrator");
+          }
+        );      
+      }
     }else{
       alert("Please fill all the required details");
     }
