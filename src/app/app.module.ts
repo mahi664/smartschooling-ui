@@ -16,6 +16,7 @@ import { ClassesComponent } from './classes/classes.component';
 import { RoutesComponent } from './routes/routes.component';
 import { AcademicDetailsComponent } from './academic-details/academic-details.component';
 import { SubjectDetailsComponent } from './subject-details/subject-details.component';
+import { ClassesDetailsComponent } from './classes-details/classes-details.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SubjectDetailsComponent } from './subject-details/subject-details.compo
     ClassesComponent,
     RoutesComponent,
     AcademicDetailsComponent,
-    SubjectDetailsComponent
+    SubjectDetailsComponent,
+    ClassesDetailsComponent
   ],
   imports: [
     BrowserModule,
