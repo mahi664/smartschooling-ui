@@ -125,7 +125,7 @@ export class StudentDetailsComponent implements OnInit {
     this.initValidationFlags();
 
     if (this.studentId === "" || this.studentId === "-1") {
-      this.student = new StudentDetailsBO("", "", "", "", new Date(), "", "", "", "Male", "", "" ,"", "", "",
+      this.student = new StudentDetailsBO("", "", "", "", new Date(), "", "", "", "", "Male", "" ,"", "", "",
         new RouteDetailsBO("", "", "", 0), {}, {}, false);
       console.log("Adding new student : " + this.student);
     } else {
@@ -167,7 +167,7 @@ export class StudentDetailsComponent implements OnInit {
   addNewAcadeicRecord(student: StudentDetailsBO) {
     if (this.validateNewClassDetRec()) {
       let list = [];
-      let classDetailsBO = new ClassesDetailsBO(this.newStudentClassDet["classId"], "",[]);
+      let classDetailsBO = new ClassesDetailsBO(this.newStudentClassDet["classId"], "", []);
       list.push(classDetailsBO);
       student.studentClassDetails[this.newStudentClassDet["academicId"]] = list;
       this.studentClassDetailsKeys.push(this.newStudentClassDet["academicId"]);
