@@ -167,7 +167,7 @@ export class StudentDetailsComponent implements OnInit {
   addNewAcadeicRecord(student: StudentDetailsBO) {
     if (this.validateNewClassDetRec()) {
       let list = [];
-      let classDetailsBO = new ClassesDetailsBO(this.newStudentClassDet["classId"], "");
+      let classDetailsBO = new ClassesDetailsBO(this.newStudentClassDet["classId"], "", []);
       list.push(classDetailsBO);
       student.studentClassDetails[this.newStudentClassDet["academicId"]] = list;
       this.studentClassDetailsKeys.push(this.newStudentClassDet["academicId"]);
