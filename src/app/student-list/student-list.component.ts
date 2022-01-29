@@ -10,7 +10,7 @@ export class AcademicDetailsBO{
 }
 
 export class ClassesDetailsBO{
-  constructor(public classId: string, public className: string){}
+  constructor(public classId: string, public className: string, public subjects: SubjectDetailsBO[]){}
 }
 
 export class FeesDetailsBO{
