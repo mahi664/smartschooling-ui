@@ -28,12 +28,16 @@ export class SubjectDetailsBO {
   constructor(public subjectId: string, public subjectName: string) {}
 }
 
+export class FeeReceivables {
+  constructor(public totalFee: number, public dueAmount: number, public paidAmount: number) {}
+}
+
 export class StudentDetailsBO{
   constructor(public studentId : string, public firstName: string, public middleName: string, public lastName: string, 
     public birthDate: Date, public address: string, public mobileNumber: string, public email: string, public alternateMobileNumber : string,
     public gender: string, public religion: string, public caste: string, public nationality: string,
     public adharNumber: string, public routeDetailsBO: RouteDetailsBO, public studentClassDetails: {},
-    public studentFeeDetails : {}, public transportOpted : boolean){}
+    public studentFeeDetails : {}, public transportOpted : boolean, public feeReceivables: FeeReceivables){}
 }
 
 @Component({

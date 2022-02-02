@@ -126,7 +126,7 @@ export class StudentDetailsComponent implements OnInit {
 
     if (this.studentId === "" || this.studentId === "-1") {
       this.student = new StudentDetailsBO("", "", "", "", new Date(), "", "", "", "", "Male", "" ,"", "", "",
-        new RouteDetailsBO("", "", "", 0), {}, {}, false);
+        new RouteDetailsBO("", "", "", 0), {}, {}, false, null);
       console.log("Adding new student : " + this.student);
     } else {
       this.student = this.studentService.studentList.filter(std => std.studentId === this.studentId)[0];
