@@ -5,6 +5,7 @@ import { ClassesDetailsComponent } from './classes-details/classes-details.compo
 import { ClassesComponent } from './classes/classes.component';
 import { FeeDetailsComponent } from './fee-details/fee-details.component';
 import { FeeTypesComponent } from './fee-types/fee-types.component';
+import { FeesReceivablesComponent } from './fees-receivables/fees-receivables.component';
 import { NewFeeTypeComponent } from './new-fee-type/new-fee-type.component';
 import { RoutesComponent } from './routes/routes.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: "routes", component: RoutesComponent},
   {path: "academic/details", component: AcademicDetailsComponent},
   {path: "subjects", component: SubjectDetailsComponent},
-  {path: "classes/:classId", component: ClassesDetailsComponent}
+  {path: "classes/:classId", component: ClassesDetailsComponent},
+  {path: "fees-receivables", component: FeesReceivablesComponent}
 ];
 
 @NgModule({

@@ -30,4 +30,8 @@ export class StudentService {
   updateStudentDetails(student : StudentDetailsBO){
     return this.http.post<StudentDetailsBO>(this.commonService.BASE_URL+"/Students/update", student);
   }
+
+  getStudentReceivables(){
+    return this.http.get<StudentDetailsBO[]>(this.commonService.BASE_URL+"/Students/Receivables");
+  }
 }
