@@ -17,6 +17,7 @@ import { RoutesComponent } from './routes/routes.component';
 import { AcademicDetailsComponent } from './academic-details/academic-details.component';
 import { SubjectDetailsComponent } from './subject-details/subject-details.component';
 import { ClassesDetailsComponent } from './classes-details/classes-details.component';
+import { FeesReceivablesComponent } from './fees-receivables/fees-receivables.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ClassesDetailsComponent } from './classes-details/classes-details.compo
     RoutesComponent,
     AcademicDetailsComponent,
     SubjectDetailsComponent,
-    ClassesDetailsComponent
+    ClassesDetailsComponent,
+    FeesReceivablesComponent
   ],
   imports: [
     BrowserModule,
