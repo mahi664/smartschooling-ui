@@ -30,7 +30,7 @@ export class FeesReceivableDetailsComponent implements OnInit {
   feesDueDropdown : boolean = true;
   feesAssignedDropdown : boolean = false;
   feesReceivedDropdown : boolean = false;
-  studTxnDetailsBo : StudentFeesTransactionDetailsBO;
+  modalTxnId = "";
   modalFeesDataList = [];
   constructor(private route: ActivatedRoute, private studentService: StudentService) { }
 
@@ -129,9 +129,9 @@ export class FeesReceivableDetailsComponent implements OnInit {
   }
 
   viewTransactionDetails(feeCollectionTxn : StudentFeesTransactionDetailsBO){
-    this.studTxnDetailsBo = feeCollectionTxn;
-    for(let key of Object.keys(this.studTxnDetailsBo.academicId2FeesDetailsMap)){
-      for(let feeDetails of this.studTxnDetailsBo.academicId2FeesDetailsMap[key]){
+    this.modalTxnId = feeCollectionTxn.collectionId;
+    for(let key of Object.keys(feeCollectionTxn.academicId2FeesDetailsMap)){
+      for(let feeDetails of feeCollectionTxn.academicId2FeesDetailsMap[key]){
         let tempL = [];
         tempL.push(key);
         tempL.push(feeDetails);
