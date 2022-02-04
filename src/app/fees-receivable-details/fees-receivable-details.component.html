@@ -1,0 +1,250 @@
+<div class="card box-shadow" id="students-list">
+  <div class="card-header">
+    <span>Fee Account Details : {{studentName}}</span>
+    <span style="float: right;" (click)="isFilterExpanded = !isFilterExpanded">
+      <button class="btn btn-primary btn-sm mx-1">New Payment</button>
+    </span>
+    <!-- Filter Starts here -->
+    <!-- <div class="container row m-2" *ngIf="isFilterExpanded">
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">Student Name</label>
+          <input class="form-control custom-input-style" placeholder="Enter Student Name"
+          [(ngModel)]="filteredData.studentName" (keydown)="filterStudentsOnNameChange()">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">Class</label>
+          <input class="form-control custom-input-style" list="classes-list" placeholder="Select Classe"
+          [(ngModel)]="filteredData.classId">
+          <datalist id="classes-list">
+            <option *ngFor="let classDet of classesList" value="{{classDet.classId}}">
+          </datalist>
+        </div>
+      </div>
+      <div class="col-md-2" style="padding-top: 27px;">
+        <button class="btn btn-outline-primary btn-sm mx-1" (click)="applyFilter()">Apply</button>
+        <button class="btn btn-outline-primary btn-sm mx-1" (click)="clearFilter()">Clear</button>
+      </div>
+    </div> -->
+    <!-- Filter ends here -->
+  </div>
+  <div class="card-body table-responsive">
+    <div class="row mb-3 text-light">
+      <div class="col-md-4">
+        <div class="card bg-info">
+          <div class="card-body">
+            <h6>Receivables : {{headStats["totalReceivable"] | currency : 'INR'}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-danger">
+          <div class="card-body">
+            <h6>Dues : {{headStats["totalDue"] | currency : 'INR'}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-success">
+          <div class="card-body">
+            <h6>Received : {{headStats["totalReceived"] | currency : 'INR'}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span>Fees Due Amount</span>
+        <span style="float: right;" (click)="feesDueDropdown = !feesDueDropdown">
+          <a>
+            <i class="fa fa-chevron-circle-down" style="color: rgb(23, 162, 184); cursor: pointer;"
+            *ngIf="!feesDueDropdown"></i>
+            <i class="fa fa-chevron-circle-up" style="color: rgb(23, 162, 184); cursor: pointer;"
+            *ngIf="feesDueDropdown"></i>
+          </a>
+        </span>
+      </div>
+      <div class="card-body" *ngIf="feesDueDropdown">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th>#</th>
+              <th>Academic Year</th>
+              <th>Fee Type</th>
+              <th>Amount</th>
+              <!-- <th>Action</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let feeDetailsBO of studentFeesDuesList let i = index">
+              <td>{{i+1}}</td>
+              <td>{{feeDetailsBO[0]}}</td>
+              <td>{{feeDetailsBO[1]['feeName']}}</td>
+              <td>{{feeDetailsBO[1]['amount'] | currency : 'INR'}}</td>
+              <!-- <td>
+                <a class="mr-2"><i class="fa fa-eye"
+                    style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
+                <a class="mr-2"><i class="far fa-bell" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
+              </td> -->
+            </tr>
+            <tr class="text-danger" *ngIf="studentFeesDuesList.length==0">No Record Found</tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span>Fees Assinged</span>
+        <span style="float: right;" (click)="feesAssignedDropdown = !feesAssignedDropdown">
+          <a>
+            <i class="fa fa-chevron-circle-down" style="color: rgb(23, 162, 184); cursor: pointer;"
+            *ngIf="!feesAssignedDropdown"></i>
+            <i class="fa fa-chevron-circle-up" style="color: rgb(23, 162, 184); cursor: pointer;"
+            *ngIf="feesAssignedDropdown"></i>
+          </a>
+        </span>
+      </div>
+      <div class="card-body" *ngIf="feesAssignedDropdown" id="feeAssigned">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Academic Year</th>
+              <th>Fee Type</th>
+              <th>Amount</th>
+              <th>Assigned By</th>
+              <!-- <th>Action</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let feeDetailsBO of studentFeesAssignedList let i = index">
+              <td>{{i+1}}</td>
+              <td>{{feeDetailsBO[1]['effDate'] | date : 'dd-MM-yyyy'}}</td>
+              <td>{{feeDetailsBO[0]}}</td>
+              <td>{{feeDetailsBO[1]['feeName']}}</td>
+              <td>{{feeDetailsBO[1]['amount'] | currency : 'INR'}}</td>
+              <td>{{feeDetailsBO[1]['lastUser']}}</td>
+              <!-- <td>
+                <a class="mr-2"><i class="fa fa-eye"
+                    style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
+                <a class="mr-2"><i class="far fa-bell" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
+              </td> -->
+            </tr>
+            <tr class="text-danger" *ngIf="studentFeesAssignedList.length==0">No Record Found</tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span>Payment Transactions</span>
+        <span style="float: right;" (click)="feesReceivedDropdown = !feesReceivedDropdown">
+          <a>
+            <i class="fa fa-chevron-circle-down" style="color: rgb(23, 162, 184); cursor: pointer;"
+            *ngIf="!feesReceivedDropdown"></i>
+            <i class="fa fa-chevron-circle-up" style="color: rgb(23, 162, 184); cursor: pointer;"
+            *ngIf="feesReceivedDropdown"></i>
+          </a>
+        </span>
+      </div>
+      <div class="card-body" *ngIf="feesReceivedDropdown">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th>#</th>
+              <th>Transaction Id</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Account</th>
+              <th>Received By</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let feeCollectionTxn of studentFeesCollectionList let i = index">
+              <td>{{i+1}}</td>
+              <td>{{feeCollectionTxn.collectionId}}</td>
+              <td>{{feeCollectionTxn.collectionDate | date : 'dd-MM-yyyy'}}</td>
+              <td>{{feeCollectionTxn.amount | currency : 'INR'}}</td>
+              <td>{{feeCollectionTxn.accountsDetailsBO['accountName']}}</td>
+              <td>{{feeCollectionTxn.lastUser}}</td>
+              <td>
+                <a class="mr-2" (click)="viewTransactionDetails(feeCollectionTxn)" data-toggle="modal" data-target="#txnDetailsModal"><i class="fa fa-eye" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
+                <a class="mr-2"><i class="fa fa-print" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
+              </td>
+            </tr>
+            <tr class="text-danger" *ngIf="studentFeesCollectionList.length==0">No Record Found</tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row container my-2">
+      <button class="btn btn-outline-primary btn-sm mx-1" data-toggle="modal" data-target="#exampleModal">Print</button>
+      <button class="btn btn-outline-primary btn-sm mx-1">Export</button>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="txnDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered mw-100 w-75" role="document">
+    <div class="modal-content">
+      <div class="modal-header" id="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Txn Id : {{studTxnDetailsBo.collectionId}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="printContent">
+        <!-- <div class="table-responsive"> -->
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th>#</th>
+              <th>Academic Year</th>
+              <th>Fee Type</th>
+              <th>Amount</th>
+              <!-- <th>Gender</th>
+              <th>Class</th>
+              <th>Mobile</th>
+              <th>Address</th>
+              <th>Transport</th> -->
+              <!-- <th>Action</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let feeDetail of modalFeesDataList let i = index">
+              <td>{{i+1}}</td>
+              <td>{{feeDetail[0]}}</td>
+              <td>{{feeDetail[1].feeName}}</td>
+              <td>{{feeDetail[1].amount | currency : 'INR'}}</td>
+              <!-- <td>{{student.adharNumber}}</td>
+              <td>{{student.gender}}</td>
+              <td>{{student.studentClassDetails[currentAcademicId][0].classId}}</td>
+              <td>{{student.mobileNumber}}</td>
+              <td>{{student.address}}</td>
+              <td>{{student.transportOpted==true ? "Yes" : "No"}}</td> -->
+              <!-- <td><a (click)="editStudentDetails(student)"><i class="fa fa-edit"
+                    style="color: rgb(23, 162, 184); cursor: pointer;"></i></a></td> -->
+            </tr>
+          </tbody>
+        </table>
+        <!-- </div> -->
+      </div>
+      <!-- <div class="modal-footer" id="modal-footer">
+        <button class="btn btn-outline-primary btn-sm mx-1">Print</button>
+        <button class="btn btn-outline-secondary btn-sm mx-1" data-dismiss="modal">Cancel</button>
+      </div> -->
+    </div>
+  </div>
+</div>

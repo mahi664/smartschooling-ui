@@ -85,7 +85,7 @@
           <td>{{student.feeReceivables.dueAmount | currency : 'INR'}}</td>
           <td>{{student.feeReceivables.paidAmount | currency : 'INR'}}</td>
           <td>
-            <a class="mr-2"><i class="fa fa-eye" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
+            <a class="mr-2" (click)="feeReceivablesDetails(student)"><i class="fa fa-eye" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
             <a class="mr-2"><i class="far fa-bell" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
           </td>
         </tr>

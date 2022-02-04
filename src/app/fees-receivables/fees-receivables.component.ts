@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ClassesService } from '../services/classes.service';
 import { StudentService } from '../services/student.service';
 import { ClassesDetailsBO, FeeReceivables, StudentDetailsBO } from '../student-list/student-list.component';
@@ -17,7 +18,8 @@ export class FeesReceivablesComponent implements OnInit {
   headStats = {};
   classesList : ClassesDetailsBO[] = [];
   filteredData = {};
-  constructor(private classesService: ClassesService, private studentService: StudentService) { }
+  constructor(private classesService: ClassesService, private studentService: StudentService,
+    private router: Router) { }
 
   ngOnInit() {
     this.classesService.getClassesNames().subscribe(
@@ -56,20 +58,9 @@ export class FeesReceivablesComponent implements OnInit {
     this.headStats["totalDue"] = totalDueAmount;
   }
 
-  populateStaticData() {
-    let receivables = new FeeReceivables(7000,5000,2000);
-    let classDetails = {};
-    let tempClassL : ClassesDetailsBO[] = [];
-    tempClassL.push(new ClassesDetailsBO("1st","",null));
-    classDetails[this.currentAcademicId] = tempClassL;
-    this.studentsList.push(new StudentDetailsBO("SCHNAME0001","Mahesh","Keshavrao","Ghuge",null,"Ghotan",
-    "8585747478","","","","","","","",null,classDetails,null,false,receivables));
-    this.studentsList.push(new StudentDetailsBO("SCHNAME0002","Akshay","","Garje",null,"Ghotan",
-    "8585747478","","","","","","","",null,classDetails,null,false,receivables));
-    this.studentsList.push(new StudentDetailsBO("SCHNAME0003","Bharat","","Gadhe",null,"Ghotan",
-    "8585747478","","","","","","","",null,classDetails,null,false,receivables));
-
-    console.log(this.studentsList);
+  feeReceivablesDetails(student: StudentDetailsBO){
+    let param = student.studentId+"_"+student.firstName+" "+student.middleName+" "+student.lastName;
+    this.router.navigate(["/fees-receivable/details", param]);
   }
 
   filterStudentsOnNameChange(){
