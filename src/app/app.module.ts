@@ -17,6 +17,9 @@ import { RoutesComponent } from './routes/routes.component';
 import { AcademicDetailsComponent } from './academic-details/academic-details.component';
 import { SubjectDetailsComponent } from './subject-details/subject-details.component';
 import { ClassesDetailsComponent } from './classes-details/classes-details.component';
+import { FeesReceivablesComponent } from './fees-receivables/fees-receivables.component';
+import { FeesReceivableDetailsComponent } from './fees-receivable-details/fees-receivable-details.component';
+import { StudentFeesNewPaymentComponent } from './student-fees-new-payment/student-fees-new-payment.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { ClassesDetailsComponent } from './classes-details/classes-details.compo
     RoutesComponent,
     AcademicDetailsComponent,
     SubjectDetailsComponent,
-    ClassesDetailsComponent
+    ClassesDetailsComponent,
+    FeesReceivablesComponent,
+    FeesReceivableDetailsComponent,
+    StudentFeesNewPaymentComponent
   ],
   imports: [
     BrowserModule,

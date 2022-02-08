@@ -5,9 +5,12 @@ import { ClassesDetailsComponent } from './classes-details/classes-details.compo
 import { ClassesComponent } from './classes/classes.component';
 import { FeeDetailsComponent } from './fee-details/fee-details.component';
 import { FeeTypesComponent } from './fee-types/fee-types.component';
+import { FeesReceivableDetailsComponent } from './fees-receivable-details/fees-receivable-details.component';
+import { FeesReceivablesComponent } from './fees-receivables/fees-receivables.component';
 import { NewFeeTypeComponent } from './new-fee-type/new-fee-type.component';
 import { RoutesComponent } from './routes/routes.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
+import { StudentFeesNewPaymentComponent } from './student-fees-new-payment/student-fees-new-payment.component';
 import { AcademicDetailsBO, StudentListComponent } from './student-list/student-list.component';
 import { SubjectDetailsComponent } from './subject-details/subject-details.component';
 
@@ -21,7 +24,10 @@ const routes: Routes = [
   {path: "routes", component: RoutesComponent},
   {path: "academic/details", component: AcademicDetailsComponent},
   {path: "subjects", component: SubjectDetailsComponent},
-  {path: "classes/:classId", component: ClassesDetailsComponent}
+  {path: "classes/:classId", component: ClassesDetailsComponent},
+  {path: "fees-receivables", component: FeesReceivablesComponent},
+  {path: "fees-receivable/details/:studentId", component: FeesReceivableDetailsComponent},
+  {path: "Fees/Payment/:studentId", component: StudentFeesNewPaymentComponent}
 ];
 
 @NgModule({

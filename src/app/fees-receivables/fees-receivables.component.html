@@ -1,0 +1,159 @@
+<div class="card box-shadow" id="students-list">
+  <div class="card-header">
+    <span>Filters</span>
+    <span style="float: right;" (click)="isFilterExpanded = !isFilterExpanded">
+      <a>
+        <i class="fa fa-chevron-circle-down" style="color: rgb(23, 162, 184); cursor: pointer;"
+          *ngIf="!isFilterExpanded"></i>
+        <i class="fa fa-chevron-circle-up" style="color: rgb(23, 162, 184); cursor: pointer;"
+          *ngIf="isFilterExpanded"></i>
+      </a>
+    </span>
+    <!-- Filter Starts here -->
+    <div class="container row m-2" *ngIf="isFilterExpanded">
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">Student Name</label>
+          <input class="form-control custom-input-style" placeholder="Enter Student Name"
+          [(ngModel)]="filteredData.studentName" (keydown)="filterStudentsOnNameChange()">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">Class</label>
+          <input class="form-control custom-input-style" list="classes-list" placeholder="Select Classe"
+          [(ngModel)]="filteredData.classId">
+          <datalist id="classes-list">
+            <option *ngFor="let classDet of classesList" value="{{classDet.classId}}">
+          </datalist>
+        </div>
+      </div>
+      <div class="col-md-2" style="padding-top: 27px;">
+        <button class="btn btn-outline-primary btn-sm mx-1" (click)="applyFilter()">Apply</button>
+        <button class="btn btn-outline-primary btn-sm mx-1" (click)="clearFilter()">Clear</button>
+      </div>
+    </div>
+    <!-- Filter ends here -->
+  </div>
+  <div class="card-body table-responsive">
+    <div class="row mb-3 text-light">
+      <div class="col-md-4">
+        <div class="card bg-info">
+          <div class="card-body">
+            <h6>Receivables : {{headStats["totalReceivable"] | currency : 'INR'}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-danger">
+          <div class="card-body">
+            <h6>Dues : {{headStats["totalDue"] | currency : 'INR'}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-success">
+          <div class="card-body">
+            <h6>Received : {{headStats["totalReceived"] | currency : 'INR'}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>#</th>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Class</th>
+          <th>Mobile</th>
+          <th>Total Fees</th>
+          <th>Due Amount</th>
+          <th>Paid Amount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of studentsList let i = index">
+          <td>{{i+1}}</td>
+          <td>{{student.studentId}}</td>
+          <td>{{student.firstName + " " + student.middleName + " " + student.lastName}}</td>
+          <td>{{student.studentClassDetails[currentAcademicId][0].classId}}</td>
+          <td>{{student.mobileNumber}}</td>
+          <td class="text-primary" style="font-weight: bold;">{{student.feeReceivables.totalFee | currency : 'INR'}}</td>
+          <td class="text-danger" style="font-weight: bold;">{{student.feeReceivables.dueAmount | currency : 'INR'}}</td>
+          <td class="text-success" style="font-weight: bold;">{{student.feeReceivables.paidAmount | currency : 'INR'}}</td>
+          <td>
+            <a class="mr-2" (click)="feeReceivablesDetails(student)"><i class="fa fa-eye" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
+            <a class="mr-2"><i class="far fa-bell" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
+          </td>
+        </tr>
+        <tr class="text-danger" *ngIf="studentsList.length==0">No Record Found</tr>
+      </tbody>
+    </table>
+
+    <div class="row container ">
+      <button class="btn btn-outline-primary btn-sm mx-1" data-toggle="modal" data-target="#exampleModal">Print</button>
+      <button class="btn btn-outline-primary btn-sm mx-1">Export</button>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered mw-100 w-75" role="document">
+    <div class="modal-content">
+      <div class="modal-header" id="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Print Preview</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="printContent">
+        <!-- <div class="table-responsive"> -->
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th>#</th>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Birth Date</th>
+              <th>Adhar Number</th>
+              <th>Gender</th>
+              <th>Class</th>
+              <th>Mobile</th>
+              <th>Address</th>
+              <th>Transport</th>
+              <!-- <th>Action</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of studentsList let i = index">
+              <td>{{i+1}}</td>
+              <td>{{student.studentId}}</td>
+              <td>{{student.firstName + " " + student.middleName + " " + student.lastName}}</td>
+              <td>{{student.birthDate | date : "yyyy-MM-dd"}}</td>
+              <td>{{student.adharNumber}}</td>
+              <td>{{student.gender}}</td>
+              <td>{{student.studentClassDetails[currentAcademicId][0].classId}}</td>
+              <td>{{student.mobileNumber}}</td>
+              <td>{{student.address}}</td>
+              <td>{{student.transportOpted==true ? "Yes" : "No"}}</td>
+              <!-- <td><a (click)="editStudentDetails(student)"><i class="fa fa-edit"
+                    style="color: rgb(23, 162, 184); cursor: pointer;"></i></a></td> -->
+            </tr>
+          </tbody>
+        </table>
+        <!-- </div> -->
+      </div>
+      <div class="modal-footer" id="modal-footer">
+        <button class="btn btn-outline-primary btn-sm mx-1" (click)="printStudentData()">Print</button>
+        <button class="btn btn-outline-secondary btn-sm mx-1" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
