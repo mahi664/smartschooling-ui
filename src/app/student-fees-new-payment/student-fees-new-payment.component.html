@@ -1,0 +1,114 @@
+<div class="card box-shadow" id="students-list">
+  <div class="card-header">
+    <span>New Fee Payment : {{studentName}}</span>
+  </div>
+  <div class="card-body table-responsive">
+    <div class="row container my-4">
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Date <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: smaller;" *ngIf="validationFlags['collectionDate']">(Date Can not be empty)</small>
+          </label>
+          <input type="date" class="form-control custom-input-style" id="usr"
+            [ngModel]="studentFeesTransactionDetailsBO.collectionDate | date:'yyyy-MM-dd'" 
+            (ngModelChange)="studentFeesTransactionDetailsBO.collectionDate = $event">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Account <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: smaller;" *ngIf="validationFlags['accountDetails']">(Field can not be empty)</small>
+          </label>
+          <input class="form-control custom-input-style" list="accountsList" placeholder="Select Deposit Account"
+            [(ngModel)]="studentFeesTransactionDetailsBO.accountsDetailsBO['accountId']" 
+            (change)="validateField('accountId',studentFeesTransactionDetailsBO.accountsDetailsBO['accountId'])">
+          <datalist id="accountsList">
+            <option *ngFor="let accountId of accountIds" value="{{accountId.accountName}}">
+          </datalist>
+        </div>
+      </div>
+    </div>
+    <div class="row container my-4">
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Academic year <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: xx-small;" *ngIf="validationFlags['academicId']">(Field can not be empty)</small>
+          </label>
+          <input class="form-control custom-input-style" list="academicIdList" placeholder="Select Deposit Account"
+            [(ngModel)]="newRecord['academicId']" 
+            (change)="populateFeeTypesForAcademicYear(newRecord['academicId'])">
+          <datalist id="academicIdList">
+            <option *ngFor="let academicId of academicIds" value="{{academicId}}">
+          </datalist>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Fee type <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: xx-small;" *ngIf="validationFlags['feeType']">(Field can not be empty)</small>
+          </label>
+          <input class="form-control custom-input-style" list="feeTypes" placeholder="Select Deposit Account"
+            [(ngModel)]="newRecord['feeType']" 
+            (change)="getDueAmountForFeeType(newRecord['academicId'], newRecord['feeType'])">
+          <datalist id="feeTypes">
+            <option *ngFor="let feeType of feeTypes" value="{{feeType.feeName}}">
+          </datalist>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">
+            Amount <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: smaller;" *ngIf="validationFlags['amount']">(Field can not be empty)</small>
+          </label>
+          <input type="number" class="form-control custom-input-style" placeholder="Enter Amount" [(ngModel)]="newRecord['amount']">
+        </div>
+      </div>
+      <div class="col-md-3" style="padding-top: 27px;">
+        <button class="btn btn-primary btn-sm" style="margin-right: 5px;"
+          (click)="addNewFeeDetailsForPayment()">Add Record</button>
+      </div>
+    </div>
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>#</th>
+          <th>Academic Year</th>
+          <th>Fee Type</th>
+          <th>Amount</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let feeDetails of feePaymentRecordList let i = index">
+          <td>{{i+1}}</td>
+          <td>{{feeDetails[0]}}</td>
+          <td>{{feeDetails[1].feeName}}</td>
+          <td>{{feeDetails[1].amount}}</td>
+          <td>
+            <a class="mr-2" (click)="removeFeePaymentFromList(feeDetails[0],feeDetails[1].feeName)">
+              <i class="fa fa-times" style="color: rgb(23, 162, 184); cursor: pointer;"></i>
+            </a>
+            <!-- <a class="mr-2"><i class="far fa-bell" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a> -->
+          </td>
+        </tr>
+        <tr *ngIf="feePaymentRecordList.length>0">
+          <td colspan="3">Total Amount</td>
+          <td colspan="2">{{studentFeesTransactionDetailsBO.amount}}</td>
+        </tr>
+        <tr class="text-danger" *ngIf="feePaymentRecordList.length==0">Please add new record</tr>
+      </tbody>
+    </table>
+
+    <div class="row container ">
+      <button class="btn btn-outline-primary btn-sm mx-1" (click)="saveNewPayment()">Save</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" (click)="cancelNewPayment()">Cancel</button>
+    </div>
+
+
+  </div>
+</div>

@@ -10,6 +10,7 @@ import { FeesReceivablesComponent } from './fees-receivables/fees-receivables.co
 import { NewFeeTypeComponent } from './new-fee-type/new-fee-type.component';
 import { RoutesComponent } from './routes/routes.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
+import { StudentFeesNewPaymentComponent } from './student-fees-new-payment/student-fees-new-payment.component';
 import { AcademicDetailsBO, StudentListComponent } from './student-list/student-list.component';
 import { SubjectDetailsComponent } from './subject-details/subject-details.component';
 
@@ -25,7 +26,8 @@ const routes: Routes = [
   {path: "subjects", component: SubjectDetailsComponent},
   {path: "classes/:classId", component: ClassesDetailsComponent},
   {path: "fees-receivables", component: FeesReceivablesComponent},
-  {path: "fees-receivable/details/:studentId", component: FeesReceivableDetailsComponent}
+  {path: "fees-receivable/details/:studentId", component: FeesReceivableDetailsComponent},
+  {path: "Fees/Payment/:studentId", component: StudentFeesNewPaymentComponent}
 ];
 
 @NgModule({
