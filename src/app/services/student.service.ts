@@ -9,6 +9,7 @@ import { CommonService } from './common.service';
 })
 export class StudentService {
 
+  academicId2FeesDueDetails ;
   constructor(private http: HttpClient, private commonService: CommonService) { }
 
   studentList : StudentDetailsBO[] = [];
@@ -46,5 +47,9 @@ export class StudentService {
 
   getStudentFeesCollectionTransactions(studentId: string){
     return this.http.get<StudentFeesTransactionDetailsBO[]>(`${this.commonService.BASE_URL}/Students/${studentId}/Fees/Collections`);
+  }
+
+  addNewStudentFeesTransaction(studentId: string, studentFeesTransactionDetailsBO: StudentFeesTransactionDetailsBO){
+    return this.http.post<StudentFeesTransactionDetailsBO>(`${this.commonService.BASE_URL}/Students/${studentId}/Fees/Collections`, studentFeesTransactionDetailsBO);
   }
 }

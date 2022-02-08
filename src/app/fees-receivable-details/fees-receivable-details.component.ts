@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StudentService } from '../services/student.service';
 
 export class AccountDetailsBO {
@@ -32,7 +32,7 @@ export class FeesReceivableDetailsComponent implements OnInit {
   feesReceivedDropdown : boolean = false;
   modalTxnId = "";
   modalFeesDataList = [];
-  constructor(private route: ActivatedRoute, private studentService: StudentService) { }
+  constructor(private route: ActivatedRoute, private studentService: StudentService, private router : Router) { }
 
   ngOnInit() {
     this.reformatStudentIdFromRouteParam();
@@ -130,6 +130,7 @@ export class FeesReceivableDetailsComponent implements OnInit {
 
   viewTransactionDetails(feeCollectionTxn : StudentFeesTransactionDetailsBO){
     this.modalTxnId = feeCollectionTxn.collectionId;
+    this.modalFeesDataList = [];
     for(let key of Object.keys(feeCollectionTxn.academicId2FeesDetailsMap)){
       for(let feeDetails of feeCollectionTxn.academicId2FeesDetailsMap[key]){
         let tempL = [];
@@ -138,5 +139,10 @@ export class FeesReceivableDetailsComponent implements OnInit {
         this.modalFeesDataList.push(tempL);
       }
     }
+  }
+
+  addNewPayment(){
+    this.studentService.academicId2FeesDueDetails = this.academicId2FeesDueDetails;
+    this.router.navigate(["Fees/Payment", this.studentId+"_"+this.studentName]);
   }
 }

@@ -2,7 +2,7 @@
   <div class="card-header">
     <span>Fee Account Details : {{studentName}}</span>
     <span style="float: right;" (click)="isFilterExpanded = !isFilterExpanded">
-      <button class="btn btn-primary btn-sm mx-1">New Payment</button>
+      <button class="btn btn-primary btn-sm mx-1" (click)="addNewPayment()">New Payment</button>
     </span>
     <!-- Filter Starts here -->
     <!-- <div class="container row m-2" *ngIf="isFilterExpanded">
