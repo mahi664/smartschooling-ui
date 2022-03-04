@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ClassesDetailsBO, SubjectDetailsBO } from '../student-list/student-list.component';
+import { AuthenticationService } from './authentication.service';
 import { CommonService } from './common.service';
 
 @Injectable({
@@ -8,7 +9,8 @@ import { CommonService } from './common.service';
 })
 export class ClassesService {
 
-  constructor(private http: HttpClient,private commonService: CommonService) { }
+  constructor(private http: HttpClient,private commonService: CommonService, 
+    private authService: AuthenticationService) { }
 
   getClassesNames(){
     return this.http.get<ClassesDetailsBO[]>(this.commonService.BASE_URL+"/Classes");
