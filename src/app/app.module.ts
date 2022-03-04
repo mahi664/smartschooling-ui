@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { StudentListComponent } from './student-list/student-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StudentDetailsComponent } from './student-details/student-details.component'
 import { FormsModule } from '@angular/forms';
 import { FeeTypesComponent } from './fee-types/fee-types.component';
@@ -20,6 +20,9 @@ import { ClassesDetailsComponent } from './classes-details/classes-details.compo
 import { FeesReceivablesComponent } from './fees-receivables/fees-receivables.component';
 import { FeesReceivableDetailsComponent } from './fees-receivable-details/fees-receivable-details.component';
 import { StudentFeesNewPaymentComponent } from './student-fees-new-payment/student-fees-new-payment.component';
+import { LoginComponent } from './login/login.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { StudentFeesNewPaymentComponent } from './student-fees-new-payment/stude
     ClassesDetailsComponent,
     FeesReceivablesComponent,
     FeesReceivableDetailsComponent,
-    StudentFeesNewPaymentComponent
+    StudentFeesNewPaymentComponent,
+    LoginComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,13 @@ import { StudentFeesNewPaymentComponent } from './student-fees-new-payment/stude
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass : TokenInterceptorService,
+      multi : true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
