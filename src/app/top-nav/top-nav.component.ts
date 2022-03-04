@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
 import { CommonService } from '../services/common.service';
 
 @Component({
@@ -8,9 +9,11 @@ import { CommonService } from '../services/common.service';
 })
 export class TopNavComponent implements OnInit {
 
-  constructor(private commonService: CommonService) { }
+  isUserLoggedIn = false;
+  constructor(private commonService: CommonService, private authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.isUserLoggedIn = this.authService.isUserLogedIn();
   }
   
   toggleSideNav(){
@@ -21,5 +24,9 @@ export class TopNavComponent implements OnInit {
       document.getElementById('sidenavicon').className = 'fas fa-arrow-left';
     }
     this.commonService.toggleSideNav();
+  }
+
+  doUserSignOut(){
+    this.authService.logOutUser();
   }
 }
