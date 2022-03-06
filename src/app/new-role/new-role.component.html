@@ -1,0 +1,44 @@
+<div class="card box-shadow">
+  <div class="card-header">
+    Role Id :
+  </div>
+
+  <div class="card-body">
+    <div class="row container" style="padding:1%;">
+      <div class="col-md-4 offset-4">
+        <div class="input-group-sm">
+          <label for="usr">
+            Role Name <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: smaller;" *ngIf="validationFlags['roleName']">(Role Name can not be
+              empty)</small>
+          </label>
+          <input type="text" class="form-control custom-input-style" placeholder="Role Name"
+            [(ngModel)]="roleDetails.roleName" (change)="validateField('roleName',roleDetails.roleName)">
+        </div>
+      </div>
+    </div>
+
+    <div class="row container" style="padding:1%;">
+      <div class="col-md-4 offset-4">
+        <div class="input-group-sm">
+          <label for="usr">
+            Role Description
+          </label>
+          <textarea class="form-control" style="border: 1px solid rgb(23, 162, 184);" placeholder="Role Description"
+            rows="3" [(ngModel)]="roleDetails.roleDescription"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="row container" >
+      <div class="col-md-4 offset-4">
+        <div class="my-4">
+          <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;" (click)="saveRoleType()">Save</button>
+        
+          <button class="btn btn-outline-secondary btn-sm" style="margin-right: 5px;">Clear</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
