@@ -1,0 +1,88 @@
+<div class="card box-shadow">
+  <div class="card-header">
+    Leave Id :
+  </div>
+
+  <div class="card-body">
+    <div class="row container" style="padding:1%;">
+      <div class="col-md-4 offset-4">
+        <div class="input-group-sm">
+          <label for="usr">
+            Leave Name <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: smaller;" *ngIf="validationFlags['leaveName']">(Leave Name can not be
+              empty)</small>
+          </label>
+          <input type="text" class="form-control custom-input-style" placeholder="Leave Name"
+            [(ngModel)]="leaveDetails.leaveName" (change)="validateField('leaveName',leaveDetails.leaveName)">
+        </div>
+      </div>
+    </div>
+
+    <div class="row container" style="padding:1%;">
+      <div class="col-md-4 offset-4">
+        <div class="input-group-sm">
+          <label for="usr">
+            Leave Description
+          </label>
+          <textarea class="form-control" style="border: 1px solid rgb(23, 162, 184);" placeholder="Leave Description"
+            rows="3" [(ngModel)]="leaveDetails.leaveDescription"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="row container" style="padding:1%;">
+      <div class="col-md-4 offset-4">
+        <div class="input-group-sm">
+          <label for="usr">
+            Accrual Frequency <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: smaller;" *ngIf="validationFlags['accrualFreq']">(Frequency can not be empty)</small>
+          </label>
+          <input class="form-control custom-input-style" list="accrual-freq" placeholder="Select Accrual Frequency"
+            [(ngModel)]="leaveDetails.accrualFreq" (change)="validateField('accrualFreq',leaveDetails.accrualFreq)">
+          <datalist id="accrual-freq">
+            <option *ngFor="let freq of accrualFrequency" value="{{freq}}">
+          </datalist>
+        </div>
+      </div>
+    </div>
+
+    <div class="row container" style="padding:1%;" *ngIf="isAccrualDayApplicable">
+      <div class="col-md-4 offset-4">
+        <div class="input-group-sm">
+          <label for="usr">
+            Accrual Day <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: smaller;" *ngIf="validationFlags['accrualDay']">(Accrual Day can not be empty)</small>
+          </label>
+          <input class="form-control custom-input-style" list="accrual-day" placeholder="Select Accrual Day"
+            [(ngModel)]="leaveDetails.accrualDay" (change)="validateField('accrualDay',leaveDetails.accrualDay)">
+          <datalist id="accrual-day">
+            <option *ngFor="let day of accrualDays" value="{{day}}">
+          </datalist>
+        </div>
+      </div>
+    </div>
+
+    <div class="row container" style="padding:1%;">
+      <div class="col-md-4 offset-4">
+        <div class="input-group-sm">
+          <label for="usr">
+            Amount <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: smaller;" *ngIf="validationFlags['amount']">(Amount can not be empty)</small>
+          </label>
+          <input class="form-control custom-input-style" type="number" placeholder="Accrual Amount"
+            [(ngModel)]="leaveDetails.amount" (change)="validateField('amount',leaveDetails.amount)">
+        </div>
+      </div>
+    </div>
+
+    <div class="row container" >
+      <div class="col-md-4 offset-4">
+        <div class="my-4">
+          <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;" (click)="saveLeaveType()">Save</button>
+        
+          <button class="btn btn-outline-secondary btn-sm" style="margin-right: 5px;">Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
