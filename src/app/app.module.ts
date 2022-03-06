@@ -25,6 +25,8 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { NewLeaveTypeComponent } from './new-leave-type/new-leave-type.component';
 import { LeaveTypesComponent } from './leave-types/leave-types.component';
+import { RolesComponent } from './roles/roles.component';
+import { NewRoleComponent } from './new-role/new-role.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { LeaveTypesComponent } from './leave-types/leave-types.component';
     LoginComponent,
     AdminDashboardComponent,
     NewLeaveTypeComponent,
-    LeaveTypesComponent
+    LeaveTypesComponent,
+    RolesComponent,
+    NewRoleComponent
   ],
   imports: [
     BrowserModule,
