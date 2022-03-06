@@ -2,7 +2,7 @@
   <nav class="navbar ">
       <ul class="navbar-nav" id="collapsibleNavbar">
           <li class="nav-item">
-              <a class="nav-link" routerLink="/Dashboard" title="Dashboard"><i
+              <a class="nav-link" routerLink="/admin-dashboard" title="Dashboard"><i
                       class='fas fa-table custom-nav-icons text-info'></i><br>
                   <small class='text-info' [hidden]="!commonService.sideNavExpanded">Dashboard</small>
               </a>
@@ -66,11 +66,10 @@
           <li class="nav-item " (mouseover)="rightDropDownForInventory=true"
               (mouseout)="rightDropDownForInventory=false">
               <span class="custom-right-dropdown custom-side-nav" [hidden]="!rightDropDownForInventory">
-                  <small><a class="text-info custom-right-dropdown-content nav-link" routerLink="/Inventory">Stock
-                          Details</a></small>
+                  <small><a class="text-info custom-right-dropdown-content nav-link" [routerLink]="['/leave-types/new-type',-1]">New Leave Type</a></small>
                   <hr>
                   <small><a class="text-info custom-right-dropdown-content nav-link"
-                          routerLink="/Categories">Categories</a></small>
+                          routerLink="/leave-types">Leave Types</a></small>
                   <hr>
                   <small><a class="text-info custom-right-dropdown-content nav-link" routerLink="/Add-product">Add
                           Product</a></small>
