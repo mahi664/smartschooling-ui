@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { RoleDetails } from '../new-role/new-role.component';
 
 @Component({
   selector: 'app-roles',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RolesComponent implements OnInit {
 
-  constructor() { }
+  roles : RoleDetails[] = [new RoleDetails("1","Admin","Admin")];
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  configureRoleDetails(role: RoleDetails){
+    this.router.navigate(['/role/configuration',role.roleId]);
+  }
 }

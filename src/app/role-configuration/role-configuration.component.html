@@ -1,0 +1,30 @@
+<div class="card box-shadow" id="students-list">
+  <div class="card-header">
+    <span>Roles Configuration : {{classId}}</span>
+  </div>
+  <div class="card-body">
+    <div class="card box-shadow">
+      <div class="card-header">Leave Types</div>
+      <div class="card-body">
+        <div class="row container">
+          <div class="col-md-4" *ngFor="let leaveType of leaveTypes">
+            <div class="input-group-sm">
+              <div class="form-check-inline">
+                <label class="form-check-label" style="margin-right: 10px;">
+                  <input type="checkbox" class="form-check-input" name="leave.leaveId" [checked]="isLeaveTypeSelected(subject)"
+                  (change)="addRemoveLeaveTypeFromRole(leaveType, isSubjectSelected(leaveType))">
+                  {{leave.leaveName}}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row container card-body">
+    <button class="btn btn-outline-primary btn-sm mx-3" [disabled]="!updateFlag" (click)="saveDetails()">Save</button>
+  </div>
+</div>
+
+<!--  -->

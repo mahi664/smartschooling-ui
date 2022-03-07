@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { NewFeeTypeComponent } from './new-fee-type/new-fee-type.component';
 import { NewLeaveTypeComponent } from './new-leave-type/new-leave-type.component';
 import { NewRoleComponent } from './new-role/new-role.component';
+import { RoleConfigurationComponent } from './role-configuration/role-configuration.component';
 import { RolesComponent } from './roles/roles.component';
 import { RoutesComponent } from './routes/routes.component';
 import { AuthenticationGuard } from './services/authentication.guard';
@@ -40,7 +41,8 @@ const routes: Routes = [
   {path: "leave-types/new-type/:leaveId", component: NewLeaveTypeComponent, canActivate: [AuthenticationGuard]},
   {path: "leave-types", component: LeaveTypesComponent, canActivate: [AuthenticationGuard]},
   {path: "roles", component: RolesComponent, canActivate: [AuthenticationGuard]},
-  {path: "roles/role/:roleId", component: NewRoleComponent, canActivate: [AuthenticationGuard]}
+  {path: "roles/role/:roleId", component: NewRoleComponent, canActivate: [AuthenticationGuard]},
+  {path: "role/configuration/:roleId", component: RoleConfigurationComponent, canActivate: [AuthenticationGuard]}
 ];
 
 @NgModule({
