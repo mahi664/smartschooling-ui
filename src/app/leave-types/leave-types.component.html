@@ -27,15 +27,15 @@
           <td>{{leaveType.accrualFreq}}</td>
           <td>{{leaveType.accrualDay}}</td>
           <td>{{leaveType.amount}}</td>
-          <td>{{leaveType.startDate}}</td>
-          <td>{{leaveType.endDate}}</td>
+          <td>{{leaveType.startDate | date : "dd-MM-yyyy"}}</td>
+          <td>{{leaveType.endDate | date : "dd-MM-yyyy"}}</td>
           <!-- <td>{{student.address}}</td>
           <td>{{student.transportOpted==true ? "Yes" : "No"}}</td> -->
           <td>
             <a class="mx-1" (click)="editLeaveType(leaveType.leaveId)"><i class="fa fa-edit"
                 style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
-            <a class="mx-1" (click)="configureDetails(feeType)"><i class="fa fa-cog"
-                  style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
+            <!-- <a class="mx-1" (click)="configureDetails(feeType)"><i class="fa fa-cog"
+                  style="color: rgb(23, 162, 184); cursor: pointer;"></i></a> -->
             <a class="mx-1"><i class="fa fa-trash"
                     style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
           </td>

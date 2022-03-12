@@ -11,9 +11,9 @@
             <div class="input-group-sm">
               <div class="form-check-inline">
                 <label class="form-check-label" style="margin-right: 10px;">
-                  <input type="checkbox" class="form-check-input" name="leave.leaveId" [checked]="isLeaveTypeSelected(subject)"
-                  (change)="addRemoveLeaveTypeFromRole(leaveType, isSubjectSelected(leaveType))">
-                  {{leave.leaveName}}
+                  <input type="checkbox" class="form-check-input" name="leave.leaveId" [checked]="isLeaveTypeSelected(leaveType)"
+                  (change)="addRemoveLeaveTypeFromRole(leaveType, isLeaveTypeSelected(leaveType))">
+                  {{leaveType.leaveName}}
                 </label>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LeaveTpesService } from '../services/leave-tpes.service';
 
 export class LeaveDetails {
   constructor(public leaveId: string, public leaveName: string, public leaveDescription: string,
@@ -15,24 +16,42 @@ export class LeaveDetails {
 export class NewLeaveTypeComponent implements OnInit {
 
   leaveDetails : LeaveDetails = new LeaveDetails("","","","",0,0,null,null);
-  accrualFrequency : string[] = ["Daily","Weekly","Monthly","Quarterly","Yearly"];
+  accrualFrequency : string[] = [];
   accrualDays : number[] = [1,2,3,4,5,6,7,8,9,10];
   isAccrualDayApplicable : boolean = false;
   leaveId : string = "";
   validationFlags = {};
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute, private leaveTypeService: LeaveTpesService) { }
 
   ngOnInit() {
     this.initValidationFlags();
     this.leaveId = this.activatedRoute.snapshot.params['leaveId'];
     console.log(this.leaveId);
+    this.leaveTypeService.getLeaveAccrualFrequency().subscribe(
+      response => {
+        this.accrualFrequency = response;
+        console.log(this.accrualFrequency);
+      },
+      error => {
+        console.log("Error in fetching Leave Accrual Frequency", error);  
+      }
+    );
   }
 
   saveLeaveType(){
     console.log("Adding new Leave Details", this.leaveDetails);
     if(this.validateLeaveDetails()){
-
+      this.leaveTypeService.addNewLeaveType(this.leaveDetails).subscribe(
+        response => {
+          console.log(response);
+          alert("Leave Type Added Successfully");
+        },
+        error => {
+          console.log(error);
+          alert("Error while adding leave type");
+        }
+      );
     }else{
       alert("Please Fill all the required Details!");
     }
