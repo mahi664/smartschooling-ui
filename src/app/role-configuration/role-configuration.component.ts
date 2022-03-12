@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LeaveDetails } from '../new-leave-type/new-leave-type.component';
+import { LeaveTpesService } from '../services/leave-tpes.service';
+import { RolesService } from '../services/roles.service';
 
 @Component({
   selector: 'app-role-configuration',
@@ -9,19 +11,37 @@ import { LeaveDetails } from '../new-leave-type/new-leave-type.component';
 })
 export class RoleConfigurationComponent implements OnInit {
 
-  roleId : String = "-1";
+  roleId : string = "-1";
   leaveTypes : LeaveDetails[] = [];
   roleApplicableLeaveTypes : LeaveDetails[] = [];
   updateFlag: boolean = false;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private roleService: RolesService, 
+    private leaveTypeService: LeaveTpesService) { }
 
   ngOnInit() {
     this.roleId = this.route.snapshot.params['roleId'];
     
-    //TODO : Add code to populate leave types
-
-    //TODO : Add code to fetch applicable leave types to roleId
+    this.leaveTypeService.getLeaveTypes().subscribe(
+      response => {
+        this.leaveTypes = response;
+        console.log(this.leaveTypes);
+      },
+      error => {
+        console.log("Error in fetching leave types");
+        console.log(error);
+      }
+    );
+    
+    this.roleService.getRoleApplicableLeaves(this.roleId).subscribe(
+      response => {
+        this.roleApplicableLeaveTypes = response;
+        console.log(this.roleApplicableLeaveTypes);
+      },
+      error => {
+        console.log("Error while fetching role applicable leave types", error);
+      }
+    );
   }
 
   isLeaveTypeSelected(leaveType: LeaveDetails){
@@ -33,7 +53,7 @@ export class RoleConfigurationComponent implements OnInit {
     return true;
   }
 
-  addRemoveSubjectFromClass(leaveType: LeaveDetails, leaveTypeAlreadySelected: boolean){
+  addRemoveLeaveTypeFromRole(leaveType: LeaveDetails, leaveTypeAlreadySelected: boolean){
     if(!leaveTypeAlreadySelected){
       console.log("Added new subject to class details");
       console.log(leaveType);
@@ -51,6 +71,16 @@ export class RoleConfigurationComponent implements OnInit {
   saveDetails(){
     if(this.updateFlag){
       //TODO : Add code to save data in database
+      this.roleService.addRoleApplicableLeaveTypes(this.roleId, this.roleApplicableLeaveTypes).subscribe(
+        response => {
+          alert("Role Applicable Leaves Saved Successfully");
+          console.log(response);
+        },
+        error => {
+          alert("Error while saving role applicable leaves. Please try after some time");
+          console.log(error);
+        }
+      );
       this.updateFlag = false;
     }
   }

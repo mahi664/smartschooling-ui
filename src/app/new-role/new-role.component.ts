@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RolesService } from '../services/roles.service';
 
 export class RoleDetails {
   constructor(public roleId: string, public roleName: string, public roleDescription: string) {}
@@ -14,7 +15,7 @@ export class NewRoleComponent implements OnInit {
   roleDetails : RoleDetails = new RoleDetails("","","");
   validationFlags = {};
 
-  constructor() { }
+  constructor(private roleService: RolesService) { }
 
   ngOnInit() {
     this.initValidationFlags();
@@ -31,7 +32,15 @@ export class NewRoleComponent implements OnInit {
   saveRoleType(){
     console.log("Adding new Role Details", this.roleDetails);
     if(this.validateRoleDetails()){
-
+      this.roleService.addNewRole(this.roleDetails).subscribe(
+        response => {
+          alert("Role Added successfully");
+          console.log(response);
+        },
+        error => {
+          console.log("Error while adding new role",error);
+        }
+      );
     }else{
       alert("Please Fill all the required Details!");
     }
