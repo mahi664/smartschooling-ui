@@ -21,6 +21,7 @@ import { StudentDetailsComponent } from './student-details/student-details.compo
 import { StudentFeesNewPaymentComponent } from './student-fees-new-payment/student-fees-new-payment.component';
 import { AcademicDetailsBO, StudentListComponent } from './student-list/student-list.component';
 import { SubjectDetailsComponent } from './subject-details/subject-details.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
   {path: "", component: LoginComponent},
@@ -42,7 +43,8 @@ const routes: Routes = [
   {path: "leave-types", component: LeaveTypesComponent, canActivate: [AuthenticationGuard]},
   {path: "roles", component: RolesComponent, canActivate: [AuthenticationGuard]},
   {path: "roles/role/:roleId", component: NewRoleComponent, canActivate: [AuthenticationGuard]},
-  {path: "role/configuration/:roleId", component: RoleConfigurationComponent, canActivate: [AuthenticationGuard]}
+  {path: "role/configuration/:roleId", component: RoleConfigurationComponent, canActivate: [AuthenticationGuard]},
+  {path: "users", component: UserListComponent, canActivate: [AuthenticationGuard]}
 ];
 
 @NgModule({

@@ -1,0 +1,115 @@
+<div class="card box-shadow" id="students-list">
+  <div class="card-header">
+    <!-- <span>Filters</span> -->
+    <span style="float: right;">
+      <!-- <a> -->
+        <span style="float: left;"><input class="form-control custom-input-style" list="academic-years" placeholder="Quick Search e.g. Name, Address"
+          [(ngModel)]="filteredData.quickSearch" (keyup)="filterUsersOnQuickSearch()"></span>
+        <button class="btn btn-primary btn-md mx-1"><i class='fas fa-filter'></i></button>
+      <!-- </a> -->
+    </span>
+  </div>
+  <div class="card-body table-responsive">
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Birth Date</th>
+          <th>Adhar Number</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Gender</th>
+          <th>Marrital Status</th>
+          <th>Regligion</th>
+          <th>Caste</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userList let i = index">
+          <td>{{i+1}}</td>
+          <td>{{user.firstName + " " + user.middleName + " " + user.lastName}}</td>
+          <td>{{user.birthDate | date : "dd-MM-yyyy"}}</td>
+          <td>{{user.adhar===null ? "N/A" : user.adhar}}</td>
+          <td>{{user.mobile}}</td>
+          <td>{{user.email===null ? "N/A" : user.email}}</td>
+          <td>{{user.address}}</td>
+          <td>{{user.gender}}</td>
+          <td>{{user.maritalStatus==='M'?'Married':'Unmarried'}}</td>
+          <td>{{user.religion}}</td>
+          <td>{{user.caste}}</td>
+          <td><a (click)="editUserDetails(user)"><i class="fa fa-edit"
+                style="color: rgb(23, 162, 184); cursor: pointer;"></i></a></td>
+        </tr>
+        <tr class="text-danger" *ngIf="userList.length==0">No Record Found</tr>
+      </tbody>
+    </table>
+
+    <div class="row container ">
+      <button class="btn btn-outline-primary btn-sm mx-1" (click)="addNewUser()">Add</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" data-toggle="modal" data-target="#exampleModal">Print</button>
+      <button class="btn btn-outline-primary btn-sm mx-1">Export</button>
+      <button class="btn btn-outline-primary btn-sm mx-1">Delete</button>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered mw-100 w-75" role="document">
+    <div class="modal-content">
+      <div class="modal-header" id="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Print Preview</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="printContent">
+        <!-- <div class="table-responsive"> -->
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th>#</th>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Birth Date</th>
+              <th>Adhar Number</th>
+              <th>Gender</th>
+              <th>Class</th>
+              <th>Mobile</th>
+              <th>Address</th>
+              <th>Transport</th>
+              <!-- <th>Action</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of studentsList let i = index">
+              <td>{{i+1}}</td>
+              <td>{{student.studentId}}</td>
+              <td>{{student.firstName + " " + student.middleName + " " + student.lastName}}</td>
+              <td>{{student.birthDate | date : "yyyy-MM-dd"}}</td>
+              <td>{{student.adharNumber}}</td>
+              <td>{{student.gender}}</td>
+              <td>{{student.studentClassDetails[currentAcademicId][0].classId}}</td>
+              <td>{{student.mobileNumber}}</td>
+              <td>{{student.address}}</td>
+              <td>{{student.transportOpted==true ? "Yes" : "No"}}</td>
+              <!-- <td><a (click)="editStudentDetails(student)"><i class="fa fa-edit"
+                    style="color: rgb(23, 162, 184); cursor: pointer;"></i></a></td> -->
+            </tr>
+          </tbody>
+        </table>
+        <!-- </div> -->
+      </div>
+      <div class="modal-footer" id="modal-footer">
+        <button class="btn btn-outline-primary btn-sm mx-1" (click)="printStudentData()">Print</button>
+        <button class="btn btn-outline-secondary btn-sm mx-1" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
