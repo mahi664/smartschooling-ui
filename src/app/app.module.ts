@@ -28,6 +28,7 @@ import { LeaveTypesComponent } from './leave-types/leave-types.component';
 import { RolesComponent } from './roles/roles.component';
 import { NewRoleComponent } from './new-role/new-role.component';
 import { RoleConfigurationComponent } from './role-configuration/role-configuration.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { RoleConfigurationComponent } from './role-configuration/role-configurat
     LeaveTypesComponent,
     RolesComponent,
     NewRoleComponent,
-    RoleConfigurationComponent
+    RoleConfigurationComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
