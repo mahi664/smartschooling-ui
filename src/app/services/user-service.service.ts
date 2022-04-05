@@ -13,4 +13,8 @@ export class UserServiceService {
   getUsers(){
     return this.http.get<UserBasicDetails[]>(`${this.commonService.BASE_URL}/users`);
   }
+
+  addNewUser(user : UserBasicDetails){
+    return this.http.post<UserBasicDetails>(`${this.commonService.BASE_URL}/users`, user);
+  }
 }
