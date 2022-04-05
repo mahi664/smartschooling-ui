@@ -29,6 +29,7 @@ import { RolesComponent } from './roles/roles.component';
 import { NewRoleComponent } from './new-role/new-role.component';
 import { RoleConfigurationComponent } from './role-configuration/role-configuration.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { NewUserComponent } from './new-user/new-user.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { UserListComponent } from './user-list/user-list.component';
     RolesComponent,
     NewRoleComponent,
     RoleConfigurationComponent,
-    UserListComponent
+    UserListComponent,
+    NewUserComponent
   ],
   imports: [
     BrowserModule,
