@@ -1,0 +1,53 @@
+<div class="card box-shadow" id="students-list">
+  <div class="card-header">
+    <span>Leave Types</span>
+  </div>
+  <div class="card-body table-responsive">
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>#</th>
+          <th>Leave Id</th>
+          <th>Leave Type</th>
+          <th>Description</th>
+          <th>Accrual Frequency</th>
+          <th>Accrual Day</th>
+          <th>Amount</th>
+          <th>Eff Date</th>
+          <th>End Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let leaveType of leaveTypes let i = index">
+          <td>{{i+1}}</td>
+          <td>{{leaveType.leaveId}}</td>
+          <td>{{leaveType.leaveName}}</td>
+          <td>{{leaveType.leaveDescription.length==0?"N/A":leaveType.leaveDescription}}</td>
+          <td>{{leaveType.accrualFreq}}</td>
+          <td>{{leaveType.accrualDay}}</td>
+          <td>{{leaveType.amount}}</td>
+          <td>{{leaveType.startDate | date : "dd-MM-yyyy"}}</td>
+          <td>{{leaveType.endDate | date : "dd-MM-yyyy"}}</td>
+          <!-- <td>{{student.address}}</td>
+          <td>{{student.transportOpted==true ? "Yes" : "No"}}</td> -->
+          <td>
+            <a class="mx-1" (click)="editLeaveType(leaveType.leaveId)"><i class="fa fa-edit"
+                style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
+            <!-- <a class="mx-1" (click)="configureDetails(feeType)"><i class="fa fa-cog"
+                  style="color: rgb(23, 162, 184); cursor: pointer;"></i></a> -->
+            <a class="mx-1"><i class="fa fa-trash"
+                    style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
+          </td>
+        </tr>
+        <tr class="text-danger" *ngIf="leaveTypes.length==0">No Record Found</tr>
+      </tbody>
+    </table>
+
+    <div class="row container ">
+      <button class="btn btn-outline-primary btn-sm mx-1" (click)="addNewLeaveType(-1)">Add New</button>
+    </div>
+
+
+  </div>
+</div>

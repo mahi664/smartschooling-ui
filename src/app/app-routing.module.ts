@@ -8,14 +8,21 @@ import { FeeDetailsComponent } from './fee-details/fee-details.component';
 import { FeeTypesComponent } from './fee-types/fee-types.component';
 import { FeesReceivableDetailsComponent } from './fees-receivable-details/fees-receivable-details.component';
 import { FeesReceivablesComponent } from './fees-receivables/fees-receivables.component';
+import { LeaveTypesComponent } from './leave-types/leave-types.component';
 import { LoginComponent } from './login/login.component';
 import { NewFeeTypeComponent } from './new-fee-type/new-fee-type.component';
+import { NewLeaveTypeComponent } from './new-leave-type/new-leave-type.component';
+import { NewRoleComponent } from './new-role/new-role.component';
+import { NewUserComponent } from './new-user/new-user.component';
+import { RoleConfigurationComponent } from './role-configuration/role-configuration.component';
+import { RolesComponent } from './roles/roles.component';
 import { RoutesComponent } from './routes/routes.component';
 import { AuthenticationGuard } from './services/authentication.guard';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { StudentFeesNewPaymentComponent } from './student-fees-new-payment/student-fees-new-payment.component';
 import { AcademicDetailsBO, StudentListComponent } from './student-list/student-list.component';
 import { SubjectDetailsComponent } from './subject-details/subject-details.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
   {path: "", component: LoginComponent},
@@ -32,7 +39,14 @@ const routes: Routes = [
   {path: "classes/:classId", component: ClassesDetailsComponent, canActivate: [AuthenticationGuard]},
   {path: "fees-receivables", component: FeesReceivablesComponent, canActivate: [AuthenticationGuard]},
   {path: "fees-receivable/details/:studentId", component: FeesReceivableDetailsComponent, canActivate: [AuthenticationGuard]},
-  {path: "Fees/Payment/:studentId", component: StudentFeesNewPaymentComponent, canActivate: [AuthenticationGuard]}
+  {path: "Fees/Payment/:studentId", component: StudentFeesNewPaymentComponent, canActivate: [AuthenticationGuard]},
+  {path: "leave-types/new-type/:leaveId", component: NewLeaveTypeComponent, canActivate: [AuthenticationGuard]},
+  {path: "leave-types", component: LeaveTypesComponent, canActivate: [AuthenticationGuard]},
+  {path: "roles", component: RolesComponent, canActivate: [AuthenticationGuard]},
+  {path: "roles/role/:roleId", component: NewRoleComponent, canActivate: [AuthenticationGuard]},
+  {path: "role/configuration/:roleId", component: RoleConfigurationComponent, canActivate: [AuthenticationGuard]},
+  {path: "users", component: UserListComponent, canActivate: [AuthenticationGuard]},
+  {path: "new-user", component: NewUserComponent, canActivate: [AuthenticationGuard]}
 ];
 
 @NgModule({

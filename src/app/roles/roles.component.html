@@ -1,0 +1,39 @@
+<div class="card box-shadow" id="students-list">
+  <div class="card-header">
+    <span>Roles</span>
+  </div>
+  <div class="card-body table-responsive">
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>#</th>
+          <th>Role Id</th>
+          <th>Role Name</th>
+          <th>Description</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let role of roles let i = index">
+          <td>{{i+1}}</td>
+          <td>
+            {{role.roleId}}
+          </td>
+          <td>
+            {{role.roleName}}
+          </td>
+          <td>{{role.roleDescription}}</td>
+          <td>
+            <a class="mx-1"><i class="fa fa-edit" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>  
+            <a class="mx-1" (click)="configureRoleDetails(role)"><i class="fa fa-cog"
+              style="color: rgb(23, 162, 184); cursor: pointer;"></i></a> 
+          </td>
+        </tr>
+        <tr class="text-danger" *ngIf="roles.length==0">No Record Found</tr>
+      </tbody>
+    </table>
+    <div class="row container ">
+      <button class="btn btn-outline-primary btn-sm mx-1" (click)="addNewRole(-1)">Add New</button>
+    </div>
+  </div>
+</div>

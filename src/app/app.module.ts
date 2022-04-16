@@ -23,6 +23,13 @@ import { StudentFeesNewPaymentComponent } from './student-fees-new-payment/stude
 import { LoginComponent } from './login/login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { NewLeaveTypeComponent } from './new-leave-type/new-leave-type.component';
+import { LeaveTypesComponent } from './leave-types/leave-types.component';
+import { RolesComponent } from './roles/roles.component';
+import { NewRoleComponent } from './new-role/new-role.component';
+import { RoleConfigurationComponent } from './role-configuration/role-configuration.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { NewUserComponent } from './new-user/new-user.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +50,14 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     FeesReceivableDetailsComponent,
     StudentFeesNewPaymentComponent,
     LoginComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    NewLeaveTypeComponent,
+    LeaveTypesComponent,
+    RolesComponent,
+    NewRoleComponent,
+    RoleConfigurationComponent,
+    UserListComponent,
+    NewUserComponent
   ],
   imports: [
     BrowserModule,
