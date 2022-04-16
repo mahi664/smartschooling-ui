@@ -64,7 +64,7 @@ export class NewLeaveTypeComponent implements OnInit {
     this.validationFlags['amount'] = false;
   }
 
-  validateField(field : string, value : string){
+  validateField(field : string, value : any){
     this.validationFlags[field]= value==="" ? true : false;
     if(field==="accrualFreq"){
       value!="Daily" ? this.isAccrualDayApplicable = true : this.isAccrualDayApplicable = false;
