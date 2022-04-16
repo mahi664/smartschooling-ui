@@ -29,7 +29,7 @@ export class RolesComponent implements OnInit {
     this.router.navigate(['/role/configuration',role.roleId]);
   }
 
-  addNewRole(roleId: string){
+  addNewRole(roleId: any){
     this.router.navigate(['/roles/role', roleId]);
   }
 }

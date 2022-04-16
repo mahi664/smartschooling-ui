@@ -26,7 +26,7 @@ export class LeaveTypesComponent implements OnInit {
     );
   }
 
-  addNewLeaveType(leaveId: string){
+  addNewLeaveType(leaveId: any){
     this.router.navigate(["/leave-types/new-type", leaveId]);
   }
 
