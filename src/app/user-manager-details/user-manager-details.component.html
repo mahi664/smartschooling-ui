@@ -1,0 +1,35 @@
+<div class="card box-shadow">
+  <div class="card-header">
+    Manager Details
+  </div>
+  <div class="card-body">
+    <div class="row container" style="padding:2%;">
+      <table class="table table-bordered table-sm">
+        <thead class="thead-light">
+          <tr>
+            <th>#</th>
+            <th>Reports to</th>
+            <th>From Date</th>
+            <th>To Date</th>
+            <th> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let managerDet of userManagerDetails; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{managerDet.name}}</td>
+            <td>{{managerDet.effDate | date:'yyyy-MM-dd' }}</td>
+            <td>{{managerDet.endDate | date:'yyyy-MM-dd'}}</td>
+            <td>delete | update</td>
+          </tr>
+          <tr *ngIf="userManagerDetails.length==0" style="color: red;">No Record Found</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row container card-body">
+  <button class="btn btn-primary btn-md" style="margin-right: 5px;"
+    (click)="saveDetails(user)">Save Details</button>
+</div>

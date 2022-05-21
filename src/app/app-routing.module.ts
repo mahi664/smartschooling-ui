@@ -22,7 +22,13 @@ import { StudentDetailsComponent } from './student-details/student-details.compo
 import { StudentFeesNewPaymentComponent } from './student-fees-new-payment/student-fees-new-payment.component';
 import { AcademicDetailsBO, StudentListComponent } from './student-list/student-list.component';
 import { SubjectDetailsComponent } from './subject-details/subject-details.component';
+import { UserAcademicDetailsComponent } from './user-academic-details/user-academic-details.component';
+import { UserBasicDetailsComponent } from './user-basic-details/user-basic-details.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { UserManagerDetailsComponent } from './user-manager-details/user-manager-details.component';
+import { UserRoleDetailsComponent } from './user-role-details/user-role-details.component';
+import { UserSalaryDetailsComponent } from './user-salary-details/user-salary-details.component';
 
 const routes: Routes = [
   {path: "", component: LoginComponent},
@@ -46,7 +52,18 @@ const routes: Routes = [
   {path: "roles/role/:roleId", component: NewRoleComponent, canActivate: [AuthenticationGuard]},
   {path: "role/configuration/:roleId", component: RoleConfigurationComponent, canActivate: [AuthenticationGuard]},
   {path: "users", component: UserListComponent, canActivate: [AuthenticationGuard]},
-  {path: "new-user", component: NewUserComponent, canActivate: [AuthenticationGuard]}
+  {path: "new-user", component: NewUserComponent, canActivate: [AuthenticationGuard]},
+  {
+    path: "users/:userId", component: UserDetailsComponent, canActivate: [AuthenticationGuard],
+    children : [
+      // { path: '', redirectTo: 'basic-details', pathMatch: 'full', canActivate: [AuthenticationGuard] },
+      {path: 'basic-details', component: UserBasicDetailsComponent, canActivate: [AuthenticationGuard]},
+      {path: 'academic-details', component: UserAcademicDetailsComponent, canActivate: [AuthenticationGuard]},
+      {path: 'manager-details', component: UserManagerDetailsComponent, canActivate: [AuthenticationGuard]},
+      {path: 'salary-details', component: UserSalaryDetailsComponent, canActivate: [AuthenticationGuard]},
+      {path: 'role-details', component: UserRoleDetailsComponent, canActivate: [AuthenticationGuard]}
+    ]
+  }
 ];
 
 @NgModule({
