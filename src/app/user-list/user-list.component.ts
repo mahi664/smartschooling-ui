@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserServiceService } from '../services/user-service.service';
 
 export class UserBasicDetails {
@@ -22,7 +22,7 @@ export class UserListComponent implements OnInit {
   isFilterExpanded = false;
   filteredData = {};
 
-  constructor(private userService: UserServiceService, private router: Router) { }
+  constructor(private userService: UserServiceService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.userService.getUsers().subscribe(
@@ -52,5 +52,9 @@ export class UserListComponent implements OnInit {
 
   addNewUser(){
     this.router.navigate(["new-user"]);
+  }
+
+  editUserDetails(user : UserBasicDetails){
+    this.router.navigate(['users', user.userId]);
   }
 }
