@@ -1,75 +1,12 @@
 <div class="card box-shadow" id="students-list">
   <div class="card-header">
-    <span>Filters</span>
-    <span style="float: right;" (click)="isFilterExpanded = !isFilterExpanded">
-      <a>
-        <i class="fa fa-chevron-circle-down" style="color: rgb(23, 162, 184); cursor: pointer;"
-          *ngIf="!isFilterExpanded"></i>
-        <i class="fa fa-chevron-circle-up" style="color: rgb(23, 162, 184); cursor: pointer;"
-          *ngIf="isFilterExpanded"></i>
-      </a>
-    </span>
-    <div class="container row m-2" *ngIf="isFilterExpanded">
-      <div class="col-md-2">
-        <div class="input-group-sm">
-          <label for="usr">Address</label>
-          <input class="form-control custom-input-style" list="academic-years" placeholder="Enter Address"
-          [(ngModel)]="filteredData.address" (keydown)="filterStudentsOnAddressChange()">
-        </div>
+    <div class="row">
+      <div class="col-md-2 offset-md-9">
+        <input class="form-control custom-input-style" list="academic-years" placeholder="Quick Search ...">
       </div>
-      <div class="col-md-2">
-        <div class="input-group-sm">
-          <label for="usr">Class</label>
-          <input class="form-control custom-input-style" list="classes-list" placeholder="Select Classes list"
-          [(ngModel)]="filteredData.classId">
-          <datalist id="classes-list">
-            <option *ngFor="let classDet of classesList" value="{{classDet.classId}}">
-          </datalist>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="input-group-sm">
-          <label for="usr">Transport Opted</label>
-          <input class="form-control custom-input-style" list="results" placeholder="Select Transport Opted"
-          [(ngModel)]="filteredData.transportOpted">
-          <datalist id="results">
-            <option value="YES">
-            <option value="NO">
-          </datalist>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="input-group-sm">
-          <label for="usr">Gender</label>
-          <input class="form-control custom-input-style" list="gender" placeholder="Select Gender"
-          [(ngModel)]="filteredData.gender">
-          <datalist id="gender">
-            <option value="Male">
-            <option value="Female">
-            <option value="Other">
-          </datalist>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="input-group-sm">
-          <label for="usr">Caste</label>
-          <input class="form-control custom-input-style" list="caste" placeholder="Select Caste"
-          [(ngModel)]="filteredData.caste">
-          <datalist id="caste">
-            <option value="Open">
-            <option value="OBC">
-            <option value="NT-A">
-            <option value="NT-B">
-            <option value="NT-C">
-            <option value="NT-D">
-            <option value="SC">
-            <option value="ST">
-          </datalist>
-        </div>
-      </div>
-      <div class="col-md-2" style="padding-top: 27px;">
-        <button class="btn btn-outline-primary btn-sm mx-1" (click)="applyFilter()">Apply</button>
-        <button class="btn btn-outline-primary btn-sm mx-1" (click)="clearFilter()">Clear</button>
+      <div class="col-md-1 my-1">
+        <i class='fas fa-filter text-primary mr-1' data-toggle="modal" data-target="#filterModal" style='font-size:24px; cursor: pointer; '></i>
+        <i class='fas fa-sort-amount-down text-primary mx-1' data-toggle="modal" data-target="#sortModal" style='font-size:24px;'></i>
       </div>
     </div>
   </div>
@@ -77,44 +14,55 @@
     <table class="table table-bordered table-sm">
       <thead class="thead-light">
         <tr>
-          <th>#</th>
           <th>Id</th>
+          <th>Reg.No</th>
           <th>Name</th>
           <th>Birth Date</th>
           <th>Adhar Number</th>
           <th>Gender</th>
+          <th>Religion</th>
           <th>Caste</th>
           <th>Class</th>
           <th>Mobile</th>
           <th>Address</th>
           <th>Transport</th>
-          <th>Action</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let student of studentsList let i = index">
-          <td>{{i+1}}</td>
+        <tr *ngFor="let student of pagedStudents, let i = index">
           <td>{{student.studentId}}</td>
+          <td>{{student.genRegNo}}</td>
           <td>{{student.firstName + " " + student.middleName + " " + student.lastName}}</td>
           <td>{{student.birthDate | date : "yyyy-MM-dd"}}</td>
           <td>{{student.adharNumber}}</td>
           <td>{{student.gender}}</td>
+          <td>{{student.religion}}</td>
           <td>{{student.caste}}</td>
-          <td>{{student.studentClassDetails[currentAcademicId][0].classId}}</td>
+          <td>{{student.classDet.id}}</td>
           <td>{{student.mobileNumber}}</td>
           <td>{{student.address}}</td>
           <td>{{student.transportOpted==true ? "Yes" : "No"}}</td>
           <td><a (click)="editStudentDetails(student)"><i class="fa fa-edit"
                 style="color: rgb(23, 162, 184); cursor: pointer;"></i></a></td>
         </tr>
-        <tr class="text-danger" *ngIf="studentsList.length==0">No Record Found</tr>
+        <tr class="text-danger" *ngIf="pagedStudents.length==0">No Record Found</tr>
       </tbody>
     </table>
 
+    <div class="row container">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" (click)="loadPageData(currentPage-1)">Prev</a></li>
+        <li class="page-item" *ngFor="let page of pageArray" (click)="loadPageData(page)" [ngClass]="{'active' : page == currentPage}"><a class="page-link">{{page}}</a></li>
+        <li class="page-item"><a class="page-link" (click)="loadPageData(currentPage+1)">Next</a></li>
+      </ul>
+    </div>
+
     <div class="row container ">
-      <button class="btn btn-outline-primary btn-sm mx-1" (click)="editStudentDetails(undefined)">Add</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" (click)="newStudentRegistration()">Add</button>
       <button class="btn btn-outline-primary btn-sm mx-1" data-toggle="modal" data-target="#exampleModal">Print</button>
       <button class="btn btn-outline-primary btn-sm mx-1">Export</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" routerLink = "/student-import">Import</button>
       <button class="btn btn-outline-primary btn-sm mx-1">Delete</button>
     </div>
 
@@ -122,57 +70,154 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- Filter Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered mw-100 w-75" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header" id="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Print Preview</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Filters</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" id="printContent">
-        <!-- <div class="table-responsive"> -->
-        <table class="table table-bordered table-sm">
-          <thead class="thead-light">
-            <tr>
-              <th>#</th>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Birth Date</th>
-              <th>Adhar Number</th>
-              <th>Gender</th>
-              <th>Class</th>
-              <th>Mobile</th>
-              <th>Address</th>
-              <th>Transport</th>
-              <!-- <th>Action</th> -->
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let student of studentsList let i = index">
-              <td>{{i+1}}</td>
-              <td>{{student.studentId}}</td>
-              <td>{{student.firstName + " " + student.middleName + " " + student.lastName}}</td>
-              <td>{{student.birthDate | date : "yyyy-MM-dd"}}</td>
-              <td>{{student.adharNumber}}</td>
-              <td>{{student.gender}}</td>
-              <td>{{student.studentClassDetails[currentAcademicId][0].classId}}</td>
-              <td>{{student.mobileNumber}}</td>
-              <td>{{student.address}}</td>
-              <td>{{student.transportOpted==true ? "Yes" : "No"}}</td>
-              <!-- <td><a (click)="editStudentDetails(student)"><i class="fa fa-edit"
-                    style="color: rgb(23, 162, 184); cursor: pointer;"></i></a></td> -->
-            </tr>
-          </tbody>
-        </table>
-        <!-- </div> -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6" style="border-right: 1px solid gray;">
+            <p>Class</p>
+            <div class="row">
+              <div class="col-md-2" *ngFor="let class of classesList">
+                {{class.classId}} <input type="checkbox" [(ngModel)]="filterDto.classIds[class.classId]">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <p>Routes</p>
+            <div class="row">
+              <div class="col-md-4" *ngFor="let route of routesDetails">
+                {{route.routeId}} <input type="checkbox" [(ngModel)]="filterDto.routeIds[route.routeId]">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" style="border-right: 1px solid gray;">
+            <hr>
+            <p>Castes</p>
+            <div class="row">
+              <div class="col-md-3" *ngFor="let caste of castes">
+                {{caste}} <input type="checkbox" [(ngModel)]="filterDto.castes[caste]">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <hr>
+            <p>Religions</p>
+            <div class="row">
+              <div class="col-md-3" *ngFor="let religion of religions">
+                {{religion}} <input type="checkbox" [(ngModel)]="filterDto.religions[religion]">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" style="border-right: 1px solid gray;">
+            <hr>
+            <p>Transport Opted</p>
+            <div class="row">
+              <div class="col-md-2">
+                All <input type="radio" [(ngModel)]="filterDto.transportOpted" name="transport-opted" value="All">
+              </div>
+              <div class="col-md-2">
+                Yes <input type="radio" [(ngModel)]="filterDto.transportOpted" name="transport-opted" value="Yes">
+              </div>
+              <div class="col-md-2">
+                No <input type="radio" [(ngModel)]="filterDto.transportOpted" name="transport-opted" value="No">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <hr>
+            <p>Gender</p>
+            <div class="row">
+              <div class="col-md-2">
+                All <input type="radio" [(ngModel)]="filterDto.gender" name="gender" value="All">
+              </div>
+              <div class="col-md-2">
+                Male <input type="radio" [(ngModel)]="filterDto.gender" name="gender" value="Male">
+              </div>
+              <div class="col-md-2">
+                Female <input type="radio" [(ngModel)]="filterDto.gender" name="gender" value="Female">
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
       </div>
       <div class="modal-footer" id="modal-footer">
-        <button class="btn btn-outline-primary btn-sm mx-1" (click)="printStudentData()">Print</button>
-        <button class="btn btn-outline-secondary btn-sm mx-1" data-dismiss="modal">Cancel</button>
+        <button class="btn btn-outline-primary btn-sm mx-1" (click) = "applyFilter()">Apply</button>
+        <button class="btn btn-outline-secondary btn-sm mx-1" (click) = "clearFilter()">Clear</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sort Modal -->
+<div class="modal fade" id="sortModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header" id="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sort Options</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md -2">Gen Reg No </div>
+          <div class="col-md-2">
+            <i class='fas fa-sort-amount-up text-primary mx-1'></i>
+            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="genRegNo_ASC">
+          </div>
+          <div class="col-md-2">
+            <i class='fas fa-sort-amount-down text-primary mx-1'></i>
+            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="genRegNo_DESC">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md -2">Student Name </div>
+          <div class="col-md-2">
+            <i class='fas fa-sort-amount-up text-primary mx-1'></i>
+            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="firstName_ASC">
+          </div>
+          <div class="col-md-2">
+            <i class='fas fa-sort-amount-down text-primary mx-1'></i>
+            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="firstName_DESC">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md -2">Address </div>
+          <div class="col-md-2">
+            <i class='fas fa-sort-amount-up text-primary mx-1'></i>
+            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="address_ASC">
+          </div>
+          <div class="col-md-2">
+            <i class='fas fa-sort-amount-down text-primary mx-1'></i>
+            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="address_DESC">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md -2">Caste </div>
+          <div class="col-md-2">
+            <i class='fas fa-sort-amount-up text-primary mx-1'></i>
+            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="caste_ASC">
+          </div>
+          <div class="col-md-2">
+            <i class='fas fa-sort-amount-down text-primary mx-1'></i>
+            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="caste_DESC">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" id="modal-footer">
+        <button class="btn btn-outline-primary btn-sm mx-1" (click)="applyFilter()">Sort</button>
+        <button class="btn btn-outline-secondary btn-sm mx-1" (click)="clearFilter()">Clear</button>
       </div>
     </div>
   </div>

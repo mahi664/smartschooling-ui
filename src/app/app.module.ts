@@ -36,6 +36,8 @@ import { UserAcademicDetailsComponent } from './user-academic-details/user-acade
 import { UserManagerDetailsComponent } from './user-manager-details/user-manager-details.component';
 import { UserSalaryDetailsComponent } from './user-salary-details/user-salary-details.component';
 import { UserRoleDetailsComponent } from './user-role-details/user-role-details.component';
+import { StudentRegistrationComponent } from './student-registration/student-registration.component';
+import { StudentImportComponent } from './student-import/student-import.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { UserRoleDetailsComponent } from './user-role-details/user-role-details.
     UserAcademicDetailsComponent,
     UserManagerDetailsComponent,
     UserSalaryDetailsComponent,
-    UserRoleDetailsComponent
+    UserRoleDetailsComponent,
+    StudentRegistrationComponent,
+    StudentImportComponent
   ],
   imports: [
     BrowserModule,

@@ -20,7 +20,9 @@ import { RoutesComponent } from './routes/routes.component';
 import { AuthenticationGuard } from './services/authentication.guard';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { StudentFeesNewPaymentComponent } from './student-fees-new-payment/student-fees-new-payment.component';
+import { StudentImportComponent } from './student-import/student-import.component';
 import { AcademicDetailsBO, StudentListComponent } from './student-list/student-list.component';
+import { StudentRegistrationComponent } from './student-registration/student-registration.component';
 import { SubjectDetailsComponent } from './subject-details/subject-details.component';
 import { UserAcademicDetailsComponent } from './user-academic-details/user-academic-details.component';
 import { UserBasicDetailsComponent } from './user-basic-details/user-basic-details.component';
@@ -35,6 +37,8 @@ const routes: Routes = [
   {path: "admin-dashboard", component: AdminDashboardComponent, canActivate: [AuthenticationGuard]},
   {path:"student-list", component: StudentListComponent, canActivate: [AuthenticationGuard]},
   {path: "student-details/:student", component: StudentDetailsComponent, canActivate: [AuthenticationGuard]},
+  {path: "student-registration", component: StudentRegistrationComponent, canActivate: [AuthenticationGuard]},
+  {path: "student-import", component: StudentImportComponent, canActivate: [AuthenticationGuard]},
   {path: "fee-types", component: FeeTypesComponent, canActivate: [AuthenticationGuard]},
   {path: "fee-types/new-type/:feeType", component: NewFeeTypeComponent, canActivate: [AuthenticationGuard]},
   {path: "fee-details/:feeType", component: FeeDetailsComponent, canActivate: [AuthenticationGuard]},
