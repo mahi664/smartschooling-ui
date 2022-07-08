@@ -239,17 +239,17 @@ export class StudentDetailsComponent implements OnInit {
     console.log(student);
     if (this.validateStudentDetails(student)) {
       if(student.studentId===""){
-        this.studentService.addNewStudent(student).subscribe(
-          response => {
-            this.student = response;
-            this.studentService.studentList.push(student);
-            alert(this.student.studentId + " is added successfully !");
-          },
-          error => {
-            console.log(error);
-            alert("Error while adding new student. Please contact Administrator")
-          }
-        );
+        // this.studentService.addNewStudent(student).subscribe(
+        //   response => {
+        //     this.student = response;
+        //     this.studentService.studentList.push(student);
+        //     alert(this.student.studentId + " is added successfully !");
+        //   },
+        //   error => {
+        //     console.log(error);
+        //     alert("Error while adding new student. Please contact Administrator")
+        //   }
+        // );
       }else{
         this.studentService.updateStudentDetails(student).subscribe(
           response => {
