@@ -41,4 +41,11 @@ export class UserBasicDetailsComponent implements OnInit {
     //TODO : add post call here for saving user basic details
     alert("Saving user basic details");
   }
+
+  validateField(field : string, value : string){
+    // this.validationFlags[field]= value==="" ? true : false;
+    // if(field==="mobileNumber"){
+    //   this.validationFlags["mobileNumberValidity"] = (value.length==10 && (value.match("[a-zA-Z]")==undefined || value.match("[a-zA-Z]").length==0)) ? false : true;
+    // }
+  }
 }

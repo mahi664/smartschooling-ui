@@ -111,7 +111,7 @@
             <small style="color: red; font-size: smaller;" *ngIf="validationFlags['religion']">(Religion can not be empty)</small>
           </label>
           <input class="form-control custom-input-style" list="religion" placeholder="Select Religion"
-            [(ngModel)]="userBasicDetails.religion" (change)="validateField('religion',user.religion)">
+            [(ngModel)]="userBasicDetails.religion" (change)="validateField('religion',userBasicDetails.religion)">
           <datalist id="religion">
             <option value="Hindu">
             <option value="Muslim">
@@ -126,7 +126,7 @@
             <small style="color: red; font-size: smaller;" *ngIf="validationFlags['caste']">(Caste can not be empty)</small>
           </label>
           <input class="form-control custom-input-style" list="caste" placeholder="Select Caste"
-            [(ngModel)]="userBasicDetails.caste" (change)="validateField('caste',user.caste)">
+            [(ngModel)]="userBasicDetails.caste" (change)="validateField('caste',userBasicDetails.caste)">
           <datalist id="caste">
             <option value="Open">
             <option value="OBC">
@@ -149,7 +149,7 @@
             <small style="color: red; font-size: smaller;" *ngIf="validationFlags['nationality']">(Nationality can not be empty)</small>
           </label>
           <input class="form-control custom-input-style" list="nationality" placeholder="Select Nationality"
-            [(ngModel)]="userBasicDetails.nationality" (change)="validateField('nationality',user.nationality)">
+            [(ngModel)]="userBasicDetails.nationality" (change)="validateField('nationality',userBasicDetails.nationality)">
           <datalist id="nationality">
             <option value="Indian">
           </datalist>
