@@ -10,7 +10,7 @@
           <label for="usr">Academic Year</label>
           <input class="form-control custom-input-style" list="academic-years" placeholder="Select Academic Year">
           <datalist id="academic-years">
-            <option *ngFor="let academic of academicList" value="{{academic.academicId}}">{{academic.academicYear}}
+            <option *ngFor="let academic of academicYearKeys" value="{{academic.academicId}}">{{academic.academicYear}}
             </option>
           </datalist>
         </div>
@@ -20,7 +20,7 @@
           <label for="usr">Class</label>
           <input class="form-control custom-input-style" list="classes-list" placeholder="Select Classes">
           <datalist id="classes-list">
-            <option *ngFor="let classDet of classesList" value="{{classDet.classId}}">
+            <option *ngFor="let classDet of classIdKeys" value="{{classDet.classId}}">
           </datalist>
         </div>
       </div>
@@ -36,8 +36,7 @@
         </div>
       </div>
       <div class="col-md-2" style="padding-top: 27px;">
-        <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;"
-          (click)="addNewAcadeicRecord(student)">Add Record</button>
+        <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;">Add Record</button>
       </div>
     </div>
     <!-- New record code ends here -->
@@ -81,6 +80,5 @@
 </div>
 
 <div class="row container card-body">
-  <button class="btn btn-primary btn-md" style="margin-right: 5px;"
-    (click)="saveDetails(user)">Save Details</button>
+  <button class="btn btn-primary btn-md" style="margin-right: 5px;">Save Details</button>
 </div>
