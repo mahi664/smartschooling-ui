@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RolesService } from '../services/roles.service';
 
 export class RoleDetails {
-  constructor(public roleId: string, public roleName: string, public roleDescription: string) {}
+  constructor(public roleId: string, public roleName: string, public roleDescription: string,
+    public effDate: Date, public endDate: Date) {}
 }
 
 @Component({
@@ -12,7 +13,7 @@ export class RoleDetails {
 })
 export class NewRoleComponent implements OnInit {
 
-  roleDetails : RoleDetails = new RoleDetails("","","");
+  roleDetails : RoleDetails = new RoleDetails("","","",null,null);
   validationFlags = {};
 
   constructor(private roleService: RolesService) { }
