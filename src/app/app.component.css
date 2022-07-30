@@ -1,11 +1,11 @@
 *{
   font-size: 14px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  }
-    .main-screen{
-          margin: 3%; 
-        }
-    .custom-side-nav{
-          width: 5% ; box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
-        }
+}
+.main-screen{
+  margin-top: 3%; 
+}
+.custom-side-nav{
+  width: 5% ; box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+}
     

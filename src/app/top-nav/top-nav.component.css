@@ -1,5 +1,7 @@
 .custom-top-nav{
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgba(255,255,255, 1);
+    color: rgba(45,63,94,1);
 }
 
 .top-nav-icon{
