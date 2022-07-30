@@ -42,6 +42,9 @@ export class StudentService {
       if(filterDto.sortOrder){
         queyParams = queyParams.append('sortBy', filterDto.sortOrder);
       }
+      if(filterDto.quickSearchText){
+        queyParams = queyParams.append('quickSearch', filterDto.quickSearchText);
+      }
     } 
     let headers = new HttpHeaders().set("academicYear", "AY-2022-23"); 
     return this.http.get<ResponseDto>(this.commonService.BASE_URL+'/students', {params: queyParams, headers: headers});

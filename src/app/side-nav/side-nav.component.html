@@ -1,13 +1,69 @@
-<div id="sideNav" class="custom-side-nav sticky-top" id="sideNav" *ngIf="isUserLogedIn">
-  <nav class="navbar ">
+<div id="sideNav" class="custom-side-nav sticky-top" style="background-color: rgba(245,245,245,1);" *ngIf="isUserLogedIn">
+  <nav class="navbar navbar-light">
       <ul class="navbar-nav" id="collapsibleNavbar">
-          <li class="nav-item">
-              <a class="nav-link" routerLink="/admin-dashboard" title="Dashboard"><i
-                      class='fas fa-table custom-nav-icons text-info'></i><br>
-                  <small class='text-info' [hidden]="!commonService.sideNavExpanded">Dashboard</small>
-              </a>
-          </li><br>
-          <li class="nav-item" (mouseover)="rightDropDownForBilling=true" (mouseout)="rightDropDownForBilling=false">
+            <li class="nav-item" style="padding-top:15px; padding-left: 15px; color: rgba(62,78,107,1);">
+              <h5>
+                <img src="favicon.ico"> <span style="margin-left: 10px;">Client Name</span>
+              </h5>
+            </li><br>
+            <li class="nav-item" style="padding-top:20px; padding-left: 20px; color: rgba(62,78,107,1);">
+                <a class="nav-link" routerLink="/admin-dashboard" title="Dashboard" style="color: inherit;">
+                    <h6>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
+                        </svg> <span style="margin-left: 10px;"> Dashboard</span>
+                    </h6>
+                </a>
+            </li><br>
+            <li class="nav-item" style=" padding-left: 20px; color: rgba(62,78,107,1); ">
+                <a class="nav-link" routerLink="/student-list" title="Student List" style="color: inherit;">
+                    <h6>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                        </svg> <span style="margin-left: 10px;"> Students</span>
+                    </h6>
+                </a>
+            </li><br>
+            <li class="nav-item" style=" padding-left: 20px; color: rgba(62,78,107,1);">
+                <a class="nav-link" routerLink="/student-registration" title="New Admission" style="color: inherit;">
+                    <h6>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                        </svg> <span style="margin-left: 10px;"> New Admission</span>
+                    </h6>
+                </a>
+            </li><br>
+            <li class="nav-item" style=" padding-left: 20px; color: rgba(62,78,107,1);">
+                <a class="nav-link" routerLink="/fees-receivables" title="Fee Receivables" style="color: inherit;">
+                    <h6>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                            <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
+                        </svg> <span style="margin-left: 10px;"> Fee Receivables</span>
+                    </h6>
+                </a>
+            </li><br>
+            <li class="nav-item" style=" padding-left: 20px; color: rgba(62,78,107,1);">
+                <a class="nav-link" routerLink="/users" title="School Staff" style="color: inherit;">
+                    <h6>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                            <path d="M14 9.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm-6 5.7c0 .8.8.8.8.8h6.4s.8 0 .8-.8-.8-3.2-4-3.2-4 2.4-4 3.2Z"/>
+                            <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h5.243c.122-.326.295-.668.526-1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v7.81c.353.23.656.496.91.783.059-.187.09-.386.09-.593V4a2 2 0 0 0-2-2H2Z"/>
+                        </svg> <span style="margin-left: 10px;"> School Staff</span>
+                    </h6>
+                </a>
+            </li><br>
+            <li class="nav-item" style=" padding-left: 20px; color: rgba(62,78,107,1);">
+                <a class="nav-link" routerLink="/new-user" title="Add new staff" style="color: inherit;">
+                    <h6>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg> <span style="margin-left: 10px;"> Add New Staff</span>
+                    </h6>
+                </a>
+            </li><br>
+          <!-- <li class="nav-item" (mouseover)="rightDropDownForBilling=true" (mouseout)="rightDropDownForBilling=false">
               <span class="custom-right-dropdown custom-side-nav" [hidden]="!rightDropDownForBilling">
                   <small><a class="text-info custom-right-dropdown-content nav-link"
                           routerLink="/student-list">Student List</a></small>
@@ -17,7 +73,7 @@
               </span>
               <a class="nav-link" routerLink="/student-list" title="Billing"><i
                       class='fas fa-money-check-alt custom-nav-icons text-info'></i><br>
-                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Students</small>
+                  <small class='text-warning side-nav-text' [hidden]="!commonService.sideNavExpanded">Students</small>
               </a>
           </li><br>
           <li class="nav-item active-custom-style" (mouseover)="rightDropDownForInvoices=true"
@@ -33,7 +89,7 @@
               </span>
               <a class="nav-link" routerLink="/fee-types" title="Invoices"><i
                       class='fas fa-shopping-cart custom-nav-icons text-info'></i><br>
-                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Fee Types</small>
+                  <small class='text-warning side-nav-text' [hidden]="!commonService.sideNavExpanded">Fee Types</small>
               </a>
           </li><br>
           <li class="nav-item" (mouseover)="rightDropDownForCustomers=true"
@@ -47,7 +103,7 @@
               </span>
               <a class="nav-link" routerLink="/classes" title="Customers"><i
                       class='far fa-address-card custom-nav-icons text-info'></i><br>
-                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Classes</small>
+                  <small class='text-warning side-nav-text' [hidden]="!commonService.sideNavExpanded">Classes</small>
               </a>
           </li><br>
           <li class="nav-item" (mouseover)="rightDropDownForVendor=true" (mouseout)="rightDropDownForVendor=false">
@@ -60,7 +116,7 @@
               </span>
               <a class="nav-link" routerLink="/routes" title="Customers"><i
                       class='far fa-handshake custom-nav-icons text-info'></i><br>
-                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Routes</small>
+                  <small class='text-warning side-nav-text' [hidden]="!commonService.sideNavExpanded">Routes</small>
               </a>
           </li><br>
           <li class="nav-item " (mouseover)="rightDropDownForInventory=true"
@@ -83,27 +139,27 @@
               </span>
               <a class="nav-link" routerLink="/academic/details" title="Inventory"><i
                       class='fas fa-boxes custom-nav-icons text-info'></i><br>
-                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Academic</small>
+                  <small class='text-warning side-nav-text' [hidden]="!commonService.sideNavExpanded">Academic</small>
               </a>
           </li><br>
           <li class="nav-item">
               <a class="nav-link" routerLink="/subjects" title="Reports"><i
                       class='fas fa-chart-line custom-nav-icons text-info'></i><br>
-                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Subjects</small>
+                  <small class='text-warning side-nav-text' [hidden]="!commonService.sideNavExpanded">Subjects</small>
               </a>
           </li><br>
           <li class="nav-item">
               <a class="nav-link" routerLink="/File-Uploads" title="File Uploads"><i
                       class='fas fa-upload custom-nav-icons text-info'></i><br>
-                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Uploads</small>
+                  <small class='text-warning side-nav-text' [hidden]="!commonService.sideNavExpanded">Uploads</small>
               </a>
           </li><br>
           <li class="nav-item">
               <a class="nav-link" routerLink="#" title="Configurations"><i
                       class='fas fa-cogs custom-nav-icons text-info'></i><br>
-                  <small class='text-info side-nav-text' [hidden]="!commonService.sideNavExpanded">Configs</small>
+                  <small class='text-warning side-nav-text' [hidden]="!commonService.sideNavExpanded">Configs</small>
               </a>
-          </li><br>
+          </li><br> -->
       </ul>
   </nav>
 </div>
