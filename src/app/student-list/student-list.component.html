@@ -1,18 +1,152 @@
-<div class="card box-shadow" id="students-list">
-  <div class="card-header">
-    <div class="row">
-      <div class="col-md-2 offset-md-9">
-        <input class="form-control custom-input-style" list="academic-years" placeholder="Quick Search ...">
-      </div>
-      <div class="col-md-1 my-1">
-        <i class='fas fa-filter text-primary mr-1' data-toggle="modal" data-target="#filterModal" style='font-size:24px; cursor: pointer; '></i>
-        <i class='fas fa-sort-amount-down text-primary mx-1' data-toggle="modal" data-target="#sortModal" style='font-size:24px;'></i>
-      </div>
+<div class="row">
+  <div class="col-md-2">
+    <input class="form-control form-control-sm" placeholder="Quick Search ..." [(ngModel)] = "filterDto.quickSearchText"
+    (keyup) = "applyFilter()">
+  </div>
+  <div class="col-md-1">
+    <div class="dropdown">
+      <button class="btn btn-sm dropdown-toggle" style="background-color: rgba(245,246,248); color: rgba(62, 78, 107, 1);" 
+      type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        Class
+      </button>
+      <ul class="dropdown-menu box-shadow" aria-labelledby="dropdownMenuButton1" style="padding: 5px; font-size: 12px;">
+        <li style="margin: 5px; color: rgba(45,63,94,1);" *ngFor="let class of classesList">
+          <a class="dropdown-item">
+            <input type="checkbox" (change) = "applyFilter()" [(ngModel)]="filterDto.classIds[class.classId]"> {{class.classId}} Std
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
-  <div class="card-body table-responsive">
-    <table class="table table-bordered table-sm">
-      <thead class="thead-light">
+  <div class="col-md-1">
+    <div class="dropdown">
+      <button class="btn btn-sm dropdown-toggle" style="background-color: rgba(245,246,248); color: rgba(62, 78, 107, 1);" 
+      type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+        Route
+      </button>
+      <ul class="dropdown-menu box-shadow" aria-labelledby="dropdownMenuButton2" style="padding: 5px; font-size: 12px;">
+        <li style="margin: 5px; color: rgba(45,63,94,1);" *ngFor="let route of routesDetails">
+          <a class="dropdown-item">
+            <input type="checkbox" (change) = "applyFilter()" [(ngModel)]="filterDto.routeIds[route.routeId]"> {{route.routeId}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <input class="form-control form-control-sm" list="datalistOptions" id="exampleDataList" 
+    placeholder="Transport" [(ngModel)] = "filterDto.transportOpted" (change) = "applyFilter()">
+    <datalist id="datalistOptions">
+      <option value="Yes">
+      <option value="No">
+    </datalist>
+  </div>
+  <div class="col-md-2">
+    <input class="form-control form-control-sm" list="genders" id="exampleDataList" 
+    placeholder="Gender" [(ngModel)] = "filterDto.gender" (change) = "applyFilter()">
+    <datalist id="genders">
+      <option value="Male">
+      <option value="Female">
+    </datalist>
+  </div>
+  <div class="col-md-1">
+    <div class="dropdown">
+      <button class="btn btn-sm dropdown-toggle" style="background-color: rgba(245,246,248); color: rgba(62, 78, 107, 1);" 
+      type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+        Caste
+      </button>
+      <ul class="dropdown-menu box-shadow" aria-labelledby="dropdownMenuButton3" style="padding: 5px; font-size: 12px;">
+        <li style="margin: 5px; color: rgba(45,63,94,1);" *ngFor="let caste of castes">
+          <a class="dropdown-item">
+            <input type="checkbox" (change) = "applyFilter()" [(ngModel)]="filterDto.castes[caste]"> {{caste}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-1 offset-md-1">
+    <div class="dropdown">
+      <button class="btn btn-sm dropdown-toggle" style="background-color: rgba(245,246,248); color: rgba(62, 78, 107, 1);" 
+      type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
+          <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+        </svg>
+      </button>
+      <ul class="dropdown-menu box-shadow" aria-labelledby="dropdownMenuButton3" style=" font-size: 9px;">
+        <li style="margin: 5px; color: rgba(45,63,94,1);">
+          <div class="row" style="display: inline;">
+            <span>Reg No &nbsp;</span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-down" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+                <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"/>
+              </svg>
+              <input type="radio" [(ngModel)]="filterDto.sortOrder" (change)="applyFilter()" name="sorting" value="genRegNo_ASC">
+            </span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+                <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zm-8.46-.5a.5.5 0 0 1-1 0V3.707L2.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L4.5 3.707V13.5z"/>
+              </svg>
+              <input type="radio" [(ngModel)]="filterDto.sortOrder" (change)="applyFilter()" name="sorting" value="genRegNo_DESC">
+            </span>
+          </div>
+        </li>
+        <li style="margin: 5px; color: rgba(45,63,94,1);">
+          <div class="row" style="display: inline;">
+            <span>Name &nbsp;&nbsp;</span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-down" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+                <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"/>
+              </svg>
+              <input type="radio" [(ngModel)]="filterDto.sortOrder" (change)="applyFilter()" name="sorting" value="firstName_ASC">
+            </span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+                <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zm-8.46-.5a.5.5 0 0 1-1 0V3.707L2.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L4.5 3.707V13.5z"/>
+              </svg>
+              <input type="radio" [(ngModel)]="filterDto.sortOrder" (change)="applyFilter()" name="sorting" value="firstName_DESC">
+            </span>
+          </div>
+        </li>
+        <li style="margin: 5px; color: rgba(45,63,94,1);">
+          <div class="row" style="display: inline;">
+            <span>Address </span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-down" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+                <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"/>
+              </svg>
+              <input type="radio" [(ngModel)]="filterDto.sortOrder" (change)="applyFilter()" name="sorting" value="address_ASC">
+            </span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+                <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zm-8.46-.5a.5.5 0 0 1-1 0V3.707L2.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L4.5 3.707V13.5z"/>
+              </svg>
+              <input type="radio" [(ngModel)]="filterDto.sortOrder" (change)="applyFilter()" name="sorting" value="address_DESC">
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <button class="btn btn-sm" style="background-color: rgba(245,246,248); color: rgba(62, 78, 107, 1);" 
+      type="button" (click) = "clearFilter()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+      </svg>
+    </button>
+  </div>
+</div><br>
+<div class="card box-shadow" id="students-list">
+  <div class="table-responsive">
+    <table class="table table-bordered table-sm border-primary">
+      <thead style="background-color: rgba(245,245,245,1);">
         <tr>
           <th>Id</th>
           <th>Reg.No</th>
@@ -43,8 +177,14 @@
           <td>{{student.mobileNumber}}</td>
           <td>{{student.address}}</td>
           <td>{{student.transportOpted==true ? "Yes" : "No"}}</td>
-          <td><a (click)="editStudentDetails(student)"><i class="fa fa-edit"
-                style="color: rgb(23, 162, 184); cursor: pointer;"></i></a></td>
+          <td>
+            <a (click)="editStudentDetails(student)" style="cursor: pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" style="color: rgba(245,245,245,1);" width="20" height="20" class="bi bi-eye" viewBox="0 0 16 16">
+                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+              </svg>
+            </a>
+          </td>
         </tr>
         <tr class="text-danger" *ngIf="pagedStudents.length==0">No Record Found</tr>
       </tbody>
@@ -58,8 +198,8 @@
       </ul>
     </div>
 
-    <div class="row container ">
-      <button class="btn btn-outline-primary btn-sm mx-1" (click)="newStudentRegistration()">Add</button>
+    <div style="margin-bottom: 2%;">
+      <button type="button" class="btn btn-outline-primary btn-sm mx-1" (click)="newStudentRegistration()">Add</button>
       <button class="btn btn-outline-primary btn-sm mx-1" data-toggle="modal" data-target="#exampleModal">Print</button>
       <button class="btn btn-outline-primary btn-sm mx-1">Export</button>
       <button class="btn btn-outline-primary btn-sm mx-1" routerLink = "/student-import">Import</button>
@@ -83,22 +223,22 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-6" style="border-right: 1px solid gray;">
+          <!-- <div class="col-md-6" style="border-right: 1px solid gray;">
             <p>Class</p>
             <div class="row">
               <div class="col-md-2" *ngFor="let class of classesList">
                 {{class.classId}} <input type="checkbox" [(ngModel)]="filterDto.classIds[class.classId]">
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
+          </div> -->
+          <!-- <div class="col-md-6">
             <p>Routes</p>
             <div class="row">
               <div class="col-md-4" *ngFor="let route of routesDetails">
                 {{route.routeId}} <input type="checkbox" [(ngModel)]="filterDto.routeIds[route.routeId]">
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="col-md-6" style="border-right: 1px solid gray;">
             <hr>
             <p>Castes</p>
@@ -117,7 +257,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6" style="border-right: 1px solid gray;">
+          <!-- <div class="col-md-6" style="border-right: 1px solid gray;">
             <hr>
             <p>Transport Opted</p>
             <div class="row">
@@ -131,8 +271,8 @@
                 No <input type="radio" [(ngModel)]="filterDto.transportOpted" name="transport-opted" value="No">
               </div>
             </div>
-          </div>
-          <div class="col-md-6">
+          </div> -->
+          <!-- <div class="col-md-6">
             <hr>
             <p>Gender</p>
             <div class="row">
@@ -146,7 +286,7 @@
                 Female <input type="radio" [(ngModel)]="filterDto.gender" name="gender" value="Female">
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <hr>
       </div>
@@ -170,39 +310,6 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-md -2">Gen Reg No </div>
-          <div class="col-md-2">
-            <i class='fas fa-sort-amount-up text-primary mx-1'></i>
-            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="genRegNo_ASC">
-          </div>
-          <div class="col-md-2">
-            <i class='fas fa-sort-amount-down text-primary mx-1'></i>
-            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="genRegNo_DESC">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md -2">Student Name </div>
-          <div class="col-md-2">
-            <i class='fas fa-sort-amount-up text-primary mx-1'></i>
-            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="firstName_ASC">
-          </div>
-          <div class="col-md-2">
-            <i class='fas fa-sort-amount-down text-primary mx-1'></i>
-            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="firstName_DESC">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md -2">Address </div>
-          <div class="col-md-2">
-            <i class='fas fa-sort-amount-up text-primary mx-1'></i>
-            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="address_ASC">
-          </div>
-          <div class="col-md-2">
-            <i class='fas fa-sort-amount-down text-primary mx-1'></i>
-            <input type="radio" [(ngModel)]="filterDto.sortOrder" name="sorting" value="address_DESC">
-          </div>
-        </div>
         <div class="row">
           <div class="col-md -2">Caste </div>
           <div class="col-md-2">

@@ -17,12 +17,12 @@ export class TopNavComponent implements OnInit {
   }
   
   toggleSideNav(){
-    if(this.commonService.getSideNavExpanded()){
-      document.getElementById('sidenavicon').className = 'fas fa-bars';
-    }
-    else{
-      document.getElementById('sidenavicon').className = 'fas fa-arrow-left';
-    }
+    // if(this.commonService.getSideNavExpanded()){
+    //   document.getElementById('sidenavicon').className = 'fas fa-bars';
+    // }
+    // else{
+    //   document.getElementById('sidenavicon').className = 'fas fa-arrow-left';
+    // }
     this.commonService.toggleSideNav();
   }
 
