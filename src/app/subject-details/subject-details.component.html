@@ -1,41 +1,38 @@
-<div class="card box-shadow" id="students-list">
-  <div class="card-header">
-    <span>Subjects</span>
-  </div>
-  <div class="card-body table-responsive">
-    <div class="row container" style="padding:2%;">
-      <div class="col-md-3">
-        <div class="input-group-sm">
-          <label for="usr">
-            Subject Id <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-            <small style="color: red; font-size: x-small;" *ngIf="dataValidationFlags['subjectId']">(Field can not be empty)</small>
-          </label>
-          <input type="text" class="form-control custom-input-style" placeholder="Enter Subject Id" 
-          [(ngModel)]="newSubjectDetails.subjectId" (change)="handleDataValidationFlag('subjectId',newSubjectDetails.subjectId)">
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="input-group-sm">
-          <label for="usr">
-            Subject Name <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
-            <small style="color: red; font-size: xx-small;" *ngIf="dataValidationFlags['subjectName']">(Field can not be empty)</small>
-          </label>
-          <input type="text" class="form-control custom-input-style" placeholder="Enter Subject Name" 
-          [(ngModel)]="newSubjectDetails.subjectName" (change)="handleDataValidationFlag('subjectName',newSubjectDetails.subjectName)">
-        </div>
-      </div>
-      <div class="col-md-2" style="padding-top: 27px;">
-        <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;"
-          (click)="addNewSubjectDetails()">Add New Subject</button>
-      </div>
+<div class="container row">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/admin-dashboard">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Subjects</li>
+    </ol>
+  </nav>
+</div>
+<div class="row container" style="padding:2%;">
+  <div class="col-md-2">
+    <div class="input-group-sm">
+      <input type="text" class="form-control form-control-sm" placeholder="Subject Id" 
+      [(ngModel)]="newSubjectDetails.subjectId" (change)="handleDataValidationFlag('subjectId',newSubjectDetails.subjectId)">
     </div>
-    <table class="table table-bordered table-sm">
-      <thead class="thead-light">
+  </div>
+  <div class="col-md-2">
+    <div class="input-group-sm">
+      <input type="text" class="form-control form-control-sm" placeholder="Subject Name" 
+      [(ngModel)]="newSubjectDetails.subjectName" (change)="handleDataValidationFlag('subjectName',newSubjectDetails.subjectName)">
+    </div>
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-outline-primary btn-sm" style="color: rgba(62, 78, 107, 1); margin-right: 5px;"
+      (click)="addNewSubjectDetails()">Add Record</button>
+  </div>
+</div>
+<div class="card box-shadow" id="students-list">
+  <div class="table-responsive">
+    <table class="table table-bordered table-sm border-primary" style="color: rgba(62, 78, 107, 1);">
+      <thead style="background-color: rgba(245,245,245,1);">
         <tr>
           <th>#</th>
           <th>Subject Id</th>
           <th>Subject Name</th>
-          <th>Action</th>
+          <th> </th>
         </tr>
       </thead>
       <tbody>
@@ -44,7 +41,11 @@
           <td>{{subject.subjectId}}</td>
           <td>{{subject.subjectName}}</td>
           <td>
-            <a class="mx-1"><i class="fa fa-edit" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>   
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
+            class="bi bi-pencil-square mx-1 text-primary" viewBox="0 0 16 16">
+              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+            </svg>   
           </td>
         </tr>
         <tr class="text-danger" *ngIf="subjects.length==0">No Record Found</tr>
