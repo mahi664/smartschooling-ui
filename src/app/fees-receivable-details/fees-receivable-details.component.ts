@@ -11,6 +11,33 @@ export class StudentFeesTransactionDetailsBO {
     public accountsDetailsBO , public academicId2FeesDetailsMap : {}) {}
 }
 
+export class StudentFeesAssignedDetailsDto{
+  constructor(public academicYear: string, public feeId: string, public feeName: string,
+    public amount: number, public assignedDate: Date, public assignedBy: string) {}
+}
+
+export class StudentFeesPaidDetailsWrapperDto {
+  constructor(public transactionId: string, public receivedDate: Date, public amount: number,
+    public accountId: string, public accountName: string, public studentFeesPaidDetails: StudentFeesPaidDetailsDto[]) {}
+}
+
+export class StudentFeesPaidDetailsDto{
+  constructor(public transactionId: string, public receivedDate: Date, public amount: number,
+    public accountId: string, public accountName: string, public receivedBy: string,
+    public academicYear: string, public feeId: string, public feeName: string) {}
+}
+
+export class StudentFeesDueDetailsDto{
+  constructor(public academicYear: string, public feeId: string, public feeName: string,
+    public amount: number) {}
+}
+
+export class StudentFeesReceivableDetailsDto{
+  constructor(public feesAssignedDetails: StudentFeesAssignedDetailsDto[], 
+    public feesPaidDetails: StudentFeesPaidDetailsWrapperDto[], public feesDueDetails: StudentFeesDueDetailsDto[],
+    public totalFeeAmnt: number, public totalPaidAmnt: number, public totalDueAmnt: number){}
+}
+
 @Component({
   selector: 'app-fees-receivable-details',
   templateUrl: './fees-receivable-details.component.html',
@@ -18,8 +45,6 @@ export class StudentFeesTransactionDetailsBO {
 })
 export class FeesReceivableDetailsComponent implements OnInit {
 
-  studentId : string ="";
-  studentName : string = ""; 
   studentFeesAssignedDetails = {};
   academicId2FeesDueDetails = {};
   studentFeesDuesList = [];
@@ -31,48 +56,63 @@ export class FeesReceivableDetailsComponent implements OnInit {
   feesAssignedDropdown : boolean = false;
   feesReceivedDropdown : boolean = false;
   modalTxnId = "";
-  modalFeesDataList = [];
+  
+  studentId : string ="";
+  studentName : string = "";
+  studentFeeReceivables: StudentFeesReceivableDetailsDto = new StudentFeesReceivableDetailsDto([],[],[],0,0,0);
+  modalFeesData: StudentFeesPaidDetailsWrapperDto = new StudentFeesPaidDetailsWrapperDto(null, null, 0, null, null, []);
   constructor(private route: ActivatedRoute, private studentService: StudentService, private router : Router) { }
 
   ngOnInit() {
     this.reformatStudentIdFromRouteParam();
-    this.studentService.getStudentFeesDueDetails(this.studentId).subscribe(
+    this.studentService.getStudentFeeReceivables(this.studentId).subscribe(
       response => {
-        this.academicId2FeesDueDetails = response;
-        console.log(this.academicId2FeesDueDetails);
-        this.populateStudentFeesDuesList();
-        this.populateTotalDues();
+        console.log(response);
+        this.studentFeeReceivables = response.success.data;
       },
-      error => {
-        console.log("Error while fetching students fees due details");
-        console.log(error);
-      }
-    );
 
-    this.studentService.getStudentFeesAssignedList(this.studentId).subscribe(
-      response => {
-        this.academicId2FeesAssignedDetails = response;
-        console.log(this.academicId2FeesAssignedDetails);
-        this.populateStudentFeesAssignedList();
-        this.populateTotalReceivable();
-      },
       error => {
-        console.log("Error while fetching student fees assigned details");
-        console.log(error);
+        console.error(error);
+        alert("Error while fetching student fee receivables");
       }
     );
+    // this.studentService.getStudentFeesDueDetails(this.studentId).subscribe(
+    //   response => {
+    //     this.academicId2FeesDueDetails = response;
+    //     console.log(this.academicId2FeesDueDetails);
+    //     this.populateStudentFeesDuesList();
+    //     this.populateTotalDues();
+    //   },
+    //   error => {
+    //     console.log("Error while fetching students fees due details");
+    //     console.log(error);
+    //   }
+    // );
 
-    this.studentService.getStudentFeesCollectionTransactions(this.studentId).subscribe(
-      response => {
-        this.studentFeesCollectionList = response;
-        console.log(this.studentFeesCollectionList);
-        this.populateTotalReceived();
-      },
-      error => {
-        console.log("Error while fetching Student Fees Collection Transactions");
-        console.log(error);
-      }
-    );
+    // this.studentService.getStudentFeesAssignedList(this.studentId).subscribe(
+    //   response => {
+    //     this.academicId2FeesAssignedDetails = response;
+    //     console.log(this.academicId2FeesAssignedDetails);
+    //     this.populateStudentFeesAssignedList();
+    //     this.populateTotalReceivable();
+    //   },
+    //   error => {
+    //     console.log("Error while fetching student fees assigned details");
+    //     console.log(error);
+    //   }
+    // );
+
+    // this.studentService.getStudentFeesCollectionTransactions(this.studentId).subscribe(
+    //   response => {
+    //     this.studentFeesCollectionList = response;
+    //     console.log(this.studentFeesCollectionList);
+    //     this.populateTotalReceived();
+    //   },
+    //   error => {
+    //     console.log("Error while fetching Student Fees Collection Transactions");
+    //     console.log(error);
+    //   }
+    // );
   }
 
   populateTotalReceivable(){
@@ -128,21 +168,12 @@ export class FeesReceivableDetailsComponent implements OnInit {
     console.log(this.studentId+" "+this.studentName);
   }
 
-  viewTransactionDetails(feeCollectionTxn : StudentFeesTransactionDetailsBO){
-    this.modalTxnId = feeCollectionTxn.collectionId;
-    this.modalFeesDataList = [];
-    for(let key of Object.keys(feeCollectionTxn.academicId2FeesDetailsMap)){
-      for(let feeDetails of feeCollectionTxn.academicId2FeesDetailsMap[key]){
-        let tempL = [];
-        tempL.push(key);
-        tempL.push(feeDetails);
-        this.modalFeesDataList.push(tempL);
-      }
-    }
+  viewTransactionDetails(feesPaidDetailsWrapper : StudentFeesPaidDetailsWrapperDto){
+    this.modalFeesData = feesPaidDetailsWrapper;
   }
 
-  addNewPayment(){
-    this.studentService.academicId2FeesDueDetails = this.academicId2FeesDueDetails;
+  addNewPayment(){  
+    this.studentService.studentFeesReceivableDetails = this.studentFeeReceivables
     this.router.navigate(["Fees/Payment", this.studentId+"_"+this.studentName]);
   }
 }

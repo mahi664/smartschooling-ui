@@ -209,40 +209,4 @@ export class StudentListComponent implements OnInit {
     WindowPrt.print();
     WindowPrt.close();
   }
-  
-
-  updateFilter(field: string, event: any, value: string) {
-    console.log(field);
-    console.log(event.target.checked);
-    console.log(value);
-    switch (field) {
-      // case "classIds":
-      //   if (event.target.checked)
-      //     this.filterDto.classIds.push(value)
-      //   else
-      //     this.filterDto.classIds = this.filterDto.classIds.filter(classId => value != classId);
-      //   break;
-      // case "routeIds":
-      //   if (event.target.checked)
-      //     this.filterDto.routeIds.push(value)
-      //   else
-      //     this.filterDto.routeIds = this.filterDto.routeIds.filter(routeId => value != routeId);
-      //   break;
-      // case "caste":
-      //   if (event.target.checked)
-      //     this.filterDto.castes.push(value)
-      //   else
-      //     this.filterDto.castes = this.filterDto.castes.filter(caste => value != caste);
-      //   break;
-      // case "religion":
-      //   if (event.target.checked)
-      //     this.filterDto.religions.push(value)
-      //   else
-      //     this.filterDto.religions = this.filterDto.religions.filter(religion => value != religion);
-      //   break;
-      default:
-        break;
-    }
-    console.log(this.filterDto);
-  }
 }

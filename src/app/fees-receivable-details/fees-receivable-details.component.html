@@ -1,196 +1,144 @@
-<div class="card box-shadow" id="students-list">
-  <div class="card-header">
-    <span>Fee Account Details : {{studentName}}</span>
-    <span style="float: right;">
-      <button class="btn btn-primary btn-sm mx-1" (click)="addNewPayment()">New Payment</button>
-    </span>
-    <!-- Filter Starts here -->
-    <!-- <div class="container row m-2" *ngIf="isFilterExpanded">
-      <div class="col-md-3">
-        <div class="input-group-sm">
-          <label for="usr">Student Name</label>
-          <input class="form-control custom-input-style" placeholder="Enter Student Name"
-          [(ngModel)]="filteredData.studentName" (keydown)="filterStudentsOnNameChange()">
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="input-group-sm">
-          <label for="usr">Class</label>
-          <input class="form-control custom-input-style" list="classes-list" placeholder="Select Classe"
-          [(ngModel)]="filteredData.classId">
-          <datalist id="classes-list">
-            <option *ngFor="let classDet of classesList" value="{{classDet.classId}}">
-          </datalist>
-        </div>
-      </div>
-      <div class="col-md-2" style="padding-top: 27px;">
-        <button class="btn btn-outline-primary btn-sm mx-1" (click)="applyFilter()">Apply</button>
-        <button class="btn btn-outline-primary btn-sm mx-1" (click)="clearFilter()">Clear</button>
-      </div>
-    </div> -->
-    <!-- Filter ends here -->
+<div class="container row">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/admin-dashboard">Home</a></li>
+      <li class="breadcrumb-item"><a routerLink="/fees-receivables">Receivables</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{studentName}}</li>
+    </ol>
+  </nav>
+</div>
+<div class="row">
+  <div class="col-md-2 offset-md-4" style="font-size: smaller;">
+    <button class="btn btn-primary btn-sm" style="width: -webkit-fill-available;">Total : {{studentFeeReceivables.totalFeeAmnt}}</button>
   </div>
-  <div class="card-body table-responsive">
-    <div class="row mb-3 text-light">
-      <div class="col-md-4">
-        <div class="card bg-info">
-          <div class="card-body">
-            <h6>Receivables : {{headStats["totalReceivable"] | currency : 'INR'}}</h6>
+  <div class="col-md-2" style="font-size: smaller;">
+    <button class="btn btn-success btn-sm" style="width: -webkit-fill-available;">Paid : {{studentFeeReceivables.totalPaidAmnt}}</button>
+  </div>
+  <div class="col-md-2" style="font-size: smaller;">
+    <button class="btn btn-warning btn-sm" style="width: -webkit-fill-available; color: white;">Due : {{studentFeeReceivables.totalDueAmnt}}</button>
+  </div>
+  <div class="col-md-2" style="font-size: smaller;">
+    <button class="btn btn-outline-primary btn-sm" style="width: -webkit-fill-available; color: rgba(62, 78, 107, 1);" (click)="addNewPayment()">New Payment</button>
+  </div>
+</div><br>
+<div class="card box-shadow" id="students-list">
+  <div>
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" style="background-color: rgba(245,245,245,1); color: rgba(62, 78, 107, 1);" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Fees Due Amount
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
+          <div class="accordion-body">
+            <table class="table table-bordered table-sm border-primary" style="color: rgba(62, 78, 107, 1);">
+              <thead class="thead-light" style="background-color: rgba(245,245,245,1);">
+                <tr>
+                  <th>#</th>
+                  <th>Academic Year</th>
+                  <th>Fee Type</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let feeDueDetailsDto of studentFeeReceivables['feesDueDetails'] let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{feeDueDetailsDto.academicYear}}</td>
+                  <td>{{feeDueDetailsDto.feeName}}</td>
+                  <td>{{feeDueDetailsDto.amount | currency : 'INR'}}</td>
+                </tr>
+                <tr class="text-danger" *ngIf="studentFeeReceivables['feesDueDetails'].length==0">No Record Found</tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card bg-danger">
-          <div class="card-body">
-            <h6>Dues : {{headStats["totalDue"] | currency : 'INR'}}</h6>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" style="background-color: rgba(245,245,245,1); color: rgba(62, 78, 107, 1);" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Fees Assinged
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+          <div class="accordion-body">
+            <table class="table table-bordered table-sm border-primary" style="color: rgba(62, 78, 107, 1);">
+              <thead class="thead-light" style="background-color: rgba(245,245,245,1);">
+                <tr>
+                  <th>#</th>
+                  <th>Date</th>
+                  <th>Academic Year</th>
+                  <th>Fee Type</th>
+                  <th>Amount</th>
+                  <th>Assigned By</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let feeAssignedDetailsDto of studentFeeReceivables['feesAssignedDetails'] let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{feeAssignedDetailsDto.assignedDate | date : 'dd-MM-yyyy'}}</td>
+                  <td>{{feeAssignedDetailsDto.academicYear}}</td>
+                  <td>{{feeAssignedDetailsDto.feeName}}</td>
+                  <td>{{feeAssignedDetailsDto.amount | currency : 'INR'}}</td>
+                  <td>{{feeAssignedDetailsDto.assignedBy}}</td>
+                </tr>
+                <tr class="text-danger" *ngIf="studentFeeReceivables['feesAssignedDetails'].length==0">No Record Found</tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card bg-success">
-          <div class="card-body">
-            <h6>Received : {{headStats["totalReceived"] | currency : 'INR'}}</h6>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" style="background-color: rgba(245,245,245,1); color: rgba(62, 78, 107, 1);" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Payment Transactions
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree">
+          <div class="accordion-body">
+            <table class="table table-bordered table-sm border-primary" style="color: rgba(62, 78, 107, 1);">
+              <thead class="thead-light" style="background-color: rgba(245,245,245,1);">
+                <tr>
+                  <th>#</th>
+                  <th>Transaction Id</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th>Account</th>
+                  <th>Received By</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let feePaidDetailsDto of studentFeeReceivables['feesPaidDetails'] let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{feePaidDetailsDto.transactionId}}</td>
+                  <td>{{feePaidDetailsDto.receivedDate | date : 'dd-MM-yyyy'}}</td>
+                  <td>{{feePaidDetailsDto.amount | currency : 'INR'}}</td>
+                  <td>{{feePaidDetailsDto.accountName}}</td>
+                  <td>{{feePaidDetailsDto.receivedBy}}</td>
+                  <td>
+                    <svg xmlns="http://www.w3.org/2000/svg" data-bs-toggle="modal" data-bs-target="#txnDetailsModal" (click)="viewTransactionDetails(feePaidDetailsDto)" fill="currentColor"  width="16" height="16" 
+                    class="bi bi-eye text-primary mx-1" viewBox="0 0 16 16">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer text-secondary mx-1" viewBox="0 0 16 16">
+                      <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                      <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+                    </svg>
+                  </td>
+                </tr>
+                <tr class="text-danger" *ngIf="studentFeeReceivables['feesPaidDetails'].length==0">No Record Found</tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span>Fees Due Amount</span>
-        <span style="float: right;" (click)="feesDueDropdown = !feesDueDropdown">
-          <a>
-            <i class="fa fa-chevron-circle-down" style="color: rgb(23, 162, 184); cursor: pointer;"
-            *ngIf="!feesDueDropdown"></i>
-            <i class="fa fa-chevron-circle-up" style="color: rgb(23, 162, 184); cursor: pointer;"
-            *ngIf="feesDueDropdown"></i>
-          </a>
-        </span>
-      </div>
-      <div class="card-body" *ngIf="feesDueDropdown">
-        <table class="table table-bordered table-sm">
-          <thead class="thead-light">
-            <tr>
-              <th>#</th>
-              <th>Academic Year</th>
-              <th>Fee Type</th>
-              <th>Amount</th>
-              <!-- <th>Action</th> -->
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let feeDetailsBO of studentFeesDuesList let i = index">
-              <td>{{i+1}}</td>
-              <td>{{feeDetailsBO[0]}}</td>
-              <td>{{feeDetailsBO[1]['feeName']}}</td>
-              <td>{{feeDetailsBO[1]['amount'] | currency : 'INR'}}</td>
-              <!-- <td>
-                <a class="mr-2"><i class="fa fa-eye"
-                    style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
-                <a class="mr-2"><i class="far fa-bell" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
-              </td> -->
-            </tr>
-            <tr class="text-danger" *ngIf="studentFeesDuesList.length==0">No Record Found</tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span>Fees Assinged</span>
-        <span style="float: right;" (click)="feesAssignedDropdown = !feesAssignedDropdown">
-          <a>
-            <i class="fa fa-chevron-circle-down" style="color: rgb(23, 162, 184); cursor: pointer;"
-            *ngIf="!feesAssignedDropdown"></i>
-            <i class="fa fa-chevron-circle-up" style="color: rgb(23, 162, 184); cursor: pointer;"
-            *ngIf="feesAssignedDropdown"></i>
-          </a>
-        </span>
-      </div>
-      <div class="card-body" *ngIf="feesAssignedDropdown" id="feeAssigned">
-        <table class="table table-bordered table-sm">
-          <thead class="thead-light">
-            <tr>
-              <th>#</th>
-              <th>Date</th>
-              <th>Academic Year</th>
-              <th>Fee Type</th>
-              <th>Amount</th>
-              <th>Assigned By</th>
-              <!-- <th>Action</th> -->
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let feeDetailsBO of studentFeesAssignedList let i = index">
-              <td>{{i+1}}</td>
-              <td>{{feeDetailsBO[1]['effDate'] | date : 'dd-MM-yyyy'}}</td>
-              <td>{{feeDetailsBO[0]}}</td>
-              <td>{{feeDetailsBO[1]['feeName']}}</td>
-              <td>{{feeDetailsBO[1]['amount'] | currency : 'INR'}}</td>
-              <td>{{feeDetailsBO[1]['lastUser']}}</td>
-              <!-- <td>
-                <a class="mr-2"><i class="fa fa-eye"
-                    style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
-                <a class="mr-2"><i class="far fa-bell" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
-              </td> -->
-            </tr>
-            <tr class="text-danger" *ngIf="studentFeesAssignedList.length==0">No Record Found</tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <span>Payment Transactions</span>
-        <span style="float: right;" (click)="feesReceivedDropdown = !feesReceivedDropdown">
-          <a>
-            <i class="fa fa-chevron-circle-down" style="color: rgb(23, 162, 184); cursor: pointer;"
-            *ngIf="!feesReceivedDropdown"></i>
-            <i class="fa fa-chevron-circle-up" style="color: rgb(23, 162, 184); cursor: pointer;"
-            *ngIf="feesReceivedDropdown"></i>
-          </a>
-        </span>
-      </div>
-      <div class="card-body" *ngIf="feesReceivedDropdown">
-        <table class="table table-bordered table-sm">
-          <thead class="thead-light">
-            <tr>
-              <th>#</th>
-              <th>Transaction Id</th>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Account</th>
-              <th>Received By</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let feeCollectionTxn of studentFeesCollectionList let i = index">
-              <td>{{i+1}}</td>
-              <td>{{feeCollectionTxn.collectionId}}</td>
-              <td>{{feeCollectionTxn.collectionDate | date : 'dd-MM-yyyy'}}</td>
-              <td>{{feeCollectionTxn.amount | currency : 'INR'}}</td>
-              <td>{{feeCollectionTxn.accountsDetailsBO['accountName']}}</td>
-              <td>{{feeCollectionTxn.lastUser}}</td>
-              <td>
-                <a class="mr-2" (click)="viewTransactionDetails(feeCollectionTxn)" data-toggle="modal" data-target="#txnDetailsModal"><i class="fa fa-eye" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
-                <a class="mr-2"><i class="fa fa-print" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
-              </td>
-            </tr>
-            <tr class="text-danger" *ngIf="studentFeesCollectionList.length==0">No Record Found</tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="row container my-2">
-      <button class="btn btn-outline-primary btn-sm mx-1" data-toggle="modal" data-target="#exampleModal">Print</button>
-      <button class="btn btn-outline-primary btn-sm mx-1">Export</button>
-    </div>
-
-
+  </div>
+  <div style="margin:2% 0%;">
+    <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);" data-toggle="modal" data-target="#exampleModal">Print</button>
+    <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);">Export</button>
   </div>
 </div>
 
@@ -199,52 +147,43 @@
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered mw-100 w-75" role="document">
     <div class="modal-content">
-      <div class="modal-header" id="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Txn Id : {{modalTxnId}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="modal-header" id="modal-header" style="background-color: rgba(245,245,245,1);">
+        <p class="modal-title" style="color: rgba(62, 78, 107, 1);" id="exampleModalLabel">
+          Transaction Id : {{modalFeesData.transactionId}}
+        </p>
+        <p class="modal-title" style="color: rgba(62, 78, 107, 1);" id="exampleModalLabel">
+          Date : {{modalFeesData.receivedDate | date: 'dd-MM-yyyy'}}
+        </p>
+        <p class="modal-title" style="color: rgba(62, 78, 107, 1);" id="exampleModalLabel">
+          Account : {{modalFeesData.accountName}}
+        </p>
+        <p class="modal-title" style="color: rgba(62, 78, 107, 1);" id="exampleModalLabel">
+          Amount : {{modalFeesData.amount}}
+        </p>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" id="printContent">
-        <!-- <div class="table-responsive"> -->
-        <table class="table table-bordered table-sm">
-          <thead class="thead-light">
+        <table class="table table-bordered table-sm border-primary" style="color: rgba(62, 78, 107, 1);">
+          <thead style="background-color: rgba(245,245,245,1);">
             <tr>
               <th>#</th>
               <th>Academic Year</th>
               <th>Fee Type</th>
               <th>Amount</th>
-              <!-- <th>Gender</th>
-              <th>Class</th>
-              <th>Mobile</th>
-              <th>Address</th>
-              <th>Transport</th> -->
-              <!-- <th>Action</th> -->
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let feeDetail of modalFeesDataList let i = index">
+            <tr *ngFor="let feeDetail of modalFeesData['studentFeesPaidDetails']; let i = index">
               <td>{{i+1}}</td>
-              <td>{{feeDetail[0]}}</td>
-              <td>{{feeDetail[1].feeName}}</td>
-              <td>{{feeDetail[1].amount | currency : 'INR'}}</td>
-              <!-- <td>{{student.adharNumber}}</td>
-              <td>{{student.gender}}</td>
-              <td>{{student.studentClassDetails[currentAcademicId][0].classId}}</td>
-              <td>{{student.mobileNumber}}</td>
-              <td>{{student.address}}</td>
-              <td>{{student.transportOpted==true ? "Yes" : "No"}}</td> -->
-              <!-- <td><a (click)="editStudentDetails(student)"><i class="fa fa-edit"
-                    style="color: rgb(23, 162, 184); cursor: pointer;"></i></a></td> -->
+              <td>{{feeDetail.academicYear}}</td>
+              <td>{{feeDetail.feeName}}</td>
+              <td>{{feeDetail.amount | currency : 'INR'}}</td>
             </tr>
           </tbody>
         </table>
-        <!-- </div> -->
       </div>
-      <!-- <div class="modal-footer" id="modal-footer">
-        <button class="btn btn-outline-primary btn-sm mx-1">Print</button>
-        <button class="btn btn-outline-secondary btn-sm mx-1" data-dismiss="modal">Cancel</button>
-      </div> -->
     </div>
   </div>
 </div>
