@@ -2,7 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClassesService } from '../services/classes.service';
 import { StudentService } from '../services/student.service';
-import { ClassesDetailsBO, FeeReceivables, StudentDetailsBO } from '../student-list/student-list.component';
+import { ClassesDetailsBO, FeeReceivables, FilterDto, StudentDetailsBO } from '../student-list/student-list.component';
+
+export class FeeReceivableDetailsDto{
+  constructor(public studentId: string, public genRegNo: number, public firstName: string,
+    public middleName: string, public lastName: string, public mobileNumber: string, public totalAmnt: number,
+    public dueAmnt: number, public paidAmnt: number){}
+}
+
+export class FeeReceivableStatsDto{
+  constructor(public totalAmnt: number, public paidAmnt: number, public dueAmnt: number){}
+}
 
 @Component({
   selector: 'app-fees-receivables',
@@ -11,13 +21,17 @@ import { ClassesDetailsBO, FeeReceivables, StudentDetailsBO } from '../student-l
 })
 export class FeesReceivablesComponent implements OnInit {
 
-  isFilterExpanded = false;
-  studentsList : StudentDetailsBO[] = [];
-  studentsListOrg : StudentDetailsBO[] = [];
   currentAcademicId : string = "AY-2021-22";
-  headStats = {};
   classesList : ClassesDetailsBO[] = [];
-  filteredData = {};
+
+  feeReceivableDetailsDtoList: FeeReceivableDetailsDto[] = [];
+  page = 0;
+  size = 15;
+  pageArray = [];
+  currentPage = 1;
+  filterDto: FilterDto = new FilterDto([], [], [], [], "", "", "", "");
+  feeReceivableStats: FeeReceivableStatsDto = new FeeReceivableStatsDto(0,0,0);
+
   constructor(private classesService: ClassesService, private studentService: StudentService,
     private router: Router) { }
 
@@ -25,83 +39,71 @@ export class FeesReceivablesComponent implements OnInit {
     this.classesService.getClassesNames().subscribe(
       response=>{
         this.classesList = response;
-        // console.log(this.classesList);
       },
       error=>{
         console.log(error);
       }
     );
 
-    this.studentService.getStudentReceivables().subscribe(
+    this.studentService.getFeeReceivableDetails(this.page, this.size, this.filterDto).subscribe(
       response => {
-        this.studentsList = response;
-        this.studentsListOrg = response;
-        console.log(this.studentsList);
-        this.populateHeadStats();
+        this.feeReceivableDetailsDtoList = response.success.data;
+        console.log(this.feeReceivableDetailsDtoList);
+        for (let i = 0; i < response.success.totalPages; i++) {
+          this.pageArray.push(i + 1);
+        }
+        this.currentPage = response.success.currentPage + 1;
+      },
+      error => {
+        console.info(error);
+        alert("Error while getting fee receivables");
+      }
+    );
+
+    this.studentService.getFeeReceivableStats().subscribe(
+      response => {
+        console.log(response);
+        this.feeReceivableStats = response.success.data;
       }
     );
   }
 
-  populateHeadStats() {
-    let totalFees = 0;
-    let totalPaidAmount = 0;
-    let totalDueAmount = 0;
-
-    for(let student of this.studentsList){
-      totalFees += student.feeReceivables.totalFee;
-      totalPaidAmount += student.feeReceivables.paidAmount;
-      totalDueAmount += student.feeReceivables.dueAmount;
+  loadPageData(page: number) {
+    if (page <= 0) {
+      page = 1;
+    } else if (page > this.pageArray.length) {
+      page = this.pageArray.length;
     }
+    this.studentService.getFeeReceivableDetails(page-1, this.size, this.filterDto).subscribe(
+      response => {
+        this.feeReceivableDetailsDtoList = response.success.data;
+        console.log(this.feeReceivableDetailsDtoList);
+        this.currentPage = response.success.currentPage + 1;
+      },
+      error => {
+        console.info(error);
+        alert("Error while getting fee receivables");
+      }
+    );
+  }
 
-    this.headStats["totalReceivable"] = totalFees;
-    this.headStats["totalReceived"] = totalPaidAmount;
-    this.headStats["totalDue"] = totalDueAmount;
+  applyFilter() {
+    this.studentService.getFeeReceivableDetails(this.page, this.size, this.filterDto).subscribe(
+      response => {
+        this.feeReceivableDetailsDtoList = response.success.data;
+        console.log(this.feeReceivableDetailsDtoList);
+        this.currentPage = response.success.currentPage + 1;
+      },
+      error => {
+        console.info(error);
+        alert("Error while getting fee receivables");
+      }
+    )
   }
 
   feeReceivablesDetails(student: StudentDetailsBO){
     let param = student.studentId+"_"+student.firstName+" "+student.middleName+" "+student.lastName;
     this.router.navigate(["/fees-receivable/details", param]);
-  }
-
-  filterStudentsOnNameChange(){
-    console.log("Filtering students on Name change");
-    if(this.filteredData['studentName']===undefined || this.filteredData['studentName']===" "){
-      this.studentsList = this.studentsListOrg;
-    }
-    if(this.filteredData['studentName']!=undefined){
-      this.studentsList = this.studentsListOrg.filter(
-        student => (
-          student.firstName.toLowerCase().includes(this.filteredData['studentName'].toLowerCase()) ||
-          student.middleName.toLowerCase().includes(this.filteredData['studentName'].toLowerCase()) ||
-          student.lastName.toLowerCase().includes(this.filteredData['studentName'].toLowerCase())
-        )
-      );
-    }
-  }
-
-  applyFilter(){
-    this.studentsList = this.studentsListOrg;
-    
-    if(this.filteredData['studentName']!=undefined && this.filteredData['studentName']!=" "){
-      this.studentsList = this.studentsList.filter(
-        student => (
-          student.firstName.toLowerCase().includes(this.filteredData['studentName'].toLowerCase()) ||
-          student.middleName.toLowerCase().includes(this.filteredData['studentName'].toLowerCase()) ||
-          student.lastName.toLowerCase().includes(this.filteredData['studentName'].toLowerCase())
-        )
-      );
-    }
-    
-    if(this.filteredData['classId']!=undefined && this.filteredData['classId']!=" "){
-      this.studentsList = this.studentsList.filter(
-        student=>student.studentClassDetails[this.currentAcademicId][0].classId===this.filteredData['classId']
-      );
-    }
-  }
-
-  clearFilter(){
-    this.filteredData = {};
-    this.studentsList = this.studentsListOrg;
   }
 
 }

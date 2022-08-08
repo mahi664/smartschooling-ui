@@ -1,3 +1,11 @@
+<div class="container row">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/admin-dashboard">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Students</li>
+    </ol>
+  </nav>
+</div>
 <div class="row">
   <div class="col-md-2">
     <input class="form-control form-control-sm" placeholder="Quick Search ..." [(ngModel)] = "filterDto.quickSearchText"
@@ -134,9 +142,9 @@
     </div>
   </div>
   <div class="col-md-1">
-    <button class="btn btn-sm" style="background-color: rgba(245,246,248); color: rgba(62, 78, 107, 1);" 
+    <button class="btn btn-sm" style="background-color: rgba(245,246,248);" 
       type="button" (click) = "clearFilter()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x-circle text-danger" viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
       </svg>
@@ -145,10 +153,10 @@
 </div><br>
 <div class="card box-shadow" id="students-list">
   <div class="table-responsive">
-    <table class="table table-bordered table-sm border-primary">
+    <table class="table table-bordered table-sm border-primary" style="color: rgba(62, 78, 107, 1);">
       <thead style="background-color: rgba(245,245,245,1);">
         <tr>
-          <th>Id</th>
+          <th>#</th>
           <th>Reg.No</th>
           <th>Name</th>
           <th>Birth Date</th>
@@ -165,7 +173,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let student of pagedStudents, let i = index">
-          <td>{{student.studentId}}</td>
+          <td>{{i+1}}</td>
           <td>{{student.genRegNo}}</td>
           <td>{{student.firstName + " " + student.middleName + " " + student.lastName}}</td>
           <td>{{student.birthDate | date : "yyyy-MM-dd"}}</td>
@@ -178,12 +186,11 @@
           <td>{{student.address}}</td>
           <td>{{student.transportOpted==true ? "Yes" : "No"}}</td>
           <td>
-            <a (click)="editStudentDetails(student)" style="cursor: pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" style="color: rgba(245,245,245,1);" width="20" height="20" class="bi bi-eye" viewBox="0 0 16 16">
-                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-              </svg>
-            </a>
+            <svg xmlns="http://www.w3.org/2000/svg" (click)="editStudentDetails(student)" fill="currentColor"  width="16" height="16" 
+            class="bi bi-eye text-primary" viewBox="0 0 16 16">
+              <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+              <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+            </svg>
           </td>
         </tr>
         <tr class="text-danger" *ngIf="pagedStudents.length==0">No Record Found</tr>
@@ -192,18 +199,18 @@
 
     <div class="row container">
       <ul class="pagination">
-        <li class="page-item"><a class="page-link" (click)="loadPageData(currentPage-1)">Prev</a></li>
-        <li class="page-item" *ngFor="let page of pageArray" (click)="loadPageData(page)" [ngClass]="{'active' : page == currentPage}"><a class="page-link">{{page}}</a></li>
-        <li class="page-item"><a class="page-link" (click)="loadPageData(currentPage+1)">Next</a></li>
+        <li class="page-item"><a class="page-link" style="color: rgba(62, 78, 107, 1);" (click)="loadPageData(currentPage-1)">Prev</a></li>
+        <li class="page-item" *ngFor="let page of pageArray" (click)="loadPageData(page)" [ngClass]="{'active' : page == currentPage}"><a class="page-link" style="color: rgba(62, 78, 107, 1);">{{page}}</a></li>
+        <li class="page-item"><a class="page-link" style="color: rgba(62, 78, 107, 1);" (click)="loadPageData(currentPage+1)">Next</a></li>
       </ul>
     </div>
 
     <div style="margin-bottom: 2%;">
-      <button type="button" class="btn btn-outline-primary btn-sm mx-1" (click)="newStudentRegistration()">Add</button>
-      <button class="btn btn-outline-primary btn-sm mx-1" data-toggle="modal" data-target="#exampleModal">Print</button>
-      <button class="btn btn-outline-primary btn-sm mx-1">Export</button>
-      <button class="btn btn-outline-primary btn-sm mx-1" routerLink = "/student-import">Import</button>
-      <button class="btn btn-outline-primary btn-sm mx-1">Delete</button>
+      <button type="button" style="color: rgba(62, 78, 107, 1);" class="btn btn-outline-primary btn-sm mx-1" (click)="newStudentRegistration()">Add</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);" data-toggle="modal" data-target="#exampleModal">Print</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);">Export</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);" routerLink = "/student-import">Import</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);">Delete</button>
     </div>
 
 
