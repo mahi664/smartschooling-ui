@@ -35,6 +35,8 @@ export class StudentFeesNewPaymentComponent implements OnInit {
   accountIds: AccountDetailsBO[] = [];
   studentFeesPaidTrxnRequest: StudentFeesPaidTrxnRequestDto = new StudentFeesPaidTrxnRequestDto(new Date(), "", []);
   studentName: string = "";
+  mobileNumber: string = "";
+  address: string = "";
   newFeeDetails: StudentFeesPaidTrxnDetailsDto = new StudentFeesPaidTrxnDetailsDto("", "","",0);
   studentFeesPaidTrxnResponseDto: StudentFeesPaidTrxnResponseDto;
 
@@ -64,6 +66,8 @@ export class StudentFeesNewPaymentComponent implements OnInit {
     let routeParam: string = this.activatedRoute.snapshot.params['studentId'];
     this.studentId = routeParam.split("_")[0];
     this.studentName = routeParam.split("_")[1];
+    this.mobileNumber = routeParam.split("_")[2];
+    this.address = routeParam.split("_")[3];
     console.log(this.studentId + " " + this.studentName);
   }
 
