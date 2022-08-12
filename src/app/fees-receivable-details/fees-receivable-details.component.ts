@@ -59,6 +59,8 @@ export class FeesReceivableDetailsComponent implements OnInit {
   
   studentId : string ="";
   studentName : string = "";
+  mobileNumber: string = "";
+  address: string = "";
   studentFeeReceivables: StudentFeesReceivableDetailsDto = new StudentFeesReceivableDetailsDto([],[],[],0,0,0);
   modalFeesData: StudentFeesPaidDetailsWrapperDto = new StudentFeesPaidDetailsWrapperDto(null, null, 0, null, null, []);
   constructor(private route: ActivatedRoute, private studentService: StudentService, private router : Router) { }
@@ -165,6 +167,8 @@ export class FeesReceivableDetailsComponent implements OnInit {
     let routeParam : string = this.route.snapshot.params['studentId'];
     this.studentId = routeParam.split("_")[0];
     this.studentName = routeParam.split("_")[1];
+    this.mobileNumber = routeParam.split("_")[2];
+    this.address = routeParam.split("_")[3];
     console.log(this.studentId+" "+this.studentName);
   }
 
@@ -174,6 +178,6 @@ export class FeesReceivableDetailsComponent implements OnInit {
 
   addNewPayment(){  
     this.studentService.studentFeesReceivableDetails = this.studentFeeReceivables
-    this.router.navigate(["Fees/Payment", this.studentId+"_"+this.studentName]);
+    this.router.navigate(["Fees/Payment", this.studentId+"_"+this.studentName+"_"+this.mobileNumber+"_"+this.address]);
   }
 }
