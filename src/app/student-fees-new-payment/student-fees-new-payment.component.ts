@@ -1,9 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AccountDetailsBO, StudentFeesTransactionDetailsBO } from '../fees-receivable-details/fees-receivable-details.component';
+import { AccountDetailsBO, StudentFeesDueDetailsDto, StudentFeesReceivableDetailsDto, StudentFeesTransactionDetailsBO } from '../fees-receivable-details/fees-receivable-details.component';
 import { AccountsService } from '../services/accounts.service';
 import { StudentService } from '../services/student.service';
 import { FeesDetailsBO } from '../student-list/student-list.component';
+
+export class StudentFeesPaidTrxnDetailsDto {
+  constructor(public academicId: string, public feeId: string, public feeName: string, public amount: number) { }
+}
+
+export class StudentFeesPaidTrxnRequestDto {
+  constructor(public trxnDate: Date, public accountId: string,
+    public feesPaidTrxnDetailsDtos: StudentFeesPaidTrxnDetailsDto[]) { }
+}
+
+export class StudentFeesPaidTrxnResponseDto {
+  constructor(public transactionId: string, public amount: number, public trxnDate: Date){}
+}
 
 @Component({
   selector: 'app-student-fees-new-payment',
@@ -12,27 +25,31 @@ import { FeesDetailsBO } from '../student-list/student-list.component';
 })
 export class StudentFeesNewPaymentComponent implements OnInit {
 
-  studentId : string = "";
-  academicId2FeesDuesMap = {};
-  academicIds : string[] = [];
-  feeTypes : FeesDetailsBO[] = [];
-  studentFeesTransactionDetailsBO : StudentFeesTransactionDetailsBO;
+  studentId: string = "";
+  studentFeesReceivableDetails: StudentFeesReceivableDetailsDto;
+  academicIds: string[] = [];
+  feeTypes: FeesDetailsBO[] = [];
+  studentFeesTransactionDetailsBO: StudentFeesTransactionDetailsBO;
   feePaymentRecordList = [];
-  validationFlags={};
-  accountIds : AccountDetailsBO[] = [];
-  newRecord = {};
-  studentName : string = "";
+  validationFlags = {};
+  accountIds: AccountDetailsBO[] = [];
+  studentFeesPaidTrxnRequest: StudentFeesPaidTrxnRequestDto = new StudentFeesPaidTrxnRequestDto(new Date(), "", []);
+  studentName: string = "";
+  mobileNumber: string = "";
+  address: string = "";
+  newFeeDetails: StudentFeesPaidTrxnDetailsDto = new StudentFeesPaidTrxnDetailsDto("", "","",0);
+  studentFeesPaidTrxnResponseDto: StudentFeesPaidTrxnResponseDto;
 
   constructor(private activatedRoute: ActivatedRoute, private studentService: StudentService,
     private accountService: AccountsService, private router: Router) { }
-  
+
   ngOnInit() {
     this.reformatStudentIdFromRouteParam();
     this.populateDataValidationFlags();
     // this.studentId = this.activatedRoute.snapshot.params['studentId'];
-    this.academicId2FeesDuesMap = this.studentService.academicId2FeesDueDetails;
+    this.studentFeesReceivableDetails = this.studentService.studentFeesReceivableDetails;
     this.populateAcademicIds();
-    this.studentFeesTransactionDetailsBO = new StudentFeesTransactionDetailsBO("",new Date(),0,new AccountDetailsBO("","",null,null),{});
+    this.studentFeesTransactionDetailsBO = new StudentFeesTransactionDetailsBO("", new Date(), 0, new AccountDetailsBO("", "", null, null), {});
     this.accountService.getAccountDetails().subscribe(
       response => {
         this.accountIds = response;
@@ -46,86 +63,111 @@ export class StudentFeesNewPaymentComponent implements OnInit {
   }
 
   reformatStudentIdFromRouteParam() {
-    let routeParam : string = this.activatedRoute.snapshot.params['studentId'];
+    let routeParam: string = this.activatedRoute.snapshot.params['studentId'];
     this.studentId = routeParam.split("_")[0];
     this.studentName = routeParam.split("_")[1];
-    console.log(this.studentId+" "+this.studentName);
+    this.mobileNumber = routeParam.split("_")[2];
+    this.address = routeParam.split("_")[3];
+    console.log(this.studentId + " " + this.studentName);
   }
 
-  populateDataValidationFlags(){
+  populateDataValidationFlags() {
     this.validationFlags['']
   }
 
   populateAcademicIds() {
-    if(this.academicId2FeesDuesMap!=undefined){
-      for(let key of Object.keys(this.academicId2FeesDuesMap)){
-        this.academicIds.push(key);
-      }
+    if (this.studentFeesReceivableDetails != undefined) {
+      this.academicIds = this.studentFeesReceivableDetails.feesDueDetails.map(data => data.academicYear)
+        .filter((value, index, self) => self.indexOf(value) === index)
       console.log(this.academicIds);
     }
   }
 
-  populateFeeTypesForAcademicYear(academicId: string){
-    if(academicId!=undefined){
-      this.feeTypes = this.academicId2FeesDuesMap[academicId];
-
+  populateFeeTypesForAcademicYear(academicId: string) {
+    if (academicId != undefined) {
+      this.feeTypes = this.studentFeesReceivableDetails.feesDueDetails.filter(data => data.academicYear === academicId && data.amount>0)
+        .map(data => new FeesDetailsBO(data.feeId, data.feeName, null, null, null, 0, null, null));
+      console.log(this.feeTypes);
       this.validationFlags["academicId"] = false;
     }
   }
 
-  getDueAmountForFeeType(academicId: string, feeType: string){
-    if((academicId!=" " || academicId!=undefined) && (feeType!=" " || feeType!=undefined)){
-      let feeDetailsBOs : FeesDetailsBO[] = this.academicId2FeesDuesMap[academicId];
-      let feeDetailsBO :FeesDetailsBO = feeDetailsBOs.filter(feeDetails => feeDetails.feeName.toLowerCase() === feeType.toLowerCase())[0];
-      this.newRecord['amount'] = feeDetailsBO.amount;
+  getDueAmountForFeeType(academicId: string, feeType: string) {
+    if ((academicId != " " || academicId != undefined) && (feeType != " " || feeType != undefined)) {
+      this.newFeeDetails.amount = this.studentFeesReceivableDetails.feesDueDetails.filter(data => data.academicYear === academicId &&
+        data.feeName.toLowerCase() === feeType.toLowerCase()).map(data => data.amount)[0];
 
       this.validationFlags['feeType'] = false;
     }
   }
 
-  addNewFeeDetailsForPayment(){
-    if(this.validateNewRecord()){
-      if(this.studentFeesTransactionDetailsBO.academicId2FeesDetailsMap[this.newRecord['academicId']]===undefined){
-        this.studentFeesTransactionDetailsBO.academicId2FeesDetailsMap[this.newRecord['academicId']] = [];
+  addNewFeeDetailsForPayment() {
+    if (this.validateNewRecord()) {
+
+      let feeDetailsDto: StudentFeesPaidTrxnDetailsDto = this.studentFeesPaidTrxnRequest.feesPaidTrxnDetailsDtos
+        .filter(data => (data.academicId === this.newFeeDetails.academicId &&
+          data.feeName.toLowerCase() === this.newFeeDetails.feeName.toLowerCase()))[0];
+      if(feeDetailsDto === undefined || feeDetailsDto === null) {
+        this.studentFeesPaidTrxnRequest.feesPaidTrxnDetailsDtos.push(this.newFeeDetails);
+      } else{
+        feeDetailsDto.amount += this.newFeeDetails.amount;
       }
-      let tempL : FeesDetailsBO[] = this.studentFeesTransactionDetailsBO.academicId2FeesDetailsMap[this.newRecord['academicId']];
-      let feeDetailsBO : FeesDetailsBO = this.academicId2FeesDuesMap[this.newRecord['academicId']].filter(feeDetails => feeDetails.feeName.toLowerCase() === this.newRecord['feeType'].toLowerCase())[0]; 
-      let tempFeeDetailsBO : FeesDetailsBO = tempL.filter(feeDet => feeDet.feeName.toLowerCase()===this.newRecord['feeType'].toLowerCase())[0];
-      if(this.newRecord['amount']!=0){
-        if(tempFeeDetailsBO===undefined){
-          tempFeeDetailsBO = new FeesDetailsBO(feeDetailsBO.feeId,feeDetailsBO.feeName,null,null,null,0,null,null);
-          tempL.push(tempFeeDetailsBO);
-        }
-        tempFeeDetailsBO.amount += this.newRecord['amount']
-        feeDetailsBO.amount -= this.newRecord['amount'];
-        this.studentFeesTransactionDetailsBO.amount += this.newRecord['amount'];
-        this.populateFeePaymentRecordList();
-        this.newRecord = {};
-      }else{
-        alert("There is no due amount for this combination");
-      }
-    }else{
+
+      let studentFeesDueDetails: StudentFeesDueDetailsDto = this.studentFeesReceivableDetails.feesDueDetails.filter(data => data.academicYear === this.newFeeDetails.academicId
+        && data.feeName.toLowerCase() === this.newFeeDetails.feeName.toLowerCase())[0];
+      studentFeesDueDetails.amount -= this.newFeeDetails.amount;
+      this.newFeeDetails.feeId = studentFeesDueDetails.feeId;
+      console.log(this.newFeeDetails);
+      console.log(this.studentFeesPaidTrxnRequest);
+      this.newFeeDetails = new StudentFeesPaidTrxnDetailsDto("", "", "", 0);
+
+      // if (this.studentFeesReceivableDetails.feesDueDetails[this.newFeeDetails['academicId']] === undefined) {
+      //   this.studentFeesTransactionDetailsBO.academicId2FeesDetailsMap[this.newFeeDetails['academicId']] = [];
+      // }
+      // let tempL: FeesDetailsBO[] = this.studentFeesTransactionDetailsBO.academicId2FeesDetailsMap[this.newRecord['academicId']];
+      // let feeDetailsBO: FeesDetailsBO = this.academicId2FeesDuesMap[this.newRecord['academicId']].filter(feeDetails => feeDetails.feeName.toLowerCase() === this.newRecord['feeType'].toLowerCase())[0];
+      // let tempFeeDetailsBO: FeesDetailsBO = tempL.filter(feeDet => feeDet.feeName.toLowerCase() === this.newRecord['feeType'].toLowerCase())[0];
+      // if (this.newRecord['amount'] != 0) {
+      //   if (tempFeeDetailsBO === undefined) {
+      //     tempFeeDetailsBO = new FeesDetailsBO(feeDetailsBO.feeId, feeDetailsBO.feeName, null, null, null, 0, null, null);
+      //     tempL.push(tempFeeDetailsBO);
+      //   }
+      //   tempFeeDetailsBO.amount += this.newRecord['amount']
+      //   feeDetailsBO.amount -= this.newRecord['amount'];
+      //   this.studentFeesTransactionDetailsBO.amount += this.newRecord['amount'];
+      //   this.populateFeePaymentRecordList();
+      //   this.newRecord = {};
+      // } else {
+      //   alert("There is no due amount for this combination");
+      // }
+    } else {
       alert("Please fill all the required details before adding new record");
     }
   }
 
   validateNewRecord() {
     let retFlag = true;
-    if(this.newRecord['academicId']==="" || this.newRecord['academicId']===undefined){
+    if (this.newFeeDetails['academicId'] === "" || this.newFeeDetails['academicId'] === undefined) {
       this.validationFlags["academicId"] = true;
       retFlag = false;
     }
-    if(this.newRecord['feeType']==="" || this.newRecord['feeType']===undefined){
+    if (this.newFeeDetails['feeName'] === "" || this.newFeeDetails['feeName'] === undefined) {
       this.validationFlags["feeType"] = true;
+      retFlag = false;
+    }
+    let studentFeesDueDetails: StudentFeesDueDetailsDto  = this.studentFeesReceivableDetails.feesDueDetails.filter(data => data.academicYear === this.newFeeDetails.academicId
+      && data.feeName.toLowerCase() === this.newFeeDetails.feeName.toLowerCase())[0]
+    if(this.newFeeDetails.amount<=0 || (studentFeesDueDetails!=undefined && this.newFeeDetails.amount>studentFeesDueDetails.amount)){
+      this.validationFlags["amount"] = true;
       retFlag = false;
     }
     return retFlag;
   }
 
-  populateFeePaymentRecordList(){
+  populateFeePaymentRecordList() {
     this.feePaymentRecordList = [];
-    for(let academicId of Object.keys(this.studentFeesTransactionDetailsBO.academicId2FeesDetailsMap)){
-      for(let feeDetailsBO of this.studentFeesTransactionDetailsBO.academicId2FeesDetailsMap[academicId]){
+    for (let academicId of Object.keys(this.studentFeesTransactionDetailsBO.academicId2FeesDetailsMap)) {
+      for (let feeDetailsBO of this.studentFeesTransactionDetailsBO.academicId2FeesDetailsMap[academicId]) {
         let temp = [];
         temp.push(academicId);
         temp.push(feeDetailsBO);
@@ -134,59 +176,58 @@ export class StudentFeesNewPaymentComponent implements OnInit {
     }
   }
 
-  saveNewPayment(){
-    if(this.validateStudentFeesTransactionDetaila()){
-      this.studentService.addNewStudentFeesTransaction(this.studentId, this.studentFeesTransactionDetailsBO).subscribe(
+  saveNewPayment() {
+    if (this.validateStudentFeesTransactionDetaila()) {
+      this.studentService.addNewStudentFeesTransaction(this.studentId, this.studentFeesPaidTrxnRequest).subscribe(
         response => {
           console.log(response);
-          this.studentFeesTransactionDetailsBO = response;
-          alert("Transaction Successful! Your Transaction Id is : "+ this.studentFeesTransactionDetailsBO.collectionId);
-          this.router.navigate(["fees-receivable/details", this.studentId+"_"+this.studentName]);
+          this.studentFeesPaidTrxnResponseDto = response.success.data;
+          alert("Transaction Successful! Your Transaction Id is : " + this.studentFeesPaidTrxnResponseDto.transactionId);
+          this.router.navigate(["fees-receivable/details", this.studentId + "_" + this.studentName]);
+        },
+        error => {
+          console.log(error);
         }
       );
-    }else{
+    } else {
       alert("Please fill all the required details");
     }
   }
 
-  validateStudentFeesTransactionDetaila(){
+  validateStudentFeesTransactionDetaila() {
     let retFlag = true;
-    if(this.studentFeesTransactionDetailsBO.collectionDate === null){
+    if (this.studentFeesPaidTrxnRequest.trxnDate === null) {
       this.validationFlags["collectionDate"] = true;
       retFlag = false;
     }
-    if(this.studentFeesTransactionDetailsBO.accountsDetailsBO['accountId']==="" 
-        || this.studentFeesTransactionDetailsBO.accountsDetailsBO['accountId']===undefined){
+    if (this.studentFeesPaidTrxnRequest.accountId === ""
+      || this.studentFeesPaidTrxnRequest.accountId === undefined) {
       this.validationFlags["accountDetails"] = true;
       retFlag = false;
     }
-    if(retFlag && Object.keys(this.studentFeesTransactionDetailsBO.academicId2FeesDetailsMap).length==0){
-        alert("Please add atleast one record for payment");
-        retFlag = false;
-      }
+    if (retFlag && this.studentFeesPaidTrxnRequest.feesPaidTrxnDetailsDtos.length == 0) {
+      alert("Please add atleast one record for payment");
+      retFlag = false;
+    }
     return retFlag;
   }
 
-  validateField(field: string, value: string){
-    if(value!=" " && value!=undefined){
+  validateField(field: string, value: string) {
+    if (value != " " && value != undefined) {
       this.validationFlags['accountDetails'] = false;
     }
   }
 
-  cancelNewPayment(){
-    this.router.navigate(["fees-receivable/details", this.studentId+"_"+this.studentName]);
+  cancelNewPayment() {
+    this.router.navigate(["fees-receivable/details", this.studentId + "_" + this.studentName]);
   }
 
-  removeFeePaymentFromList(academicId: string, feeType: string){
-    let tempL : FeesDetailsBO[] = this.studentFeesTransactionDetailsBO.academicId2FeesDetailsMap[academicId];
-    let removedFeeObj : FeesDetailsBO = tempL.filter(feeDet => feeDet.feeName.toLowerCase()===feeType.toLowerCase())[0];
-    tempL = tempL.filter(feeDet => feeDet.feeName.toLowerCase()!=feeType.toLowerCase());
-    this.studentFeesTransactionDetailsBO.academicId2FeesDetailsMap[academicId] = tempL;
-    this.feePaymentRecordList = this.feePaymentRecordList.filter(feeDet => feeDet[1].feeName.toLowerCase()!=feeType.toLowerCase())
-    this.studentFeesTransactionDetailsBO.amount-=removedFeeObj.amount;
+  removeFeePaymentFromList(feeDetails: StudentFeesPaidTrxnDetailsDto) {
+    this.studentFeesPaidTrxnRequest.feesPaidTrxnDetailsDtos = this.studentFeesPaidTrxnRequest.feesPaidTrxnDetailsDtos
+    .filter(data => !(data.academicId===feeDetails.academicId && data.feeName.toLowerCase()===feeDetails.feeName.toLowerCase()))
 
-    let dueFeeListForAcademicId : FeesDetailsBO[] = this.academicId2FeesDuesMap[academicId];
-    let dueFeeObjToUpdate = dueFeeListForAcademicId.filter(feeDet => feeDet.feeName.toLowerCase() === feeType.toLowerCase())[0];
-    dueFeeObjToUpdate.amount+=removedFeeObj.amount;
+    let studentFeesDueDetails: StudentFeesDueDetailsDto = this.studentFeesReceivableDetails.feesDueDetails.filter(data => data.academicYear === feeDetails.academicId
+      && data.feeName.toLowerCase() === feeDetails.feeName.toLowerCase())[0];
+    studentFeesDueDetails.amount += feeDetails.amount;
   }
 }
