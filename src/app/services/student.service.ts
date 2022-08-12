@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StudentFeesTransactionDetailsBO } from '../fees-receivable-details/fees-receivable-details.component';
-import { StudentFeesPaidTrxnRequestDto } from '../student-fees-new-payment/student-fees-new-payment.component';
 import { FilterDto, ResponseDto, StudentDetailsBO } from '../student-list/student-list.component';
 import { StudentRegistration, StudentRegistrationResponse } from '../student-registration/student-registration.component';
 import { CommonService } from './common.service';
@@ -11,7 +10,7 @@ import { CommonService } from './common.service';
 })
 export class StudentService {
 
-  studentFeesReceivableDetails ;
+  academicId2FeesDueDetails ;
   constructor(private http: HttpClient, private commonService: CommonService) { }
 
   studentList : StudentDetailsBO[] = [];
@@ -77,25 +76,23 @@ export class StudentService {
     return this.http.post<StudentDetailsBO>(this.commonService.BASE_URL+"/Students/update", student);
   }
 
-  getFeeReceivableDetails(page, size, filterDto: FilterDto){
-    let queyParams = new HttpParams().set('page', page).set('size', size);
-    if (filterDto != undefined) {
-      if(filterDto.quickSearchText){
-        queyParams = queyParams.append('quickSearch', filterDto.quickSearchText);
-      }
-    }
-    return this.http.get<ResponseDto>(this.commonService.BASE_URL+"/students/receivables", {params: queyParams});
+  getStudentReceivables(){
+    return this.http.get<StudentDetailsBO[]>(this.commonService.BASE_URL+"/Students/Receivables");
   }
 
-  getStudentFeeReceivables(studentId: string) {
-    return this.http.get<ResponseDto>(`${this.commonService.BASE_URL}/students/${studentId}/receivables`);
+  getStudentFeesDueDetails(studentId : string){
+    return this.http.get<{}>(`${this.commonService.BASE_URL}/Students/${studentId}/Fees/Dues`);
   }
 
-  addNewStudentFeesTransaction(studentId: string, studentFeesPaidTrxnRequest: StudentFeesPaidTrxnRequestDto){
-    return this.http.post<ResponseDto>(`${this.commonService.BASE_URL}/students/${studentId}/fees-paid`, studentFeesPaidTrxnRequest);
+  getStudentFeesAssignedList(studentId : string){
+    return this.http.get<{}>(`${this.commonService.BASE_URL}/Students/${studentId}/Fees/Assigned`);
   }
 
-  getFeeReceivableStats() {
-    return this.http.get<ResponseDto>(`${this.commonService.BASE_URL}/students/receivables/statistics`);
+  getStudentFeesCollectionTransactions(studentId: string){
+    return this.http.get<StudentFeesTransactionDetailsBO[]>(`${this.commonService.BASE_URL}/Students/${studentId}/Fees/Collections`);
+  }
+
+  addNewStudentFeesTransaction(studentId: string, studentFeesTransactionDetailsBO: StudentFeesTransactionDetailsBO){
+    return this.http.post<StudentFeesTransactionDetailsBO>(`${this.commonService.BASE_URL}/Students/${studentId}/Fees/Collections`, studentFeesTransactionDetailsBO);
   }
 }

@@ -1,370 +1,319 @@
-<div class="container row">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a routerLink="/admin-dashboard">Home</a></li>
-      <li class="breadcrumb-item"><a routerLink="/student-list">Students</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Admission</li>
-    </ol>
-  </nav>
-</div>
-<div class="container row">
-  <p style="color: red;">
-    (Fields with <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-    <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-    </svg> are required) 
-  </p>
-</div>
 <div class="card box-shadow">
+  <div class="card-header">
+    New Admission
+    <p style="color: red;">(Fields with <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i> are required) </p>
+  </div>
+  <!-- style="height: 600px; overflow-y: scroll;" -->
   <div class="card-body">
-    <div class="accordion" id="accordionPanelsStayOpenExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-          <button class="accordion-button" style="background-color: rgba(245,245,245,1); color: rgba(62, 78, 107, 1);" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-            General Register Details
-          </button>
-        </h2>
-        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-          <div class="accordion-body">
-            <div class="row container" style="padding:2%;">
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Gen Reg No <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['genRegNo']">(Gen Reg No can not be empty)</small>
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" type="number" class="form-control form-control-sm" placeholder="Gen Reg No"
-                    [(ngModel)]="student.genRegNo" (change)="validateField('genRegNo',student.genRegNo)">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Book Number <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['bookNo']">(Book No can not be empty)</small>
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" type="number" class="form-control form-control-sm" placeholder="Book Number"
-                    [(ngModel)]="student.bookNo" (change)="validateField('bookNo',student.bookNo)">
-                </div>
-              </div>
+    <!--General Register Details start-->
+    <div class="card box-shadow">
+      <div class="card-header">
+        General Register Details
+      </div>
+      <div class="card-body">
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Gen Reg No <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['genRegNo']">(Gen Reg No can not be empty)</small>
+              </label>
+              <input type="number" class="form-control custom-input-style" placeholder="Gen Reg No"
+                [(ngModel)]="student.genRegNo" (change)="validateField('genRegNo',student.genRegNo)">
             </div>
           </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-          <button class="accordion-button" type="button" style="background-color: rgba(245,245,245,1); color: rgba(62, 78, 107, 1);" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-            Basic Details
-          </button>
-        </h2>
-        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
-          <div class="accordion-body">
-            <div class="row container" style="padding:2%;">
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    First Name <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['firstName']">(First Name can not be empty)</small>
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="First Name"
-                    [(ngModel)]="student.firstName" (change)="validateField('firstName',student.firstName)">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">Middle Name</label>
-                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Middle Name"
-                    [(ngModel)]="student.middleName">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Last Name <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['lastName']">(Last Name can not be empty)</small>
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Last Name"
-                    [(ngModel)]="student.lastName" (change)="validateField('lastName',student.lastName)">
-                </div>
-              </div>
-            </div>
-    
-            <div class="row container" style="padding:2%;">
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Adhar Number 
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Adhar Number"
-                    [(ngModel)]="student.adharNumber">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Date of Birth <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['birthDate']">(Date of Birth can not be empty)</small>
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" type="date" class="form-control form-control-sm" id="usr"
-                    [ngModel]="student.birthDate | date:'yyyy-MM-dd'" (ngModelChange)="student.birthDate = $event">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Gender <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['gender']">(Gender can not be empty)</small>
-                  </label><br>
-                  <div class="form-check-inline">
-                    <label class="form-check-label" style="color: rgba(62, 78, 107, 1);">
-                      <input type="radio" class="form-check-input" name="gender" value="Male"
-                        [(ngModel)]="student.gender">Male
-                    </label>
-                  </div>
-                  <div class="form-check-inline">
-                    <label class="form-check-label" style="color: rgba(62, 78, 107, 1);">
-                      <input type="radio" class="form-check-input" name="gender" value="Female"
-                        [(ngModel)]="student.gender">Female
-                    </label>
-                  </div>
-                  <div class="form-check-inline disabled">
-                    <label class="form-check-label" style="color: rgba(62, 78, 107, 1);">
-                      <input type="radio" class="form-check-input" name="gender" value="Other"
-                        [(ngModel)]="student.gender">Other
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-    
-            <div class="row container" style="padding:2%;">
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Religion <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['religion']">(Religion can not be empty)</small>
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" list="religion" placeholder="Select Religion"
-                    [(ngModel)]="student.religion" (change)="validateField('religion',student.religion)">
-                  <datalist id="religion">
-                    <option value="Hindu">
-                    <option value="Muslim">
-                    <option value="Christian">
-                  </datalist>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Caste <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['caste']">(Caste can not be empty)</small>
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" list="caste" placeholder="Select Caste"
-                    [(ngModel)]="student.caste" (change)="validateField('caste',student.caste)">
-                  <datalist id="caste">
-                    <option value="Open">
-                    <option value="OBC">
-                    <option value="NT-A">
-                    <option value="NT-B">
-                    <option value="NT-C">
-                    <option value="NT-D">
-                    <option value="SC">
-                    <option value="ST">
-                  </datalist>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Nationality <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['nationality']">(Nationality can not be empty)</small>
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" list="nationality" placeholder="Select Nationality"
-                    [(ngModel)]="student.nationality" (change)="validateField('nationality',student.nationality)">
-                  <datalist id="nationality">
-                    <option value="Indian">
-                  </datalist>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-          <button class="accordion-button" type="button" style="background-color: rgba(245,245,245,1); color: rgba(62, 78, 107, 1);" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-            Contact Details
-          </button>
-        </h2>
-        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
-          <div class="accordion-body">
-            <div class="row container" style="padding:2%;">
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Mobile No <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['mobileNumber']">(Mobile No can not be empty)</small>
-                    <small style="color: red; font-size: x-small;" *ngIf="validationFlags['mobileNumberValidity']">(Please Enter a Valid mobile no)</small>
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Mobile Number"
-                    [(ngModel)]="student.mobileNumber" (change)="validateField('mobileNumber', student.mobileNumber)">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">Alternate Mobile Number</label>
-                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Alternate Mobile Number"
-                    [(ngModel)]="student.alternateMobile">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">Email Id</label>
-                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Email Id"
-                    [(ngModel)]="student.email">
-                </div>
-              </div>
-            </div>
-    
-            <div class="row container" style="padding:2%;">
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Address <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['address']">(Address can not be empty)</small>
-                  </label>
-                  <textarea style="color: rgba(62, 78, 107, 1);" class="form-control" placeholder="Address" rows="3"
-                    [(ngModel)]="student.address" (change)="validateField('address',student.address)"></textarea>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingFour">
-          <button class="accordion-button" type="button" style="background-color: rgba(245,245,245,1); color: rgba(62, 78, 107, 1);" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-            Academic Details
-          </button>
-        </h2>
-        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFour">
-          <div class="accordion-body">
-            <div class="row container" style="padding:2%;">
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Admission Std <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['admissionStd']">(Std can not be empty)</small>
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" list="classes-list" placeholder="Select Admission Std"
-                    [(ngModel)]="student.admissionStd" (change)="validateField('admissionStd', student.admissionStd)">
-                  <datalist id="classes-list">
-                    <option *ngFor="let classDet of classesList" value="{{classDet.classId}}">
-                  </datalist>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
-                    Admission Date <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['admissionDate']">(Admission Date can not be empty)</small>
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" type="date" class="form-control form-control-sm" id="usr"
-                    [ngModel]="student.admissionDate | date:'yyyy-MM-dd'" (ngModelChange)="student.admissionDate = $event">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);"> 
-                    Academic Year <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['academicYear']">(Year can not be empty)</small>
-                  </label>
-                  <input style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" list="academic-years" placeholder="Select Academic Year"
-                    [(ngModel)]="student.academicYear" (change)="validateField('academicYear', student.academicYear)">
-                  <datalist id="academic-years">
-                    <option *ngFor="let academic of academicList" value="{{academic.academicId}}">{{academic.academicYear}}
-                    </option>
-                  </datalist>
-                </div>
-              </div>
-            </div>
-    
-            <div class="row container" style="padding:2%;">
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <label for="usr" style="color: rgba(62, 78, 107, 1);">Previous School</label>
-                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Previous School"
-                    [(ngModel)]="student.prevSchool">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingFive">
-          <button class="accordion-button" type="button" style="background-color: rgba(245,245,245,1); color: rgba(62, 78, 107, 1);" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
-            Transport Details
-          </button>
-        </h2>
-        <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFive">
-          <div class="accordion-body">
-            <div class="row container" style="padding:2%;">
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <div class="form-check-inline">
-                    <label class="form-check-label" style="color: rgba(62, 78, 107, 1);">
-                      <input type="checkbox" class="form-check-input" name="transportOpted" [(ngModel)]="student.transportOpted"
-                        (change)="handleTransPortOpted(student)"> Transportation Opted?
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group-sm">
-                  <input style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" list="routes" placeholder="Select Route"
-                    *ngIf="student.transportOpted" [(ngModel)]="student.route" (change)="validateField('routeDetails', student.route)">
-                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['routeDetails']">(Route can not be empty)</small>
-                  <datalist id="routes">
-                    <option *ngFor="let route of routesList" value="{{route.routeId}}">{{route.source + "-"+
-                      route.destination}}</option>
-                  </datalist>
-                </div>
-              </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Book Number <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['bookNo']">(Book No can not be empty)</small>
+              </label>
+              <input type="number" class="form-control custom-input-style" placeholder="Book Number"
+                [(ngModel)]="student.bookNo" (change)="validateField('bookNo',student.bookNo)">
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div style="margin: 1% 0%;">
-      <button type="button" class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);" (click)="saveDetails(student)">Save</button>
+    <!-- General Register Details end -->
+
+    <!-- Basic Details Crad starts -->
+    <div class="card box-shadow">
+      <div class="card-header">
+        Basic Details
+      </div>
+      <div class="card-body">
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                First Name <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['firstName']">(First Name can not be empty)</small>
+              </label>
+              <input type="text" class="form-control custom-input-style" placeholder="First Name"
+                [(ngModel)]="student.firstName" (change)="validateField('firstName',student.firstName)">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Middle Name</label>
+              <input type="text" class="form-control custom-input-style" placeholder="Middle Name"
+                [(ngModel)]="student.middleName">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Last Name <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['lastName']">(Last Name can not be empty)</small>
+              </label>
+              <input type="text" class="form-control custom-input-style" placeholder="Last Name"
+                [(ngModel)]="student.lastName" (change)="validateField('lastName',student.lastName)">
+            </div>
+          </div>
+        </div>
+
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Adhar Number 
+              </label>
+              <input type="text" class="form-control custom-input-style" placeholder="Adhar Number"
+                [(ngModel)]="student.adharNumber">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Date of Birth <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['birthDate']">(Date of Birth can not be empty)</small>
+              </label>
+              <input type="date" class="form-control custom-input-style" id="usr"
+                [ngModel]="student.birthDate | date:'yyyy-MM-dd'" (ngModelChange)="student.birthDate = $event">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Gender <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['gender']">(Gender can not be empty)</small>
+              </label><br>
+              <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="gender" value="Male"
+                    [(ngModel)]="student.gender">Male
+                </label>
+              </div>
+              <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="gender" value="Female"
+                    [(ngModel)]="student.gender">Female
+                </label>
+              </div>
+              <div class="form-check-inline disabled">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="gender" value="Other"
+                    [(ngModel)]="student.gender">Other
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Religion <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['religion']">(Religion can not be empty)</small>
+              </label>
+              <input class="form-control custom-input-style" list="religion" placeholder="Select Religion"
+                [(ngModel)]="student.religion" (change)="validateField('religion',student.religion)">
+              <datalist id="religion">
+                <option value="Hindu">
+                <option value="Muslim">
+                <option value="Christian">
+              </datalist>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Caste <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['caste']">(Caste can not be empty)</small>
+              </label>
+              <input class="form-control custom-input-style" list="caste" placeholder="Select Caste"
+                [(ngModel)]="student.caste" (change)="validateField('caste',student.caste)">
+              <datalist id="caste">
+                <option value="Open">
+                <option value="OBC">
+                <option value="NT-A">
+                <option value="NT-B">
+                <option value="NT-C">
+                <option value="NT-D">
+                <option value="SC">
+                <option value="ST">
+              </datalist>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Nationality <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['nationality']">(Nationality can not be empty)</small>
+              </label>
+              <input class="form-control custom-input-style" list="nationality" placeholder="Select Nationality"
+                [(ngModel)]="student.nationality" (change)="validateField('nationality',student.nationality)">
+              <datalist id="nationality">
+                <option value="Indian">
+              </datalist>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- Basic Details card ends -->
+
+    <!-- Contact Detaails starts -->
+    <div class="card box-shadow">
+      <div class="card-header">Contact Details</div>
+      <div class="card-body">
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Mobile No <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['mobileNumber']">(Mobile No can not be empty)</small>
+                <small style="color: red; font-size: x-small;" *ngIf="validationFlags['mobileNumberValidity']">(Please Enter a Valid mobile no)</small>
+              </label>
+              <input type="text" class="form-control custom-input-style" placeholder="Mobile Number"
+                [(ngModel)]="student.mobileNumber" (change)="validateField('mobileNumber', student.mobileNumber)">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Alternate Mobile Number</label>
+              <input type="text" class="form-control custom-input-style" placeholder="Alternate Mobile Number"
+                [(ngModel)]="student.alternateMobile">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Email Id</label>
+              <input type="text" class="form-control custom-input-style" placeholder="Email Id"
+                [(ngModel)]="student.email">
+            </div>
+          </div>
+        </div>
+
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Address <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['address']">(Address can not be empty)</small>
+              </label>
+              <textarea class="form-control" style="border: 1px solid rgb(23, 162, 184);" placeholder="Address" rows="3"
+                [(ngModel)]="student.address" (change)="validateField('address',student.address)"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Contact Details Ends -->
+
+    <!-- Academic Detaails starts -->
+    <div class="card box-shadow">
+      <div class="card-header">Academic Details</div>
+      <div class="card-body">
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Admission Std <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['admissionStd']">(Std can not be empty)</small>
+              </label>
+              <input class="form-control custom-input-style" list="classes-list" placeholder="Select Admission Std"
+                [(ngModel)]="student.admissionStd" (change)="validateField('admissionStd', student.admissionStd)">
+              <datalist id="classes-list">
+                <option *ngFor="let classDet of classesList" value="{{classDet.classId}}">
+              </datalist>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">
+                Admission Date <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['admissionDate']">(Admission Date can not be empty)</small>
+              </label>
+              <input type="date" class="form-control custom-input-style" id="usr"
+                [ngModel]="student.admissionDate | date:'yyyy-MM-dd'" (ngModelChange)="student.admissionDate = $event">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr"> 
+                Academic Year <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['academicYear']">(Year can not be empty)</small>
+              </label>
+              <input class="form-control custom-input-style" list="academic-years" placeholder="Select Academic Year"
+                [(ngModel)]="student.academicYear" (change)="validateField('academicYear', student.academicYear)">
+              <datalist id="academic-years">
+                <option *ngFor="let academic of academicList" value="{{academic.academicId}}">{{academic.academicYear}}
+                </option>
+              </datalist>
+            </div>
+          </div>
+        </div>
+
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <label for="usr">Previous School</label>
+              <input type="text" class="form-control custom-input-style" placeholder="Previous School"
+                [(ngModel)]="student.prevSchool">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Academic Details Ends -->
+
+    <!-- Transport details starts -->
+    <div class="card box-shadow">
+      <div class="card-header">Transportation Details</div>
+      <div class="card-body">
+        <div class="row container" style="padding:2%;">
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <div class="form-check-inline">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" name="transportOpted" [(ngModel)]="student.transportOpted"
+                    (change)="handleTransPortOpted(student)"> Transportation Opted?
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group-sm">
+              <input class="form-control custom-input-style" list="routes" placeholder="Select Route"
+                *ngIf="student.transportOpted" [(ngModel)]="student.route" (change)="validateField('routeDetails', student.route)">
+                <small style="color: red; font-size: smaller;" *ngIf="validationFlags['routeDetails']">(Route can not be empty)</small>
+              <datalist id="routes">
+                <option *ngFor="let route of routesList" value="{{route.routeId}}">{{route.source + "-"+
+                  route.destination}}</option>
+              </datalist>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Transport Details Ends -->
+    <div class="row container card-body">
+      <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;"
+        (click)="saveDetails(student)">Save</button>
     </div>
   </div>
 </div>

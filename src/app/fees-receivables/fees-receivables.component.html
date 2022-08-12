@@ -1,36 +1,73 @@
-<div class="container row">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a routerLink="/admin-dashboard">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Receivables</li>
-    </ol>
-  </nav>
-</div>
-<div class="row">
-  <div class="col-md-2">
-    <input class="form-control form-control-sm" placeholder="Quick Search ..." [(ngModel)] = "filterDto.quickSearchText"
-    (keyup) = "applyFilter()">
-  </div>
-  <div class="col-md-2 offset-md-4" style="font-size: smaller;">
-    <button class="btn btn-primary btn-sm" style="width: -webkit-fill-available;">Total : {{feeReceivableStats.totalAmnt}}</button>
-  </div>
-  <div class="col-md-2" style="font-size: smaller;">
-    <button class="btn btn-success btn-sm" style="width: -webkit-fill-available;">Paid : {{feeReceivableStats.paidAmnt}}</button>
-  </div>
-  <div class="col-md-2" style="font-size: smaller;">
-    <button class="btn btn-warning btn-sm" style="width: -webkit-fill-available; color: white;">Due : {{feeReceivableStats.dueAmnt}}</button>
-  </div>
-</div><br>
 <div class="card box-shadow" id="students-list">
-  <div class="table-responsive">
-    <table class="table table-bordered table-sm border-primary" style="color: rgba(62, 78, 107, 1);">
-      <thead style="background-color: rgba(245,245,245,1);">
+  <div class="card-header">
+    <span>Filters</span>
+    <span style="float: right;" (click)="isFilterExpanded = !isFilterExpanded">
+      <a>
+        <i class="fa fa-chevron-circle-down" style="color: rgb(23, 162, 184); cursor: pointer;"
+          *ngIf="!isFilterExpanded"></i>
+        <i class="fa fa-chevron-circle-up" style="color: rgb(23, 162, 184); cursor: pointer;"
+          *ngIf="isFilterExpanded"></i>
+      </a>
+    </span>
+    <!-- Filter Starts here -->
+    <div class="container row m-2" *ngIf="isFilterExpanded">
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">Student Name</label>
+          <input class="form-control custom-input-style" placeholder="Enter Student Name"
+          [(ngModel)]="filteredData.studentName" (keydown)="filterStudentsOnNameChange()">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group-sm">
+          <label for="usr">Class</label>
+          <input class="form-control custom-input-style" list="classes-list" placeholder="Select Classe"
+          [(ngModel)]="filteredData.classId">
+          <datalist id="classes-list">
+            <option *ngFor="let classDet of classesList" value="{{classDet.classId}}">
+          </datalist>
+        </div>
+      </div>
+      <div class="col-md-2" style="padding-top: 27px;">
+        <button class="btn btn-outline-primary btn-sm mx-1" (click)="applyFilter()">Apply</button>
+        <button class="btn btn-outline-primary btn-sm mx-1" (click)="clearFilter()">Clear</button>
+      </div>
+    </div>
+    <!-- Filter ends here -->
+  </div>
+  <div class="card-body table-responsive">
+    <div class="row mb-3 text-light">
+      <div class="col-md-4">
+        <div class="card bg-info">
+          <div class="card-body">
+            <h6>Receivables : {{headStats["totalReceivable"] | currency : 'INR'}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-danger">
+          <div class="card-body">
+            <h6>Dues : {{headStats["totalDue"] | currency : 'INR'}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-success">
+          <div class="card-body">
+            <h6>Received : {{headStats["totalReceived"] | currency : 'INR'}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
         <tr>
+          <th>#</th>
           <th>Id</th>
-          <th>Reg No</th>
           <th>Name</th>
+          <th>Class</th>
           <th>Mobile</th>
-          <th>Address</th>
           <th>Total Fees</th>
           <th>Due Amount</th>
           <th>Paid Amount</th>
@@ -38,66 +75,84 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let student of feeReceivableDetailsDtoList let i = index">
+        <tr *ngFor="let student of studentsList let i = index">
+          <td>{{i+1}}</td>
           <td>{{student.studentId}}</td>
-          <td>{{student.genRegNo}}</td>
           <td>{{student.firstName + " " + student.middleName + " " + student.lastName}}</td>
+          <td>{{student.studentClassDetails[currentAcademicId][0].classId}}</td>
           <td>{{student.mobileNumber}}</td>
-          <td>{{student.address}}</td>
-          <td class="text-primary" style="font-weight: bold;">{{student.totalAmnt | currency : 'INR'}}</td>
-          <td class="text-danger" style="font-weight: bold;">{{student.dueAmnt | currency : 'INR'}}</td>
-          <td class="text-success" style="font-weight: bold;">{{student.paidAmnt | currency : 'INR'}}</td>
+          <td class="text-primary" style="font-weight: bold;">{{student.feeReceivables.totalFee | currency : 'INR'}}</td>
+          <td class="text-danger" style="font-weight: bold;">{{student.feeReceivables.dueAmount | currency : 'INR'}}</td>
+          <td class="text-success" style="font-weight: bold;">{{student.feeReceivables.paidAmount | currency : 'INR'}}</td>
           <td>
-            <svg xmlns="http://www.w3.org/2000/svg" (click)="feeReceivablesDetails(student)" fill="currentColor"  width="16" height="16" 
-            class="bi bi-eye text-primary mx-1" viewBox="0 0 16 16">
-              <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-              <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-bell mx-1 text-warning" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
-            </svg>
-            <!-- <a class="mr-2" (click)="feeReceivablesDetails(student)"><i class="fa fa-eye" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a> -->
+            <a class="mr-2" (click)="feeReceivablesDetails(student)"><i class="fa fa-eye" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
             <a class="mr-2"><i class="far fa-bell" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a>
           </td>
         </tr>
-        <tr class="text-danger" *ngIf="feeReceivableDetailsDtoList.length==0">No Record Found</tr>
+        <tr class="text-danger" *ngIf="studentsList.length==0">No Record Found</tr>
       </tbody>
     </table>
 
-    <div class="row container">
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link" style="color: rgba(62, 78, 107, 1);" (click)="loadPageData(currentPage-1)">Prev</a></li>
-        <li class="page-item" *ngFor="let page of pageArray" (click)="loadPageData(page)" [ngClass]="{'active' : page == currentPage}"><a class="page-link" style="color: rgba(62, 78, 107, 1);">{{page}}</a></li>
-        <li class="page-item"><a class="page-link" style="color: rgba(62, 78, 107, 1);" (click)="loadPageData(currentPage+1)">Next</a></li>
-      </ul>
+    <div class="row container ">
+      <button class="btn btn-outline-primary btn-sm mx-1" data-toggle="modal" data-target="#exampleModal">Print</button>
+      <button class="btn btn-outline-primary btn-sm mx-1">Export</button>
     </div>
 
-    <div style="margin-bottom: 2%;">
-      <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);" (click)="exportData('PRINT')">Print</button>
-      <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);" data-bs-toggle="modal" data-bs-target="#exampleModal">Export</button>
-      <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);">Delete</button>
-    </div>
 
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered mw-100 w-75" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="background-color: rgba(245,245,245,1);">
-        <p class="modal-title" style="color: rgba(62, 78, 107, 1);" id="exampleModalLabel">Export Student Data</p>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header" id="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Print Preview</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="modal-body" style="text-align: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" 
-        class="bi bi-filetype-pdf text-danger" viewBox="0 0 16 16" (click)="exportData('PDF')">
-          <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" 
-        class="bi bi-filetype-xlsx text-success mx-3" viewBox="0 0 16 16" (click)="exportData('XLSX')">
-          <path fill-rule="evenodd" d="M14 4.5V11h-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM7.86 14.841a1.13 1.13 0 0 0 .401.823c.13.108.29.192.479.252.19.061.411.091.665.091.338 0 .624-.053.858-.158.237-.105.416-.252.54-.44a1.17 1.17 0 0 0 .187-.656c0-.224-.045-.41-.135-.56a1.002 1.002 0 0 0-.375-.357 2.028 2.028 0 0 0-.565-.21l-.621-.144a.97.97 0 0 1-.405-.176.37.37 0 0 1-.143-.299c0-.156.061-.284.184-.384.125-.101.296-.152.513-.152.143 0 .266.023.37.068a.624.624 0 0 1 .245.181.56.56 0 0 1 .12.258h.75a1.093 1.093 0 0 0-.199-.566 1.21 1.21 0 0 0-.5-.41 1.813 1.813 0 0 0-.78-.152c-.293 0-.552.05-.777.15-.224.099-.4.24-.527.421-.127.182-.19.395-.19.639 0 .201.04.376.123.524.082.149.199.27.351.367.153.095.332.167.54.213l.618.144c.207.049.36.113.462.193a.387.387 0 0 1 .153.326.512.512 0 0 1-.085.29.558.558 0 0 1-.255.193c-.111.047-.25.07-.413.07-.117 0-.224-.013-.32-.04a.837.837 0 0 1-.249-.115.578.578 0 0 1-.255-.384h-.764Zm-3.726-2.909h.893l-1.274 2.007 1.254 1.992h-.908l-.85-1.415h-.035l-.853 1.415H1.5l1.24-2.016-1.228-1.983h.931l.832 1.438h.036l.823-1.438Zm1.923 3.325h1.697v.674H5.266v-3.999h.791v3.325Zm7.636-3.325h.893l-1.274 2.007 1.254 1.992h-.908l-.85-1.415h-.035l-.853 1.415h-.861l1.24-2.016-1.228-1.983h.931l.832 1.438h.036l.823-1.438Z"/>
-        </svg>
+      <div class="modal-body" id="printContent">
+        <!-- <div class="table-responsive"> -->
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th>#</th>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Birth Date</th>
+              <th>Adhar Number</th>
+              <th>Gender</th>
+              <th>Class</th>
+              <th>Mobile</th>
+              <th>Address</th>
+              <th>Transport</th>
+              <!-- <th>Action</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of studentsList let i = index">
+              <td>{{i+1}}</td>
+              <td>{{student.studentId}}</td>
+              <td>{{student.firstName + " " + student.middleName + " " + student.lastName}}</td>
+              <td>{{student.birthDate | date : "yyyy-MM-dd"}}</td>
+              <td>{{student.adharNumber}}</td>
+              <td>{{student.gender}}</td>
+              <td>{{student.studentClassDetails[currentAcademicId][0].classId}}</td>
+              <td>{{student.mobileNumber}}</td>
+              <td>{{student.address}}</td>
+              <td>{{student.transportOpted==true ? "Yes" : "No"}}</td>
+              <!-- <td><a (click)="editStudentDetails(student)"><i class="fa fa-edit"
+                    style="color: rgb(23, 162, 184); cursor: pointer;"></i></a></td> -->
+            </tr>
+          </tbody>
+        </table>
+        <!-- </div> -->
+      </div>
+      <div class="modal-footer" id="modal-footer">
+        <button class="btn btn-outline-primary btn-sm mx-1">Print</button>
+        <button class="btn btn-outline-secondary btn-sm mx-1" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

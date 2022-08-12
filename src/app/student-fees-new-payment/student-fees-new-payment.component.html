@@ -1,41 +1,31 @@
-<div class="container row">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a routerLink="/admin-dashboard">Home</a></li>
-      <li class="breadcrumb-item"><a routerLink="/fees-receivables">Receivables</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/fees-receivable/details', studentId+'_'+studentName+'_'+mobileNumber+'_'+address]">{{studentName}}</a></li>
-      <li class="breadcrumb-item active" aria-current="page">New Payment</li>
-    </ol>
-  </nav>
-</div><br>
 <div class="card box-shadow" id="students-list">
+  <div class="card-header">
+    <span>New Fee Payment : {{studentName}}</span>
+  </div>
   <div class="card-body table-responsive">
     <div class="row container my-4">
       <div class="col-md-3">
         <div class="input-group-sm">
-          <label for="usr" style="color: rgba(62, 78, 107, 1);">
-            Date <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-              <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-              </svg>
+          <label for="usr">
+            Date <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
             <small style="color: red; font-size: smaller;" *ngIf="validationFlags['collectionDate']">(Date Can not be empty)</small>
           </label>
-          <input style="color: rgba(62, 78, 107, 1);" type="date" class="form-control form-control-sm" [ngModel]="studentFeesPaidTrxnRequest.trxnDate | date:'yyyy-MM-dd'" 
-            (ngModelChange)="studentFeesPaidTrxnRequest.trxnDate = $event">
+          <input type="date" class="form-control custom-input-style" id="usr"
+            [ngModel]="studentFeesTransactionDetailsBO.collectionDate | date:'yyyy-MM-dd'" 
+            (ngModelChange)="studentFeesTransactionDetailsBO.collectionDate = $event">
         </div>
       </div>
       <div class="col-md-3">
         <div class="input-group-sm">
-          <label for="usr" style="color: rgba(62, 78, 107, 1);">
-            Account <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-              <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-              </svg>
+          <label for="usr">
+            Account <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
             <small style="color: red; font-size: smaller;" *ngIf="validationFlags['accountDetails']">(Field can not be empty)</small>
           </label>
-          <input style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" list="accountsList" placeholder="Select Deposit Account"
-            [(ngModel)]="studentFeesPaidTrxnRequest.accountId" 
-            (change)="validateField('accountId',studentFeesPaidTrxnRequest.accountId)">
+          <input class="form-control custom-input-style" list="accountsList" placeholder="Select Deposit Account"
+            [(ngModel)]="studentFeesTransactionDetailsBO.accountsDetailsBO['accountId']" 
+            (change)="validateField('accountId',studentFeesTransactionDetailsBO.accountsDetailsBO['accountId'])">
           <datalist id="accountsList">
-            <option *ngFor="let accountId of accountIds" value="{{accountId.accountId}}">
+            <option *ngFor="let accountId of accountIds" value="{{accountId.accountName}}">
           </datalist>
         </div>
       </div>
@@ -43,15 +33,13 @@
     <div class="row container my-4">
       <div class="col-md-3">
         <div class="input-group-sm">
-          <label for="usr" style="color: rgba(62, 78, 107, 1);">
-            Academic year <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-              <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-              </svg>
+          <label for="usr">
+            Academic year <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
             <small style="color: red; font-size: xx-small;" *ngIf="validationFlags['academicId']">(Field can not be empty)</small>
           </label>
-          <input style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" list="academicIdList" placeholder="Select Deposit Account"
-            [(ngModel)]="newFeeDetails.academicId" 
-            (change)="populateFeeTypesForAcademicYear(newFeeDetails.academicId)">
+          <input class="form-control custom-input-style" list="academicIdList" placeholder="Select Deposit Account"
+            [(ngModel)]="newRecord['academicId']" 
+            (change)="populateFeeTypesForAcademicYear(newRecord['academicId'])">
           <datalist id="academicIdList">
             <option *ngFor="let academicId of academicIds" value="{{academicId}}">
           </datalist>
@@ -59,15 +47,13 @@
       </div>
       <div class="col-md-3">
         <div class="input-group-sm">
-          <label for="usr" style="color: rgba(62, 78, 107, 1);">
-            Fee type <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-              <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-              </svg>
+          <label for="usr">
+            Fee type <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
             <small style="color: red; font-size: xx-small;" *ngIf="validationFlags['feeType']">(Field can not be empty)</small>
           </label>
-          <input style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" list="feeTypes" placeholder="Select Deposit Account"
-            [(ngModel)]="newFeeDetails.feeName" 
-            (change)="getDueAmountForFeeType(newFeeDetails.academicId, newFeeDetails.feeName)">
+          <input class="form-control custom-input-style" list="feeTypes" placeholder="Select Deposit Account"
+            [(ngModel)]="newRecord['feeType']" 
+            (change)="getDueAmountForFeeType(newRecord['academicId'], newRecord['feeType'])">
           <datalist id="feeTypes">
             <option *ngFor="let feeType of feeTypes" value="{{feeType.feeName}}">
           </datalist>
@@ -75,23 +61,20 @@
       </div>
       <div class="col-md-3">
         <div class="input-group-sm">
-          <label for="usr" style="color: rgba(62, 78, 107, 1);">
-            Amount <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
-              <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-              </svg>
-            <small style="color: red; font-size: smaller;" *ngIf="validationFlags['amount']">(Invalid Amount)</small>
+          <label for="usr">
+            Amount <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            <small style="color: red; font-size: smaller;" *ngIf="validationFlags['amount']">(Field can not be empty)</small>
           </label>
-          <input type="number" style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" placeholder="Enter Amount" [(ngModel)]="newFeeDetails.amount"
-          max="newFeeDetails.amount">
+          <input type="number" class="form-control custom-input-style" placeholder="Enter Amount" [(ngModel)]="newRecord['amount']">
         </div>
       </div>
-      <div class="col-md-3 my-4">
-        <button class="btn btn-outline-primary btn-sm" style="color: rgba(62, 78, 107, 1);"
+      <div class="col-md-3" style="padding-top: 27px;">
+        <button class="btn btn-primary btn-sm" style="margin-right: 5px;"
           (click)="addNewFeeDetailsForPayment()">Add Record</button>
       </div>
     </div>
-    <table class="table table-bordered table-sm border-primary" style="color: rgba(62, 78, 107, 1);">
-      <thead style="background-color: rgba(245,245,245,1);">
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
         <tr>
           <th>#</th>
           <th>Academic Year</th>
@@ -101,31 +84,29 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let feeDetails of studentFeesPaidTrxnRequest.feesPaidTrxnDetailsDtos let i = index">
+        <tr *ngFor="let feeDetails of feePaymentRecordList let i = index">
           <td>{{i+1}}</td>
-          <td>{{feeDetails.academicId}}</td>
-          <td>{{feeDetails.feeName}}</td>
-          <td>{{feeDetails.amount}}</td>
+          <td>{{feeDetails[0]}}</td>
+          <td>{{feeDetails[1].feeName}}</td>
+          <td>{{feeDetails[1].amount}}</td>
           <td>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
-            class="bi bi-clipboard2-x text-danger mx-1" viewBox="0 0 16 16" (click)="removeFeePaymentFromList(feeDetails)">
-              <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"/>
-              <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z"/>
-              <path d="M8 8.293 6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293Z"/>
-            </svg>
+            <a class="mr-2" (click)="removeFeePaymentFromList(feeDetails[0],feeDetails[1].feeName)">
+              <i class="fa fa-times" style="color: rgb(23, 162, 184); cursor: pointer;"></i>
+            </a>
+            <!-- <a class="mr-2"><i class="far fa-bell" style="color: rgb(23, 162, 184); cursor: pointer;"></i></a> -->
           </td>
         </tr>
         <tr *ngIf="feePaymentRecordList.length>0">
           <td colspan="3">Total Amount</td>
           <td colspan="2">{{studentFeesTransactionDetailsBO.amount}}</td>
         </tr>
-        <tr class="text-danger" *ngIf="studentFeesPaidTrxnRequest.feesPaidTrxnDetailsDtos.length==0">Please add new record</tr>
+        <tr class="text-danger" *ngIf="feePaymentRecordList.length==0">Please add new record</tr>
       </tbody>
     </table>
 
-    <div style="margin-bottom: 2%;">
-      <button type="button" style="color: rgba(62, 78, 107, 1);" class="btn btn-outline-primary btn-sm mx-1" (click)="saveNewPayment()">Save</button>
-      <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);" (click)="cancelNewPayment()">Cancel</button>
+    <div class="row container ">
+      <button class="btn btn-outline-primary btn-sm mx-1" (click)="saveNewPayment()">Save</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" (click)="cancelNewPayment()">Cancel</button>
     </div>
 
 

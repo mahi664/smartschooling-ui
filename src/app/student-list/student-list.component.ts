@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import jsPDF from 'jspdf';
 import { ClassesService } from '../services/classes.service';
 import { CommonService } from '../services/common.service';
 import { StudentService } from '../services/student.service';
 import { TransportationService } from '../services/transportation.service';
-import autoTable from 'jspdf-autotable';
-import { DatePipe } from '@angular/common';
-import * as XLSX from 'xlsx';
 
 export class AcademicDetailsBO {
   constructor(public academicId: String, public academicYear: String, public displayName: string,
@@ -81,7 +77,6 @@ export class StudentListComponent implements OnInit {
   currentPage = 1;
   page = 0;
   size = 15;
-  totalItems;
   studentListSuccessResponse: SuccessDto;
   pagedStudents: any[] = [];
   routesDetails: RouteDetailsBO[] = [];
@@ -89,8 +84,7 @@ export class StudentListComponent implements OnInit {
   castes: string[] = ['OPEN', 'OBC', 'NT-A', 'NT-B', 'NT-C', 'NT-D', 'SC', 'ST'];
   religions: string[] = ['HINDU', 'MUSLIM', 'CHRISTIAN'];
   constructor(private studentService: StudentService, private router: Router,
-    private transportationService: TransportationService, private classesService: ClassesService,
-    private datePipe: DatePipe) { }
+    private transportationService: TransportationService, private classesService: ClassesService) { }
 
   ngOnInit() {
 
@@ -121,7 +115,6 @@ export class StudentListComponent implements OnInit {
         }
         this.currentPage = this.studentListSuccessResponse.currentPage + 1;
         this.pagedStudents = this.studentListSuccessResponse.data;
-        this.totalItems = this.studentListSuccessResponse.totalItems;
       },
       error => {
         console.log("Error in fetching student list : " + error);
@@ -216,78 +209,40 @@ export class StudentListComponent implements OnInit {
     WindowPrt.print();
     WindowPrt.close();
   }
+  
 
-  exportData(exportTo: string) {
-    let exportData: StudentDetailsBO[];
-    this.studentService.getStudentsList(0, this.totalItems, this.filterDto).subscribe(
-      response => {
-        this.studentListSuccessResponse = response.success;
-        console.log(this.studentListSuccessResponse);
-        if(exportTo === 'PDF' || exportTo === "PRINT") {
-          this.exportDataToPdf(this.studentListSuccessResponse.data, 
-            exportTo === "PRINT" ? true : false);
-        } else if(exportTo === 'XLSX') {
-          this.exportToXlsx(this.studentListSuccessResponse.data);
-        }
-      },
-      error => {
-        console.log("Error in fetching student list : " + error);
-        alert("Error While Fetching Student List ! Please Contact System Administrator")
-      }
-    );
-    
-  }
-
-  exportDataToPdf(exportData, isPrint: boolean) {
-    let doc = new jsPDF("l");
-    let array = [];
-    for(let i=0; i<exportData.length; i++) {
-      let arr = [];
-      arr.push(i+1);
-      arr.push(exportData[i].genRegNo);
-      arr.push(exportData[i].firstName + " "+ exportData[i].middleName + " " + exportData[i].lastName);
-      arr.push(this.datePipe.transform(exportData[i].birthDate, 'dd-MM-yyyy'));
-      arr.push(exportData[i].adharNumber);
-      arr.push(exportData[i].gender);
-      arr.push(exportData[i].religion);
-      arr.push(exportData[i].caste);
-      arr.push(exportData[i].classDet.id);
-      arr.push(exportData[i].mobileNumber);
-      arr.push(exportData[i].address);
-      arr.push(exportData[i].transportOpted ? 'Y' : 'N');
-      array.push(arr);
+  updateFilter(field: string, event: any, value: string) {
+    console.log(field);
+    console.log(event.target.checked);
+    console.log(value);
+    switch (field) {
+      // case "classIds":
+      //   if (event.target.checked)
+      //     this.filterDto.classIds.push(value)
+      //   else
+      //     this.filterDto.classIds = this.filterDto.classIds.filter(classId => value != classId);
+      //   break;
+      // case "routeIds":
+      //   if (event.target.checked)
+      //     this.filterDto.routeIds.push(value)
+      //   else
+      //     this.filterDto.routeIds = this.filterDto.routeIds.filter(routeId => value != routeId);
+      //   break;
+      // case "caste":
+      //   if (event.target.checked)
+      //     this.filterDto.castes.push(value)
+      //   else
+      //     this.filterDto.castes = this.filterDto.castes.filter(caste => value != caste);
+      //   break;
+      // case "religion":
+      //   if (event.target.checked)
+      //     this.filterDto.religions.push(value)
+      //   else
+      //     this.filterDto.religions = this.filterDto.religions.filter(religion => value != religion);
+      //   break;
+      default:
+        break;
     }
-    autoTable(doc, {
-      head: [['#', 'Reg No', 'Name', 'Birth Date', 'Adhar Number', 'Gender', 'Religion', 'Caste',
-              'Class', 'Mobile', 'Address', 'Transport']],
-      body: array,
-      theme: 'grid'
-    })
-    if(!isPrint) {
-      doc.save("student-list.pdf");
-    } else {
-      doc.output("pdfobjectnewwindow");
-    }
-  }
-
-  exportToXlsx(exportData) {
-    let rows = exportData.map(row => ({
-      STUEDENT_ID : row.studentId,
-      GEN_REG_NO : row.genRegNo,
-      NAME : row.firstName + " " + row.middleName + " " + row.lastName,
-      BIRTH_DATE : this.datePipe.transform(row.birthDate, 'dd-MM-yyyy'),
-      ADHAR_NUMBER : row.adharNumber,
-      GENDER : row.gender,
-      RELIGION : row.religion,
-      CASTE : row.caste,
-      CLASS : row.classDet.id,
-      MOBILE : row.mobileNumber,
-      ADDRESS : row.address,
-      TRANSPORT : row.transportOpted ? 'Y' : 'N'
-    }));
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(rows);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    XLSX.writeFileXLSX(wb, "Student_List.xlsx");
+    console.log(this.filterDto);
   }
 }

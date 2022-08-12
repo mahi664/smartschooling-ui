@@ -36,6 +36,6 @@ export class FeeTypesComponent implements OnInit {
   }
 
   configureDetails(feeType : FeesDetailsBO){
-    this.router.navigate(['/fee-details',feeType.feeId+"-"+feeType.feeName]);
+    this.router.navigate(['/fee-details',feeType.feeId]);
   }
 }

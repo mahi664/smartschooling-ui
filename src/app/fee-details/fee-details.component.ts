@@ -15,9 +15,7 @@ export class FeeDetailsComponent implements OnInit {
   constructor(private router: ActivatedRoute, private classesService: ClassesService, 
     private transportationService: TransportationService, private feeService : FeesService) { }
 
-  feeParams: string[] = [];
   feeId: string;
-  feeName: string;
   feeDetails: FeesDetailsBO[] = [];
   newFeeDetails = {};
   applicableValues = [];
@@ -25,9 +23,7 @@ export class FeeDetailsComponent implements OnInit {
   routes: RouteDetailsBO[] = [];
   dataValidationFlags = {};
   ngOnInit() {
-    this.feeParams = this.router.snapshot.params["feeType"].split("-");
-    this.feeId = this.feeParams[0];
-    this.feeName = this.feeParams[1];
+    this.feeId = this.router.snapshot.params["feeType"];
     this.initDataValidationFlags();
 
     this.feeService.getFeeDetails(this.feeId).subscribe(

@@ -1,39 +1,40 @@
-<div class="container row">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a routerLink="/admin-dashboard">Home</a></li>
-      <li class="breadcrumb-item"><a routerLink="/fee-types">Fee Types</a></li>
-      <li class="breadcrumb-item active" aria-current="page">New Types</li>
-    </ol>
-  </nav>
-</div>
-<div class="card box-shadow" style="color: rgba(62, 78, 107, 1);">
+<div class="card box-shadow">
+  <div class="card-header">
+    Fee Id :
+  </div>
+  <!-- style="height: 600px; overflow-y: scroll;" -->
   <div class="card-body">
     <div class="row container" style="padding:2%;">
-      <div class="col-md-4 offset-md-4">
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-4">
         <div class="input-group-sm">
           <label for="usr">
-            Fee Type <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
+            Type of Fee <i class='fas fa-asterisk' style="color: red; font-size: xx-small"></i>
             <small style="color: red; font-size: smaller;" *ngIf="isFeeTypeEmpty">(Fee type can not be
               empty)</small>
           </label>
-          <input type="text" class="form-control form-control-sm" placeholder="Fee Type"
+          <input type="text" class="form-control custom-input-style" placeholder="Fee Type"
             [(ngModel)]="feeType.feeName" (change)="validateFeeTypeDataOnChange()">
         </div>
       </div>
     </div>
 
     <div class="row container" style="padding:2%;">
-      <div class="col-md-4 offset-md-4">
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-4">
         <div class="input-group-sm">
           <label for="usr">
             Description of Fee
           </label>
-          <textarea class="form-control" placeholder="Fee Description"
+          <textarea class="form-control" style="border: 1px solid rgb(23, 162, 184);" placeholder="Fee Description"
             rows="3" [(ngModel)]="feeType.feeDiscription"></textarea>
         </div>
         <div class="my-5">
-          <button class="btn btn-outline-primary btn-sm" style="color: rgba(62, 78, 107, 1); margin-right: 5px;"
+          <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;"
             (click)="saveFeeType(feeType)">Save</button>
 
           <button class="btn btn-outline-secondary btn-sm" style="margin-right: 5px;">Clear</button>
