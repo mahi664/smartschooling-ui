@@ -38,6 +38,8 @@ import { UserSalaryDetailsComponent } from './user-salary-details/user-salary-de
 import { UserRoleDetailsComponent } from './user-role-details/user-role-details.component';
 import { StudentRegistrationComponent } from './student-registration/student-registration.component';
 import { StudentImportComponent } from './student-import/student-import.component';
+import { DatePipe } from '@angular/common';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
@@ -79,14 +81,16 @@ import { StudentImportComponent } from './student-import/student-import.componen
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxPrintModule
   ],
   providers: [
     {
       provide : HTTP_INTERCEPTORS,
       useClass : TokenInterceptorService,
       multi : true
-    }
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

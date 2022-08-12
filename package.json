@@ -3,12 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -22,9 +21,11 @@
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
     "core-js": "^2.5.4",
-    "express": "^4.17.2",
-    "path": "^0.12.7",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.25",
+    "ngx-print": "^1.2.1",
     "rxjs": "~6.3.3",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
@@ -47,9 +48,5 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.1.1"
-  },
-  "engines": { 
-  	"node": "16.13.2", 
-  	"npm": "8.3.1" 
   }
 }
