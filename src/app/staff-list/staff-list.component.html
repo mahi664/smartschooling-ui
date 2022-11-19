@@ -1,0 +1,189 @@
+<div class="container row">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/admin-dashboard">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Staff-list</li>
+    </ol>
+  </nav>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <input class="form-control form-control-sm" placeholder="Quick Search ..." [(ngModel)] = "filterDto.quickSearchText"
+    (keyup) = "applyFilter()">
+  </div>
+  <div class="col-md-2">
+    <input class="form-control form-control-sm" list="datalistOptions" id="exampleDataList" 
+    placeholder="Marital Status" [(ngModel)] = "filterDto.maritalStatus" (change) = "applyFilter()">
+    <datalist id="datalistOptions">
+      <option value="Married">
+      <option value="Un-married">
+    </datalist>
+  </div>
+  <div class="col-md-2">
+    <input class="form-control form-control-sm" list="genders" id="exampleDataList" 
+    placeholder="Gender" [(ngModel)] = "filterDto.gender" (change) = "applyFilter()">
+    <datalist id="genders">
+      <option value="Male">
+      <option value="Female">
+    </datalist>
+  </div>
+  <div class="col-md-1">
+    <div class="dropdown">
+      <button class="btn btn-sm dropdown-toggle" style="background-color: rgba(245,246,248); color: rgba(62, 78, 107, 1);" 
+      type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+        Caste
+      </button>
+      <ul class="dropdown-menu box-shadow" aria-labelledby="dropdownMenuButton3" style="padding: 5px; font-size: 12px;">
+        <li style="margin: 5px; color: rgba(45,63,94,1);" *ngFor="let caste of castes">
+          <a class="dropdown-item">
+            <input type="checkbox" (change) = "applyFilter()" [(ngModel)]="filterDto.castes[caste]"> {{caste}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-1 offset-md-1">
+    <div class="dropdown">
+      <button class="btn btn-sm dropdown-toggle" style="background-color: rgba(245,246,248); color: rgba(62, 78, 107, 1);" 
+      type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
+          <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+        </svg>
+      </button>
+      <ul class="dropdown-menu box-shadow" aria-labelledby="dropdownMenuButton3" style=" font-size: 9px;">
+        <li style="margin: 5px; color: rgba(45,63,94,1);">
+          <div class="row" style="display: inline;">
+            <span>Name &nbsp;&nbsp;</span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-down" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+                <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"/>
+              </svg>
+              <input type="radio" [(ngModel)]="filterDto.sortOrder" (change)="applyFilter()" name="sorting" value="firstName_ASC">
+            </span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+                <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zm-8.46-.5a.5.5 0 0 1-1 0V3.707L2.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L4.5 3.707V13.5z"/>
+              </svg>
+              <input type="radio" [(ngModel)]="filterDto.sortOrder" (change)="applyFilter()" name="sorting" value="firstName_DESC">
+            </span>
+          </div>
+        </li>
+        <li style="margin: 5px; color: rgba(45,63,94,1);">
+          <div class="row" style="display: inline;">
+            <span>Address </span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-down" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+                <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"/>
+              </svg>
+              <input type="radio" [(ngModel)]="filterDto.sortOrder" (change)="applyFilter()" name="sorting" value="address_ASC">
+            </span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"/>
+                <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zm-8.46-.5a.5.5 0 0 1-1 0V3.707L2.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L4.5 3.707V13.5z"/>
+              </svg>
+              <input type="radio" [(ngModel)]="filterDto.sortOrder" (change)="applyFilter()" name="sorting" value="address_DESC">
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <button class="btn btn-sm" style="background-color: rgba(245,246,248);" 
+      type="button" (click) = "clearFilter()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x-circle text-danger" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+      </svg>
+    </button>
+  </div>
+</div><br>
+<div class="card box-shadow" id="students-list">
+  <div class="table-responsive">
+    <table id="table-content" class="table table-bordered table-sm border-primary" style="color: rgba(62, 78, 107, 1);">
+      <thead style="background-color: rgba(245,245,245,1);">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Birth Date</th>
+          <th>Adhar Number</th>
+          <th>Gender</th>
+          <th>Marital Status</th>
+          <th>Religion</th>
+          <th>Caste</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let staff of pagedStaff, let i = index">
+          <td>{{i+1}}</td>
+          <td>{{staff.firstName + " " + staff.middleName + " " + staff.lastName}}</td>
+          <td>{{staff.birthDate | date : "yyyy-MM-dd"}}</td>
+          <td>{{staff.adharNumber}}</td>
+          <td>{{staff.gender}}</td>
+          <td>{{staff.maritalStatus}}</td>
+          <td>{{staff.religion}}</td>
+          <td>{{staff.caste}}</td>
+          <td>{{staff.mobileNumber}}</td>
+          <td>{{staff.email}}</td>
+          <td>{{staff.address}}</td>
+          <td>
+            <svg xmlns="http://www.w3.org/2000/svg" (click)="editStudentDetails(student)" fill="currentColor"  width="16" height="16" 
+            class="bi bi-eye text-primary" viewBox="0 0 16 16">
+              <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+              <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+            </svg>
+          </td>
+        </tr>
+        <tr class="text-danger" *ngIf="pagedStaff.length==0">No Record Found</tr>
+      </tbody>
+    </table>
+
+    <div class="row container">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" style="color: rgba(62, 78, 107, 1);" (click)="loadPageData(currentPage-1)">Prev</a></li>
+        <li class="page-item" *ngFor="let page of pageArray" (click)="loadPageData(page)" [ngClass]="{'active' : page == currentPage}"><a class="page-link" style="color: rgba(62, 78, 107, 1);">{{page}}</a></li>
+        <li class="page-item"><a class="page-link" style="color: rgba(62, 78, 107, 1);" (click)="loadPageData(currentPage+1)">Next</a></li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom: 2%;">
+      <button type="button" style="color: rgba(62, 78, 107, 1);" class="btn btn-outline-primary btn-sm mx-1" (click)="newStudentRegistration()">Add</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);" (click)="exportData('PRINT')">Print</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);" data-bs-toggle="modal" data-bs-target="#exampleModal">Export</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);" routerLink = "/student-import">Import</button>
+      <button class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);">Delete</button>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: rgba(245,245,245,1);">
+        <p class="modal-title" style="color: rgba(62, 78, 107, 1);" id="exampleModalLabel">Export Student Data</p>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" 
+        class="bi bi-filetype-pdf text-danger" viewBox="0 0 16 16" (click)="exportData('PDF')">
+          <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" 
+        class="bi bi-filetype-xlsx text-success mx-3" viewBox="0 0 16 16" (click)="exportData('XLSX')">
+          <path fill-rule="evenodd" d="M14 4.5V11h-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM7.86 14.841a1.13 1.13 0 0 0 .401.823c.13.108.29.192.479.252.19.061.411.091.665.091.338 0 .624-.053.858-.158.237-.105.416-.252.54-.44a1.17 1.17 0 0 0 .187-.656c0-.224-.045-.41-.135-.56a1.002 1.002 0 0 0-.375-.357 2.028 2.028 0 0 0-.565-.21l-.621-.144a.97.97 0 0 1-.405-.176.37.37 0 0 1-.143-.299c0-.156.061-.284.184-.384.125-.101.296-.152.513-.152.143 0 .266.023.37.068a.624.624 0 0 1 .245.181.56.56 0 0 1 .12.258h.75a1.093 1.093 0 0 0-.199-.566 1.21 1.21 0 0 0-.5-.41 1.813 1.813 0 0 0-.78-.152c-.293 0-.552.05-.777.15-.224.099-.4.24-.527.421-.127.182-.19.395-.19.639 0 .201.04.376.123.524.082.149.199.27.351.367.153.095.332.167.54.213l.618.144c.207.049.36.113.462.193a.387.387 0 0 1 .153.326.512.512 0 0 1-.085.29.558.558 0 0 1-.255.193c-.111.047-.25.07-.413.07-.117 0-.224-.013-.32-.04a.837.837 0 0 1-.249-.115.578.578 0 0 1-.255-.384h-.764Zm-3.726-2.909h.893l-1.274 2.007 1.254 1.992h-.908l-.85-1.415h-.035l-.853 1.415H1.5l1.24-2.016-1.228-1.983h.931l.832 1.438h.036l.823-1.438Zm1.923 3.325h1.697v.674H5.266v-3.999h.791v3.325Zm7.636-3.325h.893l-1.274 2.007 1.254 1.992h-.908l-.85-1.415h-.035l-.853 1.415h-.861l1.24-2.016-1.228-1.983h.931l.832 1.438h.036l.823-1.438Z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>

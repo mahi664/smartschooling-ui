@@ -60,7 +60,8 @@ export class ErrorDto {
 
 export class FilterDto {
   constructor(public classIds: {}, public routeIds: {}, public castes: {}, public religions: {},
-    public gender: string, public transportOpted: string, public sortOrder: string, public quickSearchText: string) { }
+    public gender: string, public transportOpted: string, public sortOrder: string, public quickSearchText: string,
+    public maritalStatus: string) { }
 }
 
 @Component({
@@ -85,7 +86,7 @@ export class StudentListComponent implements OnInit {
   studentListSuccessResponse: SuccessDto;
   pagedStudents: any[] = [];
   routesDetails: RouteDetailsBO[] = [];
-  filterDto: FilterDto = new FilterDto([], [], [], [], "", "", "", "");
+  filterDto: FilterDto = new FilterDto([], [], [], [], "", "", "", "", "");
   castes: string[] = ['OPEN', 'OBC', 'NT-A', 'NT-B', 'NT-C', 'NT-D', 'SC', 'ST'];
   religions: string[] = ['HINDU', 'MUSLIM', 'CHRISTIAN'];
   constructor(private studentService: StudentService, private router: Router,
@@ -188,7 +189,7 @@ export class StudentListComponent implements OnInit {
   }
 
   clearFilter() {
-    this.filterDto = new FilterDto([],[],[],[], "", "", "", "");
+    this.filterDto = new FilterDto([],[],[],[], "", "", "", "", "");
     this.studentService.getStudentsList(this.page, this.size, this.filterDto).subscribe(
       response => {
         this.studentListSuccessResponse = response.success;
