@@ -34,7 +34,7 @@ export class FeesReceivablesComponent implements OnInit {
   pageArray = [];
   currentPage = 1;
   totalItems;
-  filterDto: FilterDto = new FilterDto([], [], [], [], "", "", "", "");
+  filterDto: FilterDto = new FilterDto([], [], [], [], "", "", "", "", "");
   feeReceivableStats: FeeReceivableStatsDto = new FeeReceivableStatsDto(0,0,0);
 
   constructor(private classesService: ClassesService, private studentService: StudentService,
