@@ -1,0 +1,293 @@
+<div class="container row">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/admin-dashboard">Home</a></li>
+      <li class="breadcrumb-item"><a routerLink="/student-list">Staff</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Registration</li>
+    </ol>
+  </nav>
+</div>
+<div class="container row">
+  <p style="color: red;">
+    (Fields with <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+    <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+    </svg> are required) 
+  </p>
+</div>
+<div class="card box-shadow">
+  <div class="card-body">
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+      <!-- <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+          <button class="accordion-button" style="background-color: rgba(245,245,245,1); color: rgba(62, 78, 107, 1);" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+            Personal Details
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+          <div class="accordion-body">
+            <div class="row container" style="padding:2%;">
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    Gen Reg No <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['genRegNo']">(Gen Reg No can not be empty)</small>
+                  </label>
+                  <input style="color: rgba(62, 78, 107, 1);" type="number" class="form-control form-control-sm" placeholder="Gen Reg No"
+                    [(ngModel)]="student.genRegNo" (change)="validateField('genRegNo',student.genRegNo)">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    Book Number <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['bookNo']">(Book No can not be empty)</small>
+                  </label>
+                  <input style="color: rgba(62, 78, 107, 1);" type="number" class="form-control form-control-sm" placeholder="Book Number"
+                    [(ngModel)]="student.bookNo" (change)="validateField('bookNo',student.bookNo)">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+          <button class="accordion-button" type="button" style="background-color: rgba(245,245,245,1); color: rgba(62, 78, 107, 1);" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+            Personal Details
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+          <div class="accordion-body">
+            <div class="row container" style="padding:2%;">
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    First Name <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['firstName']">(First Name can not be empty)</small>
+                  </label>
+                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="First Name"
+                    [(ngModel)]="staffBasicDetails.firstName" (change)="validateField('firstName',staffBasicDetails.firstName)">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">Middle Name</label>
+                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Middle Name"
+                    [(ngModel)]="staffBasicDetails.middleName">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    Last Name <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['lastName']">(Last Name can not be empty)</small>
+                  </label>
+                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Last Name"
+                    [(ngModel)]="staffBasicDetails.lastName" (change)="validateField('lastName',staffBasicDetails.lastName)">
+                </div>
+              </div>
+            </div>
+    
+            <div class="row container" style="padding:2%;">
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    Adhar Number 
+                  </label>
+                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Adhar Number"
+                    [(ngModel)]="staffBasicDetails.adharNumber">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    Date of Birth <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['birthDate']">(Date of Birth can not be empty)</small>
+                  </label>
+                  <input style="color: rgba(62, 78, 107, 1);" type="date" class="form-control form-control-sm" id="usr"
+                    [ngModel]="staffBasicDetails.birthDate | date:'yyyy-MM-dd'" (ngModelChange)="staffBasicDetails.birthDate = $event">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    Gender <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['gender']">(Gender can not be empty)</small>
+                  </label><br>
+                  <div class="form-check-inline">
+                    <label class="form-check-label" style="color: rgba(62, 78, 107, 1);">
+                      <input type="radio" class="form-check-input" name="gender" value="Male"
+                        [(ngModel)]="staffBasicDetails.gender">Male
+                    </label>
+                  </div>
+                  <div class="form-check-inline">
+                    <label class="form-check-label" style="color: rgba(62, 78, 107, 1);">
+                      <input type="radio" class="form-check-input" name="gender" value="Female"
+                        [(ngModel)]="staffBasicDetails.gender">Female
+                    </label>
+                  </div>
+                  <div class="form-check-inline disabled">
+                    <label class="form-check-label" style="color: rgba(62, 78, 107, 1);">
+                      <input type="radio" class="form-check-input" name="gender" value="Other"
+                        [(ngModel)]="staffBasicDetails.gender">Other
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div class="row container" style="padding:2%;">
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    Religion <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['religion']">(Religion can not be empty)</small>
+                  </label>
+                  <input style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" list="religion" placeholder="Select Religion"
+                    [(ngModel)]="staffBasicDetails.religion" (change)="validateField('religion',staffBasicDetails.religion)">
+                  <datalist id="religion">
+                    <option value="Hindu">
+                    <option value="Muslim">
+                    <option value="Christian">
+                  </datalist>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    Caste <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['caste']">(Caste can not be empty)</small>
+                  </label>
+                  <input style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" list="caste" placeholder="Select Caste"
+                    [(ngModel)]="staffBasicDetails.caste" (change)="validateField('caste',staffBasicDetails.caste)">
+                  <datalist id="caste">
+                    <option value="Open">
+                    <option value="OBC">
+                    <option value="NT-A">
+                    <option value="NT-B">
+                    <option value="NT-C">
+                    <option value="NT-D">
+                    <option value="SC">
+                    <option value="ST">
+                  </datalist>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    Nationality <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['nationality']">(Nationality can not be empty)</small>
+                  </label>
+                  <input style="color: rgba(62, 78, 107, 1);" class="form-control form-control-sm" list="nationality" placeholder="Select Nationality"
+                    [(ngModel)]="staffBasicDetails.nationality" (change)="validateField('nationality',staffBasicDetails.nationality)">
+                  <datalist id="nationality">
+                    <option value="Indian">
+                  </datalist>
+                </div>
+              </div>
+            </div>
+            <div class="row container" style="padding:2%;">
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    Marital Status <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['maritalStatus']">(Marital status can not be empty)</small>
+                  </label><br>
+                  <div class="form-check-inline">
+                    <label class="form-check-label" style="color: rgba(62, 78, 107, 1);">
+                      <input type="radio" class="form-check-input" name="maritalStatus" value="Married"
+                        [(ngModel)]="staffBasicDetails.maritalStatus">Married
+                    </label>
+                  </div>
+                  <div class="form-check-inline">
+                    <label class="form-check-label" style="color: rgba(62, 78, 107, 1);">
+                      <input type="radio" class="form-check-input" name="maritalStatus" value="Un-married"
+                        [(ngModel)]="staffBasicDetails.maritalStatus">Un-married
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+          <button class="accordion-button" type="button" style="background-color: rgba(245,245,245,1); color: rgba(62, 78, 107, 1);" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+            Contact Details
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
+          <div class="accordion-body">
+            <div class="row container" style="padding:2%;">
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    Mobile No <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['mobileNumber']">(Mobile No can not be empty)</small>
+                    <small style="color: red; font-size: x-small;" *ngIf="validationFlags['mobileNumberValidity']">(Please Enter a Valid mobile no)</small>
+                  </label>
+                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Mobile Number"
+                    [(ngModel)]="staffBasicDetails.mobileNumber" (change)="validateField('mobileNumber', staffBasicDetails.mobileNumber)">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">Alternate Mobile Number</label>
+                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Alternate Mobile Number"
+                    [(ngModel)]="staffBasicDetails.alternateMobile">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">Email Id</label>
+                  <input style="color: rgba(62, 78, 107, 1);" type="text" class="form-control form-control-sm" placeholder="Email Id"
+                    [(ngModel)]="staffBasicDetails.email">
+                </div>
+              </div>
+            </div>
+    
+            <div class="row container" style="padding:2%;">
+              <div class="col-md-4">
+                <div class="input-group-sm">
+                  <label for="usr" style="color: rgba(62, 78, 107, 1);">
+                    Address <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="red" class="bi bi-asterisk" viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    <small style="color: red; font-size: smaller;" *ngIf="validationFlags['address']">(Address can not be empty)</small>
+                  </label>
+                  <textarea style="color: rgba(62, 78, 107, 1);" class="form-control" placeholder="Address" rows="3"
+                    [(ngModel)]="staffBasicDetails.address" (change)="validateField('address',staffBasicDetails.address)"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div style="margin: 1% 0%;">
+      <button type="button" class="btn btn-outline-primary btn-sm mx-1" style="color: rgba(62, 78, 107, 1);" (click)="saveDetails(staffBasicDetails)">Save</button>
+    </div>
+  </div>
+</div>

@@ -28,18 +28,12 @@ import { LeaveTypesComponent } from './leave-types/leave-types.component';
 import { RolesComponent } from './roles/roles.component';
 import { NewRoleComponent } from './new-role/new-role.component';
 import { RoleConfigurationComponent } from './role-configuration/role-configuration.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { NewUserComponent } from './new-user/new-user.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
-import { UserBasicDetailsComponent } from './user-basic-details/user-basic-details.component';
-import { UserAcademicDetailsComponent } from './user-academic-details/user-academic-details.component';
-import { UserManagerDetailsComponent } from './user-manager-details/user-manager-details.component';
-import { UserSalaryDetailsComponent } from './user-salary-details/user-salary-details.component';
-import { UserRoleDetailsComponent } from './user-role-details/user-role-details.component';
 import { StudentRegistrationComponent } from './student-registration/student-registration.component';
 import { StudentImportComponent } from './student-import/student-import.component';
 import { DatePipe } from '@angular/common';
 import { NgxPrintModule } from 'ngx-print';
+import { StaffRegistrationComponent } from './staff-registration/staff-registration.component';
+import { StaffListComponent } from './staff-list/staff-list.component';
 
 @NgModule({
   declarations: [
@@ -66,16 +60,10 @@ import { NgxPrintModule } from 'ngx-print';
     RolesComponent,
     NewRoleComponent,
     RoleConfigurationComponent,
-    UserListComponent,
-    NewUserComponent,
-    UserDetailsComponent,
-    UserBasicDetailsComponent,
-    UserAcademicDetailsComponent,
-    UserManagerDetailsComponent,
-    UserSalaryDetailsComponent,
-    UserRoleDetailsComponent,
     StudentRegistrationComponent,
-    StudentImportComponent
+    StudentImportComponent,
+    StaffRegistrationComponent,
+    StaffListComponent
   ],
   imports: [
     BrowserModule,
